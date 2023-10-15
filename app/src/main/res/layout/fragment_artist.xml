@@ -4,15 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context=".ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/artistToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artist_title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            >
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/category"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="AR!"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/artistToolbar"
+        app:tabBackground="@drawable/tab_style"
+        app:tabTextColor="@color/textPrimary"
+        app:tabSelectedTextColor="@color/textLight"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabMaxWidth="0dp"
+        app:tabIndicatorHeight="0dp"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabAll"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:text="@string/tap_category_all"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabSinger"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tap_category_singer" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabActor"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tap_category_actor" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabTalent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tap_category_talent" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/tapFL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/category">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/artistRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

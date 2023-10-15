@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CompanyManagement</string>
+    <string name="hint_username">username</string>
+    <string name="hint_password">password</string>
+    <string name="auto_login_text">Remember me</string>
+    <string name="artist_title">아티스트 목록</string>
+    <string name="group_title">그룹 목록</string>
+    <string name="toolbar_add">Add</string>
+    <string name="tap_category_all">All</string>
+    <string name="tap_category_singer">가수</string>
+    <string name="tap_category_actor">배우</string>
+    <string name="tap_category_talent">탤런트</string>
 </resources>
