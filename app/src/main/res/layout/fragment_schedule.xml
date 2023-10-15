@@ -6,13 +6,97 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tb_schedule"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="S World!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/schedule_title"
+        app:titleTextAppearance="@style/title"
+        app:titleTextColor="?attr/colorOnSurface" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_post_travel_log"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tb_schedule">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_schedule_start"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_begin="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_schedule_end"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_end="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/cv_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/gl_schedule_end"
+                app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mcv_firstDayOfWeek="sunday"
+                app:mcv_selectionColor="#00F"
+                app:mcv_showOtherDates="all"
+                app:mcv_weekDayTextAppearance="@style/calendar" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_schedule_sub_title"
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/schedule_today_title"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
+                app:layout_constraintTop_toBottomOf="@+id/cv_schedule" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_add"
+                app:layout_constraintEnd_toEndOf="@+id/gl_schedule_end"
+                app:layout_constraintTop_toBottomOf="@+id/cv_schedule" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_today_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/gl_schedule_end"
+                app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_sub_title"
+                tools:listitem="@layout/item_schedule" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
