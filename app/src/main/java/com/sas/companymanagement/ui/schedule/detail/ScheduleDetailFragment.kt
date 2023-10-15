@@ -7,14 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sas.companymanagement.R
+import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class ScheduleDetailFragment : Fragment() {
+class ScheduleDetailFragment :
+    ViewBindingBaseFragment<FragmentScheduleUpdateBinding>(FragmentScheduleUpdateBinding::inflate) {
 
     companion object {
         fun newInstance() = ScheduleDetailFragment()
     }
 
     private lateinit var viewModel: ScheduleDetailViewModel
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +28,14 @@ class ScheduleDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_schedule_detail, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ScheduleDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        compositeDisposable.clear()
+    }
+
 
 }

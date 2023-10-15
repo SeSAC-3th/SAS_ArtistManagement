@@ -9,8 +9,8 @@
         android:name="com.sas.companymanagement.ui.main.MainFragment"
         android:label="MainFragment" />
     <fragment
-        android:id="@+id/fragment_schedule"
-        android:name="com.sas.companymanagement.ui.schedule.ScheduleFragment"
+        android:id="@+id/fragment_schedule_update"
+        android:name="com.sas.companymanagement.ui.schedule.update.ScheduleUpdateFragment"
         android:label="ScheduleFragment" />
     <fragment
         android:id="@+id/fragment_artist"

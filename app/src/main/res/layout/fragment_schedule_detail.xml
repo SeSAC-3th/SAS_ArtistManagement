@@ -1,13 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.schedule.detail.ScheduleDetailFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        tools:context=".ui.schedule.detail.ScheduleDetailFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/scheduleTV"
+                style="@style/SubTitleText"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스케쥴 이름"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/scheduleNameLayout"
+                style="@style/BodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+
+                android:text="스케쥴 이름"
+                app:errorEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scheduleTV">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/schedulePlaceTV"
+                style="@style/SubTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="장소"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleNameLayout" />
+
+            <TextView
+
+                android:id="@+id/schedulePlaceLayout"
+                style="@style/BodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="장소 이름"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/schedulePlaceTV">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/scheduleDateTV"
+                style="@style/SubTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="날짜"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schedulePlaceLayout" />
+
+            <TextView
+                android:id="@+id/scheduleDatePicker"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="00년 00월 00일"
+                app:layout_constraintStart_toEndOf="@+id/scheduleDateTV"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleDateTV" />
+
+
+            <TextView
+                android:id="@+id/scheduleAmPm"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오전"
+
+                app:layout_constraintBaseline_toBaselineOf="@id/scheduleTimePicker"
+
+                app:layout_constraintEnd_toStartOf="@+id/scheduleTimePicker"
+                app:layout_constraintStart_toStartOf="@+id/scheduleDatePicker" />
+
+            <TextView
+                android:id="@+id/scheduleTimePicker"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11시 30분"
+                app:layout_constraintEnd_toEndOf="@id/scheduleDatePicker"
+                app:layout_constraintStart_toEndOf="@id/scheduleAmPm"
+                app:layout_constraintTop_toBottomOf="@id/scheduleDatePicker"
+                tools:layout_editor_absoluteY="306dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+
+
+                android:src="@drawable/baseline_arrow_forward_24"
+                app:layout_constraintBottom_toBottomOf="@+id/scheduleTimePicker"
+                app:layout_constraintStart_toEndOf="@+id/scheduleDatePicker"
+                app:layout_constraintTop_toTopOf="@+id/scheduleDatePicker" />
+
+
+            <TextView
+
+                android:id="@+id/scheduleAfterDatePicker"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+
+                android:text="00년 00월 00일"
+
+
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleDateTV" />
+
+            <TextView
+                android:id="@+id/scheduleAfterAmPm"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="오전"
+                app:layout_constraintBaseline_toBaselineOf="@id/scheduleAfterTimePicker"
+                app:layout_constraintEnd_toStartOf="@+id/scheduleAfterTimePicker"
+                app:layout_constraintStart_toStartOf="@+id/scheduleAfterDatePicker" />
+
+            <TextView
+                android:id="@+id/scheduleAfterTimePicker"
+                style="@style/BodyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11시 30분"
+                app:layout_constraintEnd_toEndOf="@+id/scheduleAfterDatePicker"
+                app:layout_constraintStart_toEndOf="@id/scheduleAfterAmPm"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleAfterDatePicker" />
+
+            <TextView
+                android:id="@+id/scheduleArtistTV"
+                style="@style/SubTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="아티스트"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleTimePicker" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleArtistTV" />
+
+
+            <TextView
+                android:id="@+id/scheduleContentTV"
+                style="@style/SubTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="스케쥴 내용"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+            <TextView
+                android:id="@+id/scheduleContentLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:minHeight="150dp"
+                android:text="스케쥴 내용"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleContentTV">
+
+            </TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+</ScrollView>
