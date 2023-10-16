@@ -22,10 +22,9 @@
             <TextView
                 android:id="@+id/scheduleTV"
                 style="@style/subTitle"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="스케쥴 이름"
+                android:text="@string/schedule_detail_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,12 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-
                 android:text="스케쥴 이름"
                 app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scheduleTV">
-
             </TextView>
 
 
@@ -50,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:text="장소"
+                android:text="@string/schedule_detail_address"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scheduleNameLayout" />
 
@@ -74,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:text="날짜"
+                android:text="@string/schedule_detail_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/schedulePlaceLayout" />
 
@@ -167,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:text="아티스트"
+                android:text="@string/schedule_detail_artist"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scheduleTimePicker" />
 
@@ -186,7 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:text="스케쥴 내용"
+                android:text="@string/schedule_detail_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
