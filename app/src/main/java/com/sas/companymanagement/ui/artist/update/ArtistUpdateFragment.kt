@@ -29,4 +29,5 @@ class ArtistUpdateFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+
 }

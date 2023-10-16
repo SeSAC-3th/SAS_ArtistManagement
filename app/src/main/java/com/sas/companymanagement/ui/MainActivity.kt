@@ -7,6 +7,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.ActivityMainBinding
+import com.sas.companymanagement.databinding.FragmentArtistBinding
+import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
+import com.sas.companymanagement.databinding.FragmentGroupBinding
+import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -19,14 +23,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setupJetpackNavigation()
+        //     setupJetpackNavigation()
     }
 
-    private fun setupJetpackNavigation() {
-        val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment? ?: return
-        navController = host.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
-    }
+    /*    private fun setupJetpackNavigation() {
+            val host: NavHostFragment = supportFragmentManager
+                .findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment? ?: return
+            navController = host.navController
+            binding.bottomNavigationView.setupWithNavController(navController)
+        }*/
 
 }
