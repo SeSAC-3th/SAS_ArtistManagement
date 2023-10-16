@@ -6,12 +6,12 @@
         android:icon="@drawable/ic_update"
         android:id="@+id/schedule_update"
         app:showAsAction="always"
-        android:title="menu" />
+        android:title="@string/toolbar_update" />
 
     <item
         android:icon="@drawable/ic_delete"
         android:id="@+id/schedule_delete"
         app:showAsAction="always"
-        android:title="menu" />
+        android:title="@string/toolbar_delete" />
 
 </menu>
