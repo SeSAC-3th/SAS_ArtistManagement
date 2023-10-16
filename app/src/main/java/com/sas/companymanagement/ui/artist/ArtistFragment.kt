@@ -29,9 +29,7 @@ class ArtistFragment : Fragment() {
     private var artistAdapter: ArtistAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
         return binding.root
@@ -114,5 +112,4 @@ class ArtistFragment : Fragment() {
             tabLayout.requestLayout()
         }
     }
-
 }
