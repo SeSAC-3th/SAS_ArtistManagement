@@ -23,14 +23,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //     setupJetpackNavigation()
+   setupJetpackNavigation()
+
     }
 
-    /*    private fun setupJetpackNavigation() {
+        private fun setupJetpackNavigation() {
             val host: NavHostFragment = supportFragmentManager
                 .findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment? ?: return
             navController = host.navController
             binding.bottomNavigationView.setupWithNavController(navController)
-        }*/
+        }
 
 }
