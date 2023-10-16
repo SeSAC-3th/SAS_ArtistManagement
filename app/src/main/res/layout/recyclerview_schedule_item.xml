@@ -9,12 +9,14 @@
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginStart="16dp"
         android:text="[ScheduleDate]"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="4dp"
+        />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/scheduleName"
@@ -22,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="[ScheduleName]"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toEndOf="@+id/scheduleDate"

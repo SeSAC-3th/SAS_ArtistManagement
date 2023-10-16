@@ -1,21 +1,19 @@
 package com.sas.companymanagement.ui.artist.detail
 
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
-import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.group.detail.GroupScheduleRV
 import com.sas.companymanagement.ui.group.detail.GroupScheduleRecyclerViewAdapter
 
