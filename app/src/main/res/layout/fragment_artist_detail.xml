@@ -1,13 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.artist.detail.ArtistDetailFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
 
-</FrameLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tb_artist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_schedule_detail"
+        app:title="김채원"
+        app:titleTextAppearance="@style/title"
+        app:titleTextColor="?attr/colorOnSurface" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:src="@drawable/dummy_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_artist" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:text="이름"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="@id/imageView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artistName"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="16dp"
+        android:text="김채원"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@id/imageView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nickname"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="활동명"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artistNickname"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="르세라핌"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@id/artistName" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/birth"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="생년월일"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/nickname" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artistBirth"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="00.00.00"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@id/artistNickname" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/job"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="직업"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/birth" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artistJob"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="가수"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@id/artistBirth" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/gender"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="성별"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/job" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/artistGender"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="4dp"
+        android:text="여자"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@id/artistJob" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/scheduleTitle"
+        style="@style/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:text="스케줄"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gender" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scheduleRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduleTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/evaluateTitle"
+        style="@style/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:text="평가"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduleRV" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/evaluateTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
