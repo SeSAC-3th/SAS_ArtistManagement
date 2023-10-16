@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.sas.companymanagement.ui.main.MainFragment"
+        android:name="com.sas.companymanagement.ui.login.LoginFragment"
         android:label="MainFragment" />
     <fragment
         android:id="@+id/fragment_schedule"

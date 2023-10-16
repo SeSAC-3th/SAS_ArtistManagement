@@ -13,4 +13,5 @@
         android:id="@+id/schedule_delete"
         app:showAsAction="always"
         android:title="menu" />
+
 </menu>
