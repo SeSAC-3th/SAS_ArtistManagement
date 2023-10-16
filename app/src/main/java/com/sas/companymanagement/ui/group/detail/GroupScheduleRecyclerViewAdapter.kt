@@ -1,10 +1,6 @@
 package com.sas.companymanagement.ui.group.detail
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.Rect
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -12,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.sas.companymanagement.databinding.RecyclerviewArtistItemBinding
 import com.sas.companymanagement.databinding.RecyclerviewScheduleItemBinding
-import com.sas.companymanagement.ui.main.ScheduleRV
 import kotlin.math.roundToInt
 
 data class GroupScheduleRV(val groupDate: String = "", val groupName: String = "")

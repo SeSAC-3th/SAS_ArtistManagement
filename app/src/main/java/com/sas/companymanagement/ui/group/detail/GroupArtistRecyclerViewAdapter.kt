@@ -8,22 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.sas.companymanagement.databinding.RecyclerviewArtistItemBinding
+import com.sas.companymanagement.databinding.RecyclerviewGroupArtistItemBinding
 import com.sas.companymanagement.databinding.RecyclerviewScheduleItemBinding
 import kotlin.math.roundToInt
 
-data class GroupScheduleRV(val groupDate: String = "", val groupName: String = "")
+data class GroupArtistRV(val artistImage: Int, val artistName: String = "")
 
 
-class GroupScheduleRecyclerViewAdapter(
-    private val scheduleList: MutableList<GroupScheduleRV>,
+class GroupArtistRecyclerViewAdapter(
+    private val scheduleList: MutableList<GroupArtistRV>,
     private val owner: Fragment
-) : RecyclerView.Adapter<GroupScheduleRecyclerViewAdapter.GroupHolder>() {
-    inner class GroupHolder(val binding: RecyclerviewScheduleItemBinding) :
+) : RecyclerView.Adapter<GroupArtistRecyclerViewAdapter.GroupHolder>() {
+    inner class GroupHolder(val binding: RecyclerviewGroupArtistItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
         val binding =
-            RecyclerviewScheduleItemBinding.inflate(
+            RecyclerviewGroupArtistItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -33,11 +35,11 @@ class GroupScheduleRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {
-        val scheduleData = scheduleList[position]
+        val artistData = scheduleList[position]
 
         with(holder.binding) {
-            scheduleDate.text = scheduleData.groupDate
-            scheduleName.text = scheduleData.groupName
+            artistImage.setImageResource(artistData.artistImage)
+            artistName.text = artistData.artistName
             root.setOnClickListener {
             }
         }
@@ -45,7 +47,7 @@ class GroupScheduleRecyclerViewAdapter(
     override fun getItemCount() = scheduleList.size
 }
 
-class CalendarItemDecoration(
+class ArtistItemDecoration(
     private val context: Context,
     private val height: Float,
     private var bottomPadding: Float = 50f,

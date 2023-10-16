@@ -21,6 +21,7 @@ class GroupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
