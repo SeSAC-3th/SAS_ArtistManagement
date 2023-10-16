@@ -39,6 +39,4 @@ class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>): Recyc
 
     }
 
-
-
 }
