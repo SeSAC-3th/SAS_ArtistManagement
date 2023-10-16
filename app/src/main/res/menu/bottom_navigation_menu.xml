@@ -10,7 +10,7 @@
     <item android:id="@+id/fragment_group"
         android:title="group"/>
 
-    <item android:id="@+id/fragment_schedule_update"
+    <item android:id="@+id/fragment_schedule"
         android:title="schedule"/>
 
     <item android:id="@+id/fragment_setting"

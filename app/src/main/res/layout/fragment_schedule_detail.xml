@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/scheduleTV"
-                style="@style/SubTitleText"
+                style="@style/subTitle"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/scheduleNameLayout"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/schedulePlaceTV"
-                style="@style/SubTitleText"
+                style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -57,7 +57,7 @@
             <TextView
 
                 android:id="@+id/schedulePlaceLayout"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -70,7 +70,7 @@
 
             <TextView
                 android:id="@+id/scheduleDateTV"
-                style="@style/SubTitleText"
+                style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -80,7 +80,7 @@
 
             <TextView
                 android:id="@+id/scheduleDatePicker"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -91,7 +91,7 @@
 
             <TextView
                 android:id="@+id/scheduleAmPm"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="오전"
@@ -103,7 +103,7 @@
 
             <TextView
                 android:id="@+id/scheduleTimePicker"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11시 30분"
@@ -128,7 +128,7 @@
             <TextView
 
                 android:id="@+id/scheduleAfterDatePicker"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
@@ -142,7 +142,7 @@
 
             <TextView
                 android:id="@+id/scheduleAfterAmPm"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -153,7 +153,7 @@
 
             <TextView
                 android:id="@+id/scheduleAfterTimePicker"
-                style="@style/BodyText"
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11시 30분"
@@ -163,7 +163,7 @@
 
             <TextView
                 android:id="@+id/scheduleArtistTV"
-                style="@style/SubTitleText"
+                style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -182,7 +182,7 @@
 
             <TextView
                 android:id="@+id/scheduleContentTV"
-                style="@style/SubTitleText"
+                style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"

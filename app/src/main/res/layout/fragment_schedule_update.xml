@@ -9,10 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+
         tools:context=".ui.schedule.detail.ScheduleDetailFragment">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -29,7 +26,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleTV"
-            style="@style/SubTitleText"
+            style="@style/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="스케쥴 이름"
@@ -42,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
+            app:endIconMode="clear_text"
             android:hint="스케쥴 이름"
             app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@id/scheduleTV">
@@ -56,7 +54,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/schedulePlaceTV"
-            style="@style/SubTitleText"
+            style="@style/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="장소"
@@ -70,6 +68,7 @@
             android:layout_height="wrap_content"
             android:hint="장소 이름"
             app:errorEnabled="true"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/schedulePlaceTV">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +95,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleDateTV"
-            style="@style/SubTitleText"
+            style="@style/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="날짜"
@@ -105,7 +104,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleDatePicker"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -117,7 +116,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleAmPm"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오전"
@@ -127,7 +126,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleTimePicker"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:30"
@@ -159,7 +158,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleAfterDatePicker"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
@@ -172,7 +171,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleAfterAmPm"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -183,7 +182,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleAfterTimePicker"
-            style="@style/BodyText"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:30"
@@ -193,7 +192,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleArtistTV"
-            style="@style/SubTitleText"
+            style="@style/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="아티스트"
@@ -224,7 +223,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/scheduleContentTV"
-            style="@style/SubTitleText"
+            style="@style/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="스케쥴 내용"
@@ -240,6 +239,7 @@
             android:hint="스케쥴 내용"
             android:minHeight="150dp"
             app:errorEnabled="true"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/scheduleContentTV">
 
             <com.google.android.material.textfield.TextInputEditText
