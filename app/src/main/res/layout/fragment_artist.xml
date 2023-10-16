@@ -39,7 +39,10 @@
         app:menu="@menu/menu_artist"
         app:title="@string/artist_title"
         app:titleTextAppearance="@style/title"
-        app:titleTextColor="?attr/colorOnSurface" />
+        app:titleTextColor="?attr/colorOnSurface">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/category"
@@ -50,27 +53,28 @@
         app:layout_constraintStart_toStartOf="@id/gl_artist_start"
         app:layout_constraintTop_toBottomOf="@id/tb_artist_detail"
         app:tabBackground="@drawable/tab_style"
-        app:tabTextColor="@color/textPrimary"
-        app:tabSelectedTextColor="@color/textLight"
         app:tabGravity="fill"
-        app:tabMode="fixed"
         app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/textLight"
         app:tabTextAppearance="@style/subTitle"
-        >
+        app:tabTextColor="@color/textPrimary">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/tap_category_all"
-            />
+            android:text="@string/tap_category_all" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/tap_category_singer" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/tap_category_actor" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

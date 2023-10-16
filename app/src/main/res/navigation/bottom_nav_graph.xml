@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
     app:startDestination="@id/fragment_main">
 
@@ -9,13 +10,17 @@
         android:name="com.sas.companymanagement.ui.main.MainFragment"
         android:label="MainFragment" />
     <fragment
-        android:id="@+id/fragment_schedule_update"
-        android:name="com.sas.companymanagement.ui.schedule.ScheduleFragment"
+        android:id="@+id/fragment_schedule"
+        android:name="com.sas.companymanagement.ui.schedule.update.ScheduleUpdateFragment"
         android:label="ScheduleFragment" />
     <fragment
         android:id="@+id/fragment_artist"
         android:name="com.sas.companymanagement.ui.artist.ArtistFragment"
-        android:label="ArtistFragment" />
+        android:label="ArtistFragment" >
+        <action
+            android:id="@+id/action_fragment_artist_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_group"
         android:name="com.sas.companymanagement.ui.group.GroupFragment"
@@ -24,4 +29,9 @@
         android:id="@+id/fragment_setting"
         android:name="com.sas.companymanagement.ui.setting.SettingFragment"
         android:label="SettingFragment" />
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"
+        android:label="fragment_artist_detail"
+        tools:layout="@layout/fragment_artist_detail" />
 </navigation>
