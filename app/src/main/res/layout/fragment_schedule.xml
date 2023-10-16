@@ -52,6 +52,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/cv_schedule"
                 android:layout_width="match_parent"
@@ -97,6 +99,7 @@
                 tools:listitem="@layout/item_schedule" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
