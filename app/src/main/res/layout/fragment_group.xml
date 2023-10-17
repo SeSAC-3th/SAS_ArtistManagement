@@ -42,9 +42,10 @@
         app:titleTextColor="?attr/colorOnSurface" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groupRV"
+        android:id="@+id/rv_group"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/medium_margin"
         app:layout_constraintTop_toBottomOf="@+id/tb_group_detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/gl_group_start"

@@ -21,7 +21,7 @@ class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>): Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
-            .inflate(R.layout.grid_layout_list_item, parent,false)
+            .inflate(R.layout.item_grid_layout, parent,false)
         return ItemHolder(itemHolder)
     }
 

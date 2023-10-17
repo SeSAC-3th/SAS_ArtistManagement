@@ -1,7 +1,6 @@
 package com.sas.companymanagement.ui.artist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistBinding
+import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
-class ArtistFragment : Fragment() {
-    private var _binding: FragmentArtistBinding? = null
-    private val binding get() = _binding!!
+class ArtistFragment : ViewBindingBaseFragment<FragmentArtistBinding>(
+    FragmentArtistBinding::inflate) {
+
+
 
     private var artistRecyclerView: RecyclerView? = null
     private var artistGridLayoutManager: GridLayoutManager? = null
@@ -27,11 +29,6 @@ class ArtistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
             artistRecyclerView = rvArtist
@@ -40,13 +37,20 @@ class ArtistFragment : Fragment() {
             artistRecyclerView?.layoutManager = artistGridLayoutManager
             artistRecyclerView?.setHasFixedSize(true)
             artistList = ArrayList()
-            artistList = setDatainList()
+            artistList = setDataInList()
             artistAdapter = ArtistAdapter(requireContext(), artistList!!)
             artistRecyclerView?.adapter = artistAdapter
-            setTabItemMargin(category, 30)
+            setTabItemMargin(tlCategory, 30)
+
         }
 
-        val tabLayout = binding.category
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val tabLayout = binding.tlCategory
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val param = when (tab.position) {
@@ -73,7 +77,7 @@ class ArtistFragment : Fragment() {
 
     }
 
-    private fun setDatainList(): ArrayList<Artist> {
+    private fun setDataInList(): ArrayList<Artist> {
 
         var items: ArrayList<Artist> = ArrayList()
 

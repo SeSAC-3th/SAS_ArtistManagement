@@ -11,7 +11,7 @@
         android:layout_marginTop="@dimen/small_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_add_circle_24" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/artist_name"

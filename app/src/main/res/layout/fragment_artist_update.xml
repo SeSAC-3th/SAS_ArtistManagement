@@ -30,7 +30,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="#DA8B8B"
-        android:src="@drawable/baseline_add_40"
+        android:src="@drawable/ic_add_40"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
