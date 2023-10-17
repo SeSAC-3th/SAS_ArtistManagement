@@ -12,8 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.sas.companymanagement.databinding.RecyclerviewArtistItemBinding
-import com.sas.companymanagement.databinding.RecyclerviewScheduleItemBinding
+import com.sas.companymanagement.databinding.ItemMainArtistBinding
 import kotlin.math.roundToInt
 
 data class ArtistRV(val artistImage: Int = 0)
@@ -22,12 +21,12 @@ class MainArtistRecyclerViewAdapter(
     private val artistList: MutableList<ArtistRV>,
     private val owner: Fragment
 ) : RecyclerView.Adapter<MainArtistRecyclerViewAdapter.ArtistHolder>() {
-    inner class ArtistHolder(val binding: RecyclerviewArtistItemBinding) :
+    inner class ArtistHolder(val binding: ItemMainArtistBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistHolder {
         val binding =
-            RecyclerviewArtistItemBinding.inflate(
+            ItemMainArtistBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

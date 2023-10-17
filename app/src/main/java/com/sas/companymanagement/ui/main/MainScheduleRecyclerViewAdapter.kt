@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.sas.companymanagement.databinding.RecyclerviewScheduleItemBinding
+import com.sas.companymanagement.databinding.ItemScheduleHorizontalBinding
 import kotlin.math.roundToInt
 
 data class ScheduleRV(val calendarDate: String = "", var calendarName: String = "")
@@ -21,12 +21,12 @@ class MainScheduleRecyclerViewAdapter(
     private val scheduleList: MutableList<ScheduleRV>,
     private val owner: Fragment
 ) : RecyclerView.Adapter<MainScheduleRecyclerViewAdapter.ScheduleHolder>() {
-    inner class ScheduleHolder(val binding: RecyclerviewScheduleItemBinding) :
+    inner class ScheduleHolder(val binding: ItemScheduleHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleHolder {
         val binding =
-            RecyclerviewScheduleItemBinding.inflate(
+            ItemScheduleHorizontalBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
