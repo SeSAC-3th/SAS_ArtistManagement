@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_id"
+        android:id="@+id/tl_login_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_margin"
@@ -54,7 +54,7 @@
         app:startIconDrawable="@drawable/ic_perm_identity_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idET"
+            android:id="@+id/et_login_id"
             style="@style/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -63,7 +63,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_password"
+        android:id="@+id/tl_login_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
@@ -71,11 +71,11 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="@id/gl_login_end"
         app:layout_constraintStart_toStartOf="@id/gl_login_start"
-        app:layout_constraintTop_toBottomOf="@+id/tl_id"
+        app:layout_constraintTop_toBottomOf="@+id/tl_login_id"
         app:startIconDrawable="@drawable/ic_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordET"
+            android:id="@+id/et_login_password"
             style="@style/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:text="@string/auto_login_text"
         app:layout_constraintStart_toStartOf="@id/gl_login_start"
-        app:layout_constraintTop_toBottomOf="@id/tl_password"
+        app:layout_constraintTop_toBottomOf="@id/tl_login_password"
         app:layout_constraintVertical_bias="0.058" />
 
     <com.google.android.material.button.MaterialButton

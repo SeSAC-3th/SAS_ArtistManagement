@@ -15,15 +15,14 @@ import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
-class ArtistFragment : ViewBindingBaseFragment<FragmentArtistBinding>(
-    FragmentArtistBinding::inflate) {
-
-
+class ArtistFragment :
+    ViewBindingBaseFragment<FragmentArtistBinding>(FragmentArtistBinding::inflate) {
 
     private var artistRecyclerView: RecyclerView? = null
     private var artistGridLayoutManager: GridLayoutManager? = null
     private var artistList: ArrayList<Artist>? = null
     private var artistAdapter: ArtistAdapter? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,7 +39,7 @@ class ArtistFragment : ViewBindingBaseFragment<FragmentArtistBinding>(
             artistList = setDataInList()
             artistAdapter = ArtistAdapter(requireContext(), artistList!!)
             artistRecyclerView?.adapter = artistAdapter
-            setTabItemMargin(tlCategory, 30)
+            setTabItemMargin(tlArtistCategory, 30)
 
         }
 
@@ -50,7 +49,7 @@ class ArtistFragment : ViewBindingBaseFragment<FragmentArtistBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tabLayout = binding.tlCategory
+        val tabLayout = binding.tlArtistCategory
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val param = when (tab.position) {

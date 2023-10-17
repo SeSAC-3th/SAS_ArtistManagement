@@ -13,12 +13,13 @@ import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.databinding.FragmentGroupBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
-class GroupFragment : ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGroupBinding::inflate) {
+class GroupFragment :
+    ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGroupBinding::inflate) {
 
-    private var groupRecyclerView : RecyclerView? = null
-    private var groupGridLayoutManager : GridLayoutManager? = null
-    private var groupList : ArrayList<Group>? = null
-    private var groupAdapter : GroupAdapter? = null
+    private var groupRecyclerView: RecyclerView? = null
+    private var groupGridLayoutManager: GridLayoutManager? = null
+    private var groupList: ArrayList<Group>? = null
+    private var groupAdapter: GroupAdapter? = null
 
 
     override fun onCreateView(
@@ -27,14 +28,15 @@ class GroupFragment : ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGrou
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
-        with(binding){
+        with(binding) {
             groupRecyclerView = rvGroup
-            groupGridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+            groupGridLayoutManager =
+                GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
             groupRecyclerView?.layoutManager = groupGridLayoutManager
             groupRecyclerView?.setHasFixedSize(true)
             groupList = ArrayList()
             groupList = setDataInList()
-            groupAdapter = GroupAdapter(requireContext(),groupList!!)
+            groupAdapter = GroupAdapter(requireContext(), groupList!!)
             groupRecyclerView?.adapter = groupAdapter
         }
         return binding.root
@@ -45,20 +47,20 @@ class GroupFragment : ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGrou
 
     }
 
-    private fun setDataInList() : ArrayList<Group>{
+    private fun setDataInList(): ArrayList<Group> {
 
         var items: ArrayList<Group> = ArrayList()
 
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24,"김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
 
         return items
     }
