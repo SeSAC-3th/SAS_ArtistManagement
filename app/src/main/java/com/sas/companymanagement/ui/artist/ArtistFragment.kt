@@ -39,7 +39,7 @@ class ArtistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            artistRecyclerView = artistRV
+            artistRecyclerView = rvArtist
             artistGridLayoutManager =
                 GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
             artistRecyclerView?.layoutManager = artistGridLayoutManager

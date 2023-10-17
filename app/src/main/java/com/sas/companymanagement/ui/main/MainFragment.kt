@@ -22,7 +22,7 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
 
-        with(binding.scheduleRV) {
+        with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
             adapter = MainScheduleRecyclerViewAdapter(scheduleData(), this@MainFragment)

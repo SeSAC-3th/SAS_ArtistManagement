@@ -36,13 +36,13 @@ class GroupDetailFragment : Fragment() {
         _binding = FragmentGroupDetailBinding.inflate(inflater, container, false)
 
 
-        with(binding.scheduleRV) {
+        with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
             adapter = GroupScheduleRecyclerViewAdapter(scheduleData(), this@GroupDetailFragment)
         }
 
-        with(binding.artistRV) {
+        with(binding.rvArtist) {
             layoutManager = GridLayoutManager(this.context, 2).apply {
                 canScrollVertically()
             }

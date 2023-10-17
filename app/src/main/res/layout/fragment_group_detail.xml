@@ -14,8 +14,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="르세라핌"
+        app:menu="@menu/menu_schedule_detail"
+        app:title="@string/group_detail_title"
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
 
@@ -33,56 +35,55 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageView"
+                android:id="@+id/iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
+                android:layout_marginTop="@dimen/large_margin"
                 android:src="@drawable/dummy_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/scheduleTitle"
+                android:id="@+id/schedule_title"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/group_detail_schedule"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView" />
+                app:layout_constraintTop_toBottomOf="@id/iv" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/scheduleRV"
+                android:id="@+id/rv_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/scheduleTitle" />
+                app:layout_constraintTop_toBottomOf="@id/schedule_title" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/artistTitle"
+                android:id="@+id/artist_title"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/group_detail_artist"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/scheduleRV" />
+                app:layout_constraintTop_toBottomOf="@id/rv_schedule" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/artistRV"
+                android:id="@+id/rv_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:paddingTop="16dp"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/artistTitle" />
+                app:layout_constraintTop_toBottomOf="@id/artist_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

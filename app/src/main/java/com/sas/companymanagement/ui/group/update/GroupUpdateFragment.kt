@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

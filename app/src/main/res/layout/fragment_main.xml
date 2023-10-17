@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/scheduleNameTV" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/scheduleRV"
+                android:id="@+id/rv_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -60,7 +60,7 @@
                 android:text="@string/main_artist"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scheduleRV" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_schedule" />
 
             <View
                 android:id="@+id/mainLineSecond"

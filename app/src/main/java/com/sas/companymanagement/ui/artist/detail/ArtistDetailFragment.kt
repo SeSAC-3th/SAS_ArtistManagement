@@ -33,7 +33,7 @@ class ArtistDetailFragment : Fragment() {
 
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
         setPieChart()
-        with(binding.scheduleRV) {
+        with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(this.context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
             adapter = GroupScheduleRecyclerViewAdapter(scheduleData(), this@ArtistDetailFragment)
