@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
@@ -14,37 +13,40 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
-import com.sas.companymanagement.ui.group.detail.GroupScheduleRV
-import com.sas.companymanagement.ui.group.detail.GroupScheduleRecyclerViewAdapter
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.schedule.Schedule
+import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 
-class ArtistDetailFragment : Fragment() {
+class ArtistDetailFragment :
+    ViewBindingBaseFragment<FragmentArtistDetailBinding>(FragmentArtistDetailBinding::inflate) {
 
     companion object {
         fun newInstance() = ArtistDetailFragment()
     }
 
     private lateinit var viewModel: ArtistDetailViewModel
-    private var _binding: FragmentArtistDetailBinding? = null
-    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
         setPieChart()
-        with(binding.scheduleRV) {
-            layoutManager = LinearLayoutManager(this.context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
-//            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = GroupScheduleRecyclerViewAdapter(scheduleData(), this@ArtistDetailFragment)
+        with(binding.rvSchedule) {
+            layoutManager = LinearLayoutManager(
+                this.context,
+                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                false
+            )
+            adapter = ScheduleAdapter(this.context, scheduleData())
         }
 
         return binding.root
     }
-    private fun scheduleData() = mutableListOf<GroupScheduleRV>().apply {
-        add(GroupScheduleRV("2023-10-15", "테스트1"))
-        add(GroupScheduleRV("2023-10-16", "테스트2"))
-        add(GroupScheduleRV("2023-10-17", "테스트3"))
+
+    private fun scheduleData() = mutableListOf<Schedule>().apply {
+        add(Schedule("2023-10-15", "테스트1"))
+        add(Schedule("2023-10-16", "테스트2"))
+        add(Schedule("2023-10-17", "테스트3"))
     }
 
     /**
@@ -93,5 +95,4 @@ class ArtistDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ArtistDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }

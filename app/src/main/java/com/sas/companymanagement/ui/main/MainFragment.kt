@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sas.companymanagement.R
+import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.databinding.FragmentMainBinding
+import com.sas.companymanagement.ui.artist.ArtistAdapter
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.schedule.Schedule
+import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 
-class MainFragment : Fragment() {
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
-
+class MainFragment :
+    ViewBindingBaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,34 +25,34 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
 
-        with(binding.scheduleRV) {
+        with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = MainScheduleRecyclerViewAdapter(scheduleData(), this@MainFragment)
+            adapter = ScheduleAdapter(this.context, scheduleData())
         }
 
-        with(binding.singerRV) {
+        with(binding.rvSinger) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MainArtistRecyclerViewAdapter(singerData(), this@MainFragment)
+            adapter = MainAdapter(singerData(), this@MainFragment)
         }
 
-        with(binding.actorRV) {
+        with(binding.rvActor) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MainArtistRecyclerViewAdapter(actorData(), this@MainFragment)
+            adapter = MainAdapter(actorData(), this@MainFragment)
         }
 
-        with(binding.talentRV) {
+        with(binding.rvTalent) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = MainArtistRecyclerViewAdapter(talentData(), this@MainFragment)
+            adapter = MainAdapter(talentData(), this@MainFragment)
         }
 
         return binding.root
     }
 
-    private fun scheduleData() = mutableListOf<ScheduleRV>().apply {
-        add(ScheduleRV("2023-10-15", "테스트1"))
-        add(ScheduleRV("2023-10-16", "테스트2"))
-        add(ScheduleRV("2023-10-17", "테스트3"))
+    private fun scheduleData() = mutableListOf<Schedule>().apply {
+        add(Schedule("2023-10-15", "테스트1"))
+        add(Schedule("2023-10-16", "테스트2"))
+        add(Schedule("2023-10-17", "테스트3"))
     }
 
     private fun singerData() = mutableListOf<ArtistRV>().apply {

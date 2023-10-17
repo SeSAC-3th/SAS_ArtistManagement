@@ -1,4 +1,4 @@
-package com.sas.companymanagement.ui.group.detail
+package com.sas.companymanagement.ui.main
 
 import android.content.Context
 import android.graphics.Rect
@@ -8,44 +8,43 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.sas.companymanagement.databinding.RecyclerviewScheduleItemBinding
+import com.sas.companymanagement.databinding.ItemMainArtistBinding
 import kotlin.math.roundToInt
 
-data class GroupScheduleRV(val groupDate: String = "", val groupName: String = "")
+data class ArtistRV(val artistImage: Int = 0)
 
-
-class GroupScheduleRecyclerViewAdapter(
-    private val scheduleList: MutableList<GroupScheduleRV>,
+class MainAdapter(
+    private val artistList: MutableList<ArtistRV>,
     private val owner: Fragment
-) : RecyclerView.Adapter<GroupScheduleRecyclerViewAdapter.GroupHolder>() {
-    inner class GroupHolder(val binding: RecyclerviewScheduleItemBinding) :
+) : RecyclerView.Adapter<MainAdapter.ArtistHolder>() {
+    inner class ArtistHolder(val binding: ItemMainArtistBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistHolder {
         val binding =
-            RecyclerviewScheduleItemBinding.inflate(
+            ItemMainArtistBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        return GroupHolder(binding)
+        return ArtistHolder(binding)
 
     }
 
-    override fun onBindViewHolder(holder: GroupHolder, position: Int) {
-        val scheduleData = scheduleList[position]
+    override fun onBindViewHolder(holder: ArtistHolder, position: Int) {
+        val artistData = artistList[position]
 
         with(holder.binding) {
-            scheduleDate.text = scheduleData.groupDate
-            scheduleName.text = scheduleData.groupName
+            artistImage.setImageResource(artistData.artistImage)
+
             root.setOnClickListener {
             }
         }
     }
-    override fun getItemCount() = scheduleList.size
+    override fun getItemCount() = artistList.size
 }
 
-class CalendarItemDecoration(
+class ArtistItemDecoration(
     private val context: Context,
     private val height: Float,
     private var bottomPadding: Float = 50f,
