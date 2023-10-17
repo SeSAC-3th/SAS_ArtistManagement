@@ -21,13 +21,9 @@
             android:id="@+id/action_fragment_artist_to_artistDetailFragment"
             app:destination="@id/artistDetailFragment" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/fragment_group"-->
-<!--        android:name="com.sas.companymanagement.ui.group.GroupFragment"-->
-<!--        android:label="GroupFragment" />-->
     <fragment
         android:id="@+id/fragment_group"
-        android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"
+        android:name="com.sas.companymanagement.ui.group.GroupFragment"
         android:label="GroupFragment" />
     <fragment
         android:id="@+id/fragment_setting"

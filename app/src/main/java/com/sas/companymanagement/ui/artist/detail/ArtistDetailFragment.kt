@@ -14,7 +14,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import com.sas.companymanagement.ui.group.detail.GroupScheduleRecyclerViewAdapter
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 
