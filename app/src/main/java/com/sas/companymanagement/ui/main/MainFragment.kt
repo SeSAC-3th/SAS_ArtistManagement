@@ -28,17 +28,17 @@ class MainFragment : Fragment() {
             adapter = MainScheduleRecyclerViewAdapter(scheduleData(), this@MainFragment)
         }
 
-        with(binding.singerRV) {
+        with(binding.rvSinger) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = MainArtistRecyclerViewAdapter(singerData(), this@MainFragment)
         }
 
-        with(binding.actorRV) {
+        with(binding.rvActor) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = MainArtistRecyclerViewAdapter(actorData(), this@MainFragment)
         }
 
-        with(binding.talentRV) {
+        with(binding.rvTalent) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             adapter = MainArtistRecyclerViewAdapter(talentData(), this@MainFragment)
         }

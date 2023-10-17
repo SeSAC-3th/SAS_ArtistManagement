@@ -22,126 +22,126 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/scheduleNameTV"
+                android:id="@+id/schedule_title"
                 style="@style/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/medium_margin"
                 android:text="@string/main_schedule"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:id="@+id/mainLine"
+                android:id="@+id/first_line"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="@dimen/tiny_margin"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:background="@color/textSecondary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scheduleNameTV" />
+                app:layout_constraintTop_toBottomOf="@+id/schedule_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/mainLine" />
+                app:layout_constraintTop_toTopOf="@id/first_line" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/artistTV"
+                android:id="@+id/artist_title"
                 style="@style/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/medium_margin"
                 android:text="@string/main_artist"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_schedule" />
 
             <View
-                android:id="@+id/mainLineSecond"
+                android:id="@+id/second_line"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="@dimen/tiny_margin"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:background="@color/textSecondary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/artistTV" />
+                app:layout_constraintTop_toBottomOf="@+id/artist_title" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/singerTitle"
+                android:id="@+id/singer_title"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/main_subtitle_singer"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mainLineSecond" />
+                app:layout_constraintTop_toBottomOf="@id/second_line" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/singerRV"
+                android:id="@+id/rv_singer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/tiny_margin"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/singerTitle" />
+                app:layout_constraintTop_toBottomOf="@id/singer_title" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/actorTitle"
+                android:id="@+id/actor_title"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/main_subtitle_actor"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/singerRV" />
+                app:layout_constraintTop_toBottomOf="@id/rv_singer" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/actorRV"
+                android:id="@+id/rv_actor"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/tiny_margin"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/actorTitle" />
+                app:layout_constraintTop_toBottomOf="@id/actor_title" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/talentTitle"
+                android:id="@+id/talent_title"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/main_subtitle_talent"
                 android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actorRV" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_actor" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/talentRV"
+                android:id="@+id/rv_talent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/tiny_margin"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/talentTitle" />
+                app:layout_constraintTop_toBottomOf="@id/talent_title" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
