@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sas.companymanagement.R
-import com.sas.companymanagement.ui.main.ArtistRV
 
 class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>): RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -20,7 +19,7 @@ class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>): R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
-            .inflate(R.layout.grid_layout_list_item, parent,false)
+            .inflate(R.layout.item_grid_layout, parent,false)
         return ItemHolder(itemHolder)
     }
 

@@ -131,7 +131,7 @@ class ScheduleUpdateFragment :
         binding.chipGroup.removeView(binding.addChip)
 
         binding.chipGroup.addView(Chip(context).apply {
-            chipIcon = ContextCompat.getDrawable(context, R.drawable.baseline_android_24)
+            chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_android_24)
             text = chipName
             isCloseIconVisible = true
             setOnCloseIconClickListener{binding.chipGroup.removeView(this)}
