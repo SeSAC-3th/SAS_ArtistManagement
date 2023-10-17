@@ -1,14 +1,17 @@
 package com.sas.companymanagement.ui.login
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.sas.companymanagement.R
+import com.sas.companymanagement.databinding.FragmentLoginBinding
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
-class LoginFragment : Fragment() {
+class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(
+    FragmentLoginBinding::inflate
+) {
 
     companion object {
         fun newInstance() = LoginFragment()
