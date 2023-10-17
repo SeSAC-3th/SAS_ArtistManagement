@@ -18,58 +18,53 @@
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="64dp" />
 
     <ImageButton
         android:id="@+id/ib_artist"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="@dimen/large_margin"
         android:background="#DA8B8B"
         android:src="@drawable/ic_add_40"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline" />
+        app:layout_constraintTop_toBottomOf="@id/tb_artist_update" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="230dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/gl_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_artist_name_title"
         style="@style/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_margin"
         android:text="@string/artist_update_name"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="@id/guideline2" />
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/ib_artist" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_artist_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_margin"
         android:hint="@string/artist_update_artist_name"
         app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_artist_name_title">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,9 +80,10 @@
         style="@style/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
         android:text="@string/artist_update_nickname"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tl_artist_name" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,11 +91,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_margin"
         android:hint="@string/artist_update_artist_nickname"
         app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_artist_nickname_title">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -115,9 +111,10 @@
         style="@style/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
         android:text="@string/artist_update_birth"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tl_artist_nickname" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -125,10 +122,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_margin"
         android:hint="00.00.00"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_artist_birth_title">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -146,9 +143,10 @@
         style="@style/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
         android:text="@string/artist_update_job"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tl_artist_birth" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -156,9 +154,9 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        android:layout_marginTop="@dimen/tiny_margin"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_artist_job_title">
 
         <AutoCompleteTextView
@@ -175,19 +173,21 @@
         style="@style/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
         android:text="@string/artist_update_gender"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tl_artist_job" />
 
     <RadioGroup
         android:id="@+id/rg_artist_gender"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_margin"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/tv_artist_gender_title">
 
         <RadioButton
@@ -202,13 +202,6 @@
             android:layout_height="wrap_content"
             android:text="@string/artist_update_gender_male" />
     </RadioGroup>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
