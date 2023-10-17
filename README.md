@@ -31,7 +31,7 @@
 
 <center>
 
-![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/bc194ac6-fabf-4d3c-a2d9-44615138453d)
+![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/13b7d765-18e2-45aa-8be9-2b23b347ca89)
 ![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/46316b53-f71b-4fc4-8833-b2b0d444c654)
 ![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/6a424c0c-2ee6-4862-88d1-a5e418c54f5f)
 ![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/52420177-9ae7-4d40-b132-f009169cc9cb)
