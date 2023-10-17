@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/scheduleDate"
+        android:id="@+id/schedule_date"
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,14 +17,14 @@
         />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/scheduleName"
+        android:id="@+id/schedule_name"
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tiny_margin"
         android:text="@string/schedule_detail_name"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toEndOf="@+id/scheduleDate"
+        app:layout_constraintStart_toEndOf="@+id/schedule_date"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
