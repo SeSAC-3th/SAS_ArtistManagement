@@ -1,5 +1,4 @@
 package com.sas.companymanagement.ui.group.update
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -25,11 +24,13 @@ class GroupUpdateFragment :
 
     private lateinit var viewModel: GroupUpdateViewModel
     private val compositeDisposable = CompositeDisposable()
+
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(compositeDisposable) {
             with(binding) {
+
                 cAdd
                     .clicks()
                     .observeOn(Schedulers.io())
