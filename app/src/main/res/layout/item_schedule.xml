@@ -7,7 +7,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_date"
-        style="@style/subTitle"
+        style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[2023.10.4]"
@@ -17,7 +17,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_info"
-        style="@style/subTitle"
+        style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="르세라핌 뮤직뱅크 (09:00 ~11:00)"
