@@ -26,11 +26,7 @@
     <string name="schedule_detail_date">날짜</string>
     <string name="schedule_detail_artist">아티스트</string>
     <string name="schedule_detail_content">스케쥴 내용</string>
-    <string name="schedule_update_name">스케쥴 이름</string>
-    <string name="schedule_update_address">장소</string>
-    <string name="schedule_update_date">날짜</string>
-    <string name="schedule_update_artist">아티스트</string>
-    <string name="schedule_update_content">스케쥴 내용</string>
+
     <string name="group_detail_schedule">스케줄</string>
     <string name="group_detail_artist">아티스트</string>
     <string name="group_detail_title">그룹</string>
@@ -45,6 +41,7 @@
     <string name="artist_detail_schedule">스케줄</string>
     <string name="artist_detail_title">아티스트 정보</string>
     <string name="artist_detail_eval">평가</string>
+
     <string name="artist_update_title">아티스트 추가</string>
     <string name="artist_update_name">이름</string>
     <string name="artist_update_artist_name">아티스트 이름</string>
@@ -55,10 +52,31 @@
     <string name="artist_update_gender">성별</string>
     <string name="artist_update_gender_female">여자</string>
     <string name="artist_update_gender_male">남자</string>
+
+    <string name="schedule_update_name">스케쥴 이름</string>
+    <string name="schedule_update_address">장소</string>
+    <string name="schedule_update_date">날짜</string>
+    <string name="schedule_update_artist">아티스트</string>
+    <string name="schedule_update_content">스케쥴 내용</string>
+    <string name="schedule_update_hint">스케쥴 이름</string>
+    <string name="schedule_update_place_hint">장소 이름</string>
+    <string name="schedule_update_time_format">오전</string>
+    <string name="schedule_update_date_picker">00년 00월 00일</string>
+    <string name="schedule_update_time_picker">11:30</string>
+    <string name="schedule_update_after_time_format">오전</string>
+    <string name="schedule_update_after_date_picker">00년 00월 00일</string>
+    <string name="schedule_update_after_time_picker">11:30</string>
+    <string name="schedule_update_add_chip">+</string>
+    <string name="schedule_update_content_hint">스케쥴 내용</string>
+
+
+
     <string name="setting_logout">로그아웃</string>
     <string name="setting_help">도움말</string>
     <string name="setting_versionInformation">버전 정보</string>
 
+
     <string name="before">이전 정보</string>
+
 
 </resources>
