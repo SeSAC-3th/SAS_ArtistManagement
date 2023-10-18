@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_fragment_artist_to_artistDetailFragment"
             app:destination="@id/artistDetailFragment" />
+        <action
+            android:id="@+id/action_fragment_artist_to_artistUpdateFragment"
+            app:destination="@id/artistUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_group"
@@ -34,4 +37,12 @@
         android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"
         android:label="fragment_artist_detail"
         tools:layout="@layout/fragment_artist_detail" />
+    <fragment
+        android:id="@+id/artistUpdateFragment"
+        android:name="com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment"
+        android:label="ArtistUpdateFragment" >
+        <argument
+            android:name="artistId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
