@@ -56,10 +56,10 @@ class GroupDetailFragment :
     }
 
     private fun artistData() = mutableListOf<Artist>().apply {
-        add(Artist(R.drawable.dummy_image, "테스트1"))
-        add(Artist(R.drawable.dummy_image, "테스트2"))
-        add(Artist(R.drawable.dummy_image, "테스트3"))
-        add(Artist(R.drawable.dummy_image, "테스트4"))
+//        add(Artist(R.drawable.dummy_image, "테스트1"))
+//        add(Artist(R.drawable.dummy_image, "테스트2"))
+//        add(Artist(R.drawable.dummy_image, "테스트3"))
+//        add(Artist(R.drawable.dummy_image, "테스트4"))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

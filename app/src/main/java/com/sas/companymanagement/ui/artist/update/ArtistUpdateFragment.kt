@@ -6,9 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding4.view.clicks
+import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
+import com.sas.companymanagement.ui.artist.Artist
+import com.sas.companymanagement.ui.artist.ArtistAdapter
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -17,6 +22,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 class ArtistUpdateFragment :
     ViewBindingBaseFragment<FragmentArtistUpdateBinding>(FragmentArtistUpdateBinding::inflate) {
@@ -25,7 +33,7 @@ class ArtistUpdateFragment :
         fun newInstance() = ArtistUpdateFragment()
     }
 
-    private lateinit var viewModel: ArtistUpdateViewModel
+    private val viewModel: ArtistUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
 
     @SuppressLint("CheckResult")
@@ -44,12 +52,43 @@ class ArtistUpdateFragment :
                         )
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
-
                     })
-
             }
         }
+        listenerSetup()
+        observerSetup()
+//        uiSetup()
+    }
 
+    private fun clearFields() {
+        with(binding) {
+            teArtistName.setText("")
+            teArtistNickname.setText("")
+
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun listenerSetup() {
+        binding.tbArtistUpdate.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.menu_add) {
+                val name = binding.teArtistName.text.toString()
+                val nickname = binding.teArtistNickname.text.toString()
+                if (name.isNotEmpty()) {
+//                    viewModel.getAllArtists2()
+                    viewModel.insertArtist(Artist(name, nickname))
+                    clearFields()
+                }
+            }
+            true
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun observerSetup() {
+        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
+            Log.e("Insert",Artists.get(0).artistName.toString())
+        }
     }
 
     private fun showDateTimePicker(
