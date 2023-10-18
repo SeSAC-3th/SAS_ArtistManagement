@@ -34,12 +34,13 @@ class ScheduleUpdateFragment :
     private val compositeDisposable = CompositeDisposable()
 
 
+
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         with(compositeDisposable) {
             with(binding) {
-
                 calendarButton
                     .clicks()
                     .observeOn(Schedulers.io())
@@ -49,7 +50,7 @@ class ScheduleUpdateFragment :
                         showDateTimePicker(
                             scheduleDatePicker,
                             scheduleTimePicker,
-                            scheduleAmPm
+                            scheduleTimeFormatTv
                         )
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
@@ -64,7 +65,7 @@ class ScheduleUpdateFragment :
                         showDateTimePicker(
                             scheduleAfterDatePicker,
                             scheduleAfterTimePicker,
-                            scheduleAfterAmPm
+                            scheduleAfterTimeFormat
                         )
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
