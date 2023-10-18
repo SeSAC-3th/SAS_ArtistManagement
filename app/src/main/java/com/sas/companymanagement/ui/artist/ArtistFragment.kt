@@ -89,16 +89,16 @@ class ArtistFragment :
 
         var items: ArrayList<Artist> = ArrayList()
 
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
 
         return items
     }

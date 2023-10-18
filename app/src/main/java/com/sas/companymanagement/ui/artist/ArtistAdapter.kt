@@ -1,5 +1,6 @@
 package com.sas.companymanagement.ui.artist
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -27,9 +28,8 @@ class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>) :
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-
         var artist: Artist = arrayList.get(position)
-        holder.images.setImageResource(artist.artistImage!!)
+//        holder.images.setImageResource(artist.artistImage!!)
         holder.artistNames.text = artist.artistName
 
         holder.images.setOnClickListener {
@@ -38,4 +38,9 @@ class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>) :
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setArtistList(artists: List<Artist>) {
+        arrayList = artists.toMutableList()
+        notifyDataSetChanged()
+    }
 }
