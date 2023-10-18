@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,14 @@ class ArtistFragment :
             artistAdapter = ArtistAdapter(requireContext(), artistList!!)
             artistRecyclerView?.adapter = artistAdapter
             setTabItemMargin(tlArtistCategory, 30)
+            tbArtist.setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.btnAdd) {
+                    val action =
+                        ArtistFragmentDirections.actionFragmentArtistToArtistUpdateFragment(0)
+                    findNavController().navigate(action)
+                }
+                true
+            }
 
         }
 
