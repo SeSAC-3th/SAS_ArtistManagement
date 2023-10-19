@@ -102,7 +102,11 @@
         android:id="@+id/loginFragment"
         android:name="com.sas.companymanagement.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_fragment_main"
+            app:destination="@id/fragment_main" />
+    </fragment>
     <fragment
         android:id="@+id/scheduleDetailFragment"
         android:name="com.sas.companymanagement.ui.schedule.detail.ScheduleDetailFragment"
