@@ -1,16 +1,19 @@
 package com.sas.companymanagement.ui.group
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.databinding.FragmentGroupBinding
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
 class GroupFragment :
@@ -38,6 +41,17 @@ class GroupFragment :
             groupList = setDataInList()
             groupAdapter = GroupAdapter(requireContext(), groupList!!, requireParentFragment())
             groupRecyclerView?.adapter = groupAdapter
+            tbGroup.setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.btnAdd) {
+                    Log.e("Insert", "진입")
+                    val action =
+                        GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(0)
+                    Log.e("Insert", "$action")
+
+                    findNavController().navigate(action)
+                }
+                true
+            }
         }
         return binding.root
     }
@@ -51,16 +65,18 @@ class GroupFragment :
 
         var items: ArrayList<Group> = ArrayList()
 
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+        items.add(Group("르세라핌", ""))
+//
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
+//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
 
         return items
     }

@@ -8,7 +8,9 @@ import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
+import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.group.Group
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -30,7 +32,6 @@ class GroupUpdateFragment :
         super.onViewCreated(view, savedInstanceState)
         with(compositeDisposable) {
             with(binding) {
-
                 cAdd
                     .clicks()
                     .observeOn(Schedulers.io())
@@ -44,8 +45,16 @@ class GroupUpdateFragment :
 
             }
         }
+
+        listenerSetup()
+        observerSetup()
     }
 
+    private fun clearFields() {
+        with(binding) {
+            teGroupName.setText("")
+        }
+    }
 
     private fun addArtistChip() {
         var chipName = "이원형"
@@ -59,6 +68,28 @@ class GroupUpdateFragment :
             setOnCloseIconClickListener { binding.cgArtistUpdate.removeView(this) }
         })
         binding.cgArtistUpdate.addView(binding.cAdd)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun listenerSetup() {
+        binding.tbGroupUpdate.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.menu_add) {
+                val name = binding.teGroupName.text.toString()
+                if (name.isNotEmpty()) {
+                    viewModel.getAllGroups()
+                    viewModel.insertGroup(Group(name, ""))
+                    clearFields()
+                }
+            }
+            true
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun observerSetup() {
+        viewModel.getAllGroups()?.observe(viewLifecycleOwner) { Artists ->
+//            for (item in 0..1) Log.e("Insert",Artists.get(item).groupName.toString())
+            Log.e("Insert", Artists.size.toString())        }
     }
 
     override fun onDestroyView() {

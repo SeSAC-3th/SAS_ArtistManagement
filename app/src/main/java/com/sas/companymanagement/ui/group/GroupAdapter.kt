@@ -34,13 +34,13 @@ class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>, var fr
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         var group: Group = arrayList.get(position)
-        holder.images.setImageResource(group.groupImage!!)
+//        holder.images.setImageResource(group.groupImage!!)
         holder.artistNames.text = group.groupName
 
         groupClickEvent(holder.images)
     }
 
-    fun groupClickEvent(view: View) {
+    private fun groupClickEvent(view: View) {
         val observable = view.clicks()
         observable.subscribe {
             val action =

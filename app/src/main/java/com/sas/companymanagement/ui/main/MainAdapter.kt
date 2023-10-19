@@ -43,7 +43,7 @@ class MainAdapter(
         }
     }
 
-    fun artistClickEvent(view: View) {
+    private fun artistClickEvent(view: View) {
         val observable = view.clicks()
         observable.subscribe {
             val action =

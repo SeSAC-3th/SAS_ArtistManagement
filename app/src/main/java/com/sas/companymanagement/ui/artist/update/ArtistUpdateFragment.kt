@@ -75,7 +75,7 @@ class ArtistUpdateFragment :
                 val name = binding.teArtistName.text.toString()
                 val nickname = binding.teArtistNickname.text.toString()
                 if (name.isNotEmpty()) {
-//                    viewModel.getAllArtists2()
+                    viewModel.getAllArtists()
                     viewModel.insertArtist(Artist(name, nickname))
                     clearFields()
                 }
@@ -87,7 +87,9 @@ class ArtistUpdateFragment :
     @SuppressLint("SetTextI18n")
     private fun observerSetup() {
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
-            Log.e("Insert",Artists.get(0).artistName.toString())
+            for (item in Artists.indices) {
+                Log.e("Insert",Artists.get(item).artistName.toString())
+            }
         }
     }
 

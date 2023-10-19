@@ -51,7 +51,6 @@ class ArtistFragment :
             }
 
         }
-
         return binding.root
     }
 
