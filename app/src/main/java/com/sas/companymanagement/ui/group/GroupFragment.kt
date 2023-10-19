@@ -28,16 +28,8 @@ class GroupFragment :
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
         with(binding) {
-            groupRecyclerView = rvGroup
-            groupGridLayoutManager =
-                GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-            groupRecyclerView?.layoutManager = groupGridLayoutManager
-            groupRecyclerView?.setHasFixedSize(true)
-            groupList = ArrayList()
-            groupList = setDataInList()
-            groupAdapter = GroupAdapter(requireContext(), groupList!!, requireParentFragment())
-            groupRecyclerView?.adapter = groupAdapter
 
+            settingGroupRecyclerView()
             tbGroup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
@@ -73,6 +65,20 @@ class GroupFragment :
 //        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
 
         return items
+    }
+
+    private fun settingGroupRecyclerView(){
+        with(binding){
+            groupRecyclerView = rvGroup
+            groupGridLayoutManager =
+                GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+            groupRecyclerView?.layoutManager = groupGridLayoutManager
+            groupRecyclerView?.setHasFixedSize(true)
+            groupList = ArrayList()
+            groupList = setDataInList()
+            groupAdapter = GroupAdapter(requireContext(), groupList!!, requireParentFragment())
+            groupRecyclerView?.adapter = groupAdapter
+        }
     }
 
     override fun onDestroyView() {

@@ -31,7 +31,7 @@ class ArtistFragment :
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
 
         with(binding) {
-            settingRecyclerView()
+            settingArtistRecyclerView()
             setTabItemMargin(tlArtistCategory, 30)
             tbArtist.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
@@ -75,7 +75,7 @@ class ArtistFragment :
 
     }
 
-    private fun settingRecyclerView() {
+    private fun settingArtistRecyclerView() {
         with(binding) {
             artistRecyclerView = rvArtist
             artistGridLayoutManager =
