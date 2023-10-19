@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
@@ -43,7 +42,7 @@ class GroupDetailFragment :
                 canScrollVertically()
             }
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = ArtistAdapter(this.context, artistData())
+            adapter = ArtistAdapter(this.context, artistData(), requireParentFragment())
         }
         return binding.root
 

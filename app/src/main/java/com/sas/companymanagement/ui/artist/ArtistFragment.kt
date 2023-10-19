@@ -38,7 +38,7 @@ class ArtistFragment :
             artistRecyclerView?.setHasFixedSize(true)
             artistList = ArrayList()
             artistList = setDataInList()
-            artistAdapter = ArtistAdapter(requireContext(), artistList!!)
+            artistAdapter = ArtistAdapter(requireContext(), artistList!!, requireParentFragment())
             artistRecyclerView?.adapter = artistAdapter
             setTabItemMargin(tlArtistCategory, 30)
             tbArtist.setOnMenuItemClickListener { item ->
@@ -88,6 +88,10 @@ class ArtistFragment :
     private fun setDataInList(): ArrayList<Artist> {
 
         var items: ArrayList<Artist> = ArrayList()
+
+        items.add(Artist("김채원", "src"))
+        items.add(Artist("김채원", "src"))
+        items.add(Artist("김채원", "src"))
 
 //        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
 //        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
