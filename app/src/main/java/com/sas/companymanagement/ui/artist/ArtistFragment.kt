@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
 class ArtistFragment :
@@ -23,6 +26,7 @@ class ArtistFragment :
     private var artistGridLayoutManager: GridLayoutManager? = null
     private var artistList: ArrayList<Artist>? = null
     private var artistAdapter: ArtistAdapter? = null
+    private val viewModel: ArtistViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -88,21 +92,11 @@ class ArtistFragment :
 
         var items: ArrayList<Artist> = ArrayList()
 
-        items.add(Artist("김채원", "src"))
-        items.add(Artist("김채원", "src"))
-        items.add(Artist("김채원", "src"))
-
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-
+        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
+            Artists.forEach { artist ->
+                items.add(Artist(artist.artistName!!, "src"))
+            }
+        }
         return items
     }
 
