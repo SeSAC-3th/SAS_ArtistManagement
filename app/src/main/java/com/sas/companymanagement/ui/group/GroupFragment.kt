@@ -36,7 +36,7 @@ class GroupFragment :
             groupRecyclerView?.setHasFixedSize(true)
             groupList = ArrayList()
             groupList = setDataInList()
-            groupAdapter = GroupAdapter(requireContext(), groupList!!)
+            groupAdapter = GroupAdapter(requireContext(), groupList!!, requireParentFragment())
             groupRecyclerView?.adapter = groupAdapter
         }
         return binding.root
