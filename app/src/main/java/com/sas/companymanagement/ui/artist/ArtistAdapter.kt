@@ -16,8 +16,13 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
+import java.util.concurrent.TimeUnit
 
-class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>, var fragment: Fragment) :
+class ArtistAdapter(
+    var context: Context,
+    var arrayList: MutableList<Artist>,
+    var fragment: Fragment
+) :
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
@@ -43,12 +48,13 @@ class ArtistAdapter(var context: Context, var arrayList: MutableList<Artist>, va
     }
 
     private fun artistClickEvent(view: View) {
-        val observable = view.clicks()
-        observable.subscribe {
-            val action =
-                ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(0)
-            findNavController(fragment).navigate(action)
-        }
+        view.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                val action =
+                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(0)
+                findNavController(fragment).navigate(action)
+            }
     }
 
     @SuppressLint("NotifyDataSetChanged")

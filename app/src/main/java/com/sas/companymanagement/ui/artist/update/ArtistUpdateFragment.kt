@@ -88,7 +88,7 @@ class ArtistUpdateFragment :
     private fun observerSetup() {
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
             for (item in Artists.indices) {
-                Log.e("Insert",Artists.get(item).artistName.toString())
+                Log.e("Insert",Artists.get(item).id.toString())
             }
         }
     }
