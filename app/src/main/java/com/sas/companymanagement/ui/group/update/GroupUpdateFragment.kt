@@ -1,9 +1,11 @@
 package com.sas.companymanagement.ui.group.update
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
@@ -24,7 +26,7 @@ class GroupUpdateFragment :
         fun newInstance() = GroupUpdateFragment()
     }
 
-    private lateinit var viewModel: GroupUpdateViewModel
+    private val viewModel: GroupUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
 
     @SuppressLint("CheckResult")
@@ -87,9 +89,10 @@ class GroupUpdateFragment :
 
     @SuppressLint("SetTextI18n")
     private fun observerSetup() {
-        viewModel.getAllGroups()?.observe(viewLifecycleOwner) { Artists ->
-//            for (item in 0..1) Log.e("Insert",Artists.get(item).groupName.toString())
-            Log.e("Insert", Artists.size.toString())        }
+        viewModel.getAllGroups()?.observe(viewLifecycleOwner) { Groups ->
+            for (item in Groups.indices) Log.e("Insert", Groups.get(item).groupName.toString())
+        }
+
     }
 
     override fun onDestroyView() {

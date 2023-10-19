@@ -43,11 +43,8 @@ class GroupFragment :
             groupRecyclerView?.adapter = groupAdapter
             tbGroup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
-                    Log.e("Insert", "진입")
                     val action =
                         GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(0)
-                    Log.e("Insert", "$action")
-
                     findNavController().navigate(action)
                 }
                 true
