@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.databinding.ItemMainArtistBinding
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import kotlin.math.roundToInt
 
 data class ArtistRV(val artistImage: Int = 0)
@@ -36,11 +39,19 @@ class MainAdapter(
 
         with(holder.binding) {
             artistImage.setImageResource(artistData.artistImage)
-
-            root.setOnClickListener {
-            }
+            artistClickEvent(this.artistImage)
         }
     }
+
+    private fun artistClickEvent(view: View) {
+        val observable = view.clicks()
+        observable.subscribe {
+            val action =
+                MainFragmentDirections.actionFragmentMainToArtistDetailFragment(0)
+            NavHostFragment.findNavController(owner).navigate(action)
+        }
+    }
+
     override fun getItemCount() = artistList.size
 }
 

@@ -11,10 +11,7 @@ import com.sas.companymanagement.ui.artist.Artist
 @Dao
 interface ArtistDao {
     @Insert
-    fun insertArtist(artist: Artist) {
-        Log.e("Insert", "작동")
-    }
-
+    fun insertArtist(artist: Artist)
     @Query("SELECT * FROM artist_tbl WHERE artistId = :id")
     fun findArtist(id: Int): List<Artist>
 

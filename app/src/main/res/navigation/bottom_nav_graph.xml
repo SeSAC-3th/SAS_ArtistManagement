@@ -43,7 +43,7 @@
             android:id="@+id/action_fragment_group_to_groupDetailFragment"
             app:destination="@id/groupDetailFragment" />
         <action
-            android:id="@+id/action_fragment_group_to_groupUpdateFragment2"
+            android:id="@+id/action_fragment_group_to_groupUpdateFragment"
             app:destination="@id/groupUpdateFragment" />
     </fragment>
     <fragment

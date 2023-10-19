@@ -24,11 +24,8 @@ class ArtistRepository(application: Application) {
     }
 
     fun insertArtist(newArtist: Artist) {
-        Log.e("Insert", "insert1")
         coroutineScope.launch(Dispatchers.IO) {
-            Log.e("Insert", "insert2")
             artistDao.insertArtist(newArtist)
-            Log.e("Insert", "insert3")
         }
     }
 
