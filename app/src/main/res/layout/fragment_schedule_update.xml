@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_schedule_detail"
+        app:menu="@menu/menu_update"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
         app:title="@string/schedule_detail_title"
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
@@ -167,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
-                android:src="@drawable/ic_arrow_forward_24"
+                android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintBottom_toBottomOf="@+id/schedule_date_picker"
                 app:layout_constraintEnd_toStartOf="@id/schedule_after_date_picker"
                 app:layout_constraintStart_toEndOf="@+id/schedule_date_picker"

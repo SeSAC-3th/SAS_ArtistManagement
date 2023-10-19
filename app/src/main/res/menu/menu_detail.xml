@@ -4,13 +4,13 @@
 
     <item
         android:icon="@drawable/ic_update"
-        android:id="@+id/schedule_update"
+        android:id="@+id/update"
         app:showAsAction="always"
         android:title="@string/toolbar_update" />
 
     <item
         android:icon="@drawable/ic_delete"
-        android:id="@+id/schedule_delete"
+        android:id="@+id/delete"
         app:showAsAction="always"
         android:title="@string/toolbar_delete" />
 

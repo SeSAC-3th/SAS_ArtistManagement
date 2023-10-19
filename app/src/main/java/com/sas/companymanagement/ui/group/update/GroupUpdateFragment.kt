@@ -10,7 +10,6 @@ import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
-import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.group.Group
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -75,7 +74,7 @@ class GroupUpdateFragment :
     @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
         binding.tbGroupUpdate.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.menu_add) {
+            if (item.itemId == R.id.menu_update) {
                 val name = binding.teGroupName.text.toString()
                 if (name.isNotEmpty()) {
                     viewModel.getAllGroups()

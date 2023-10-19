@@ -23,6 +23,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:menu="@menu/menu_update"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
                 app:title="@string/artist_update_title"
                 app:titleTextAppearance="@style/title"
                 app:titleTextColor="?attr/colorOnSurface" />
