@@ -29,16 +29,7 @@ data class Artist(
     @ColumnInfo(name = "artistGender")
     var artistGender: String = "",
 
-    @ColumnInfo(name = "artistSchedule")
-    var scheduleId: Int = 0,
-
-    @ColumnInfo(name = "artistEvaluate")
-    var evaluateId: Int = 0,
-
-    @ColumnInfo(name = "groupId")
-    var groupId: Int? = 0,
-
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "artistId")
-    var id: Int = 0,
-    )
+    @ColumnInfo(name = "id")
+    var id: Long = 0L,
+)

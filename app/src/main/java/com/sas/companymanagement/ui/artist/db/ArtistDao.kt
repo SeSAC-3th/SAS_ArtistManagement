@@ -15,13 +15,13 @@ interface ArtistDao {
 //    @Query("SELECT artistName, artistImage FROM artist_tbl WHERE artistId = :id")
 //    fun findArtist(id: Int): List<Artist>
 
-    @Query("SELECT * FROM artist_tbl WHERE artistId = :id")
+    @Query("SELECT * FROM artist_tbl WHERE id = :id")
     fun findArtist(id: Int): List<Artist>
 
     @Update
     fun updateArtist(vararg artists: Artist)
 
-    @Query(value = "DELETE FROM artist_tbl WHERE artistId = :id")
+    @Query(value = "DELETE FROM artist_tbl WHERE id = :id")
     fun deleteArtist(id: Int)
 
     @Query("SELECT * FROM artist_tbl WHERE artistCategory = :category")

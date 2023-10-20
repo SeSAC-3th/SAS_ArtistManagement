@@ -9,10 +9,10 @@ data class Schedule(
     @ColumnInfo(name = "scheduleName")
     var scheduleName: String = "",
 
-    @ColumnInfo(name = "scheduleDateBefore")
+    @ColumnInfo(name = "scheduleBefore")
     var scheduleDateBefore: String = "",
 
-    @ColumnInfo(name = "scheduleDateAfter")
+    @ColumnInfo(name = "scheduleAfter")
     var scheduleDateAfter: String = "",
 
     @ColumnInfo(name = "scheduleAddress")
@@ -21,11 +21,10 @@ data class Schedule(
     @ColumnInfo(name = "scheduleContent")
     var scheduleContent: String = "",
 
-
     @ColumnInfo(name = "artistId")
-    var artistId: Int? = 0,
+    var artistId: String = "",
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "scheduleId")
-    var id: Int = 0,
+    @ColumnInfo(name = "id")
+    var id: Long = 0L,
 )

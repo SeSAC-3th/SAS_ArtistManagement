@@ -13,13 +13,13 @@ interface GroupDao {
     @Insert
     fun insertGroup(group: Group)
 
-    @Query("SELECT * FROM group_tbl WHERE groupId = :id")
+    @Query("SELECT * FROM group_tbl WHERE id = :id")
     fun findGroup(id: Int): List<Group>
 
     @Update
     fun updateGroup(vararg groups: Group)
 
-    @Query(value = "DELETE FROM group_tbl WHERE groupId = :id")
+    @Query(value = "DELETE FROM group_tbl WHERE id = :id")
     fun deleteGroup(id: Int)
 
     @Query("SELECT * FROM group_tbl")

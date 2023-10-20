@@ -1,11 +1,8 @@
 package com.sas.companymanagement.ui.group
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.sas.companymanagement.ui.artist.Artist
 
 @Entity(tableName = "group_tbl")
 data class Group(
@@ -15,10 +12,10 @@ data class Group(
     @ColumnInfo(name = "groupImage")
     var groupImage: String = "",
 
-    @ColumnInfo(name = "artist")
-    var artistId: Int = 0,
+    @ColumnInfo(name = "artistId")
+    var artistId: String = "",
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "groupId")
+    @ColumnInfo(name = "id")
     var id: Int = 0,
 )
