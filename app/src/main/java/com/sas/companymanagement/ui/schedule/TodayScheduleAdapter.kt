@@ -1,7 +1,8 @@
-package com.sas.companymanagement.ui.artist
+package com.sas.companymanagement.ui.schedule
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,48 +19,51 @@ import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import java.util.concurrent.TimeUnit
 
-class ArtistAdapter(
-    var context: Context,
-    var arrayList: MutableList<Artist>,
-    var fragment: Fragment
+data class TodaySchedule(val content: String)
+class TodayScheduleAdapter(
+    private val navigateScheduleDetail: (Int) -> Unit,
 ) :
-    RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
+    RecyclerView.Adapter<TodayScheduleAdapter.ItemHolder>() {
+
+    var arrayList: MutableList<TodaySchedule> = mutableListOf()
+
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
-        var artistNames = itemView.findViewById<TextView>(R.id.recyclerName)
+        var content = itemView.findViewById<TextView>(R.id.tv_schedule_info)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_grid_layout, parent, false)
+            .inflate(R.layout.item_schedule, parent, false)
         return ItemHolder(itemHolder)
     }
 
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var artist: Artist = arrayList.get(position)
-//        holder.images.setImageResource(artist.artistImage!!)
-        holder.artistNames.text = artist.artistName
+        var schedule: TodaySchedule = arrayList[position]
+        holder.content.text = schedule.content
 
-        artistClickEvent(holder.images)
+        artistClickEvent(holder.content)
 
     }
 
+    @SuppressLint("CheckResult")
     private fun artistClickEvent(view: View) {
         view.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                val action =
-                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(0)
-                findNavController(fragment).navigate(action)
+                Log.e("navigate","button click")
+                navigateScheduleDetail(0)
+//                val action =
+//                    ScheduleFragmentDirections.actionFragmentScheduleToScheduleDetailFragment(0)
+//                findNavController(fragment).navigate(action)
             }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setArtistList(artists: List<Artist>) {
-        arrayList = artists.toMutableList()
+    fun setScheduleList(schedules: MutableList<TodaySchedule>) {
+        arrayList = schedules
         notifyDataSetChanged()
     }
 }

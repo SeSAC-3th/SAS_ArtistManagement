@@ -1,7 +1,16 @@
 package com.sas.companymanagement.ui.artist
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.sas.companymanagement.ui.artist.db.ArtistRepository
 
-class ArtistViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class ArtistViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: ArtistRepository = ArtistRepository(application)
+    private val allArtists: LiveData<List<Artist>>? = repository.allArtists
+
+    fun getAllArtists(): LiveData<List<Artist>>? {
+        return allArtists
+    }
 }

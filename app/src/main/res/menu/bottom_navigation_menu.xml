@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/fragment_main"
-        android:title="main"/>
+    <item
+        android:id="@+id/fragment_main"
+        android:icon="@drawable/ic_home_24"
+        android:title="main" />
 
-    <item android:id="@+id/fragment_artist"
-        android:title="artist"/>
+    <item
+        android:id="@+id/fragment_artist"
+        android:icon="@drawable/ic_person_24"
+        android:title="artist" />
 
-    <item android:id="@+id/fragment_group"
-        android:title="group"/>
+    <item
+        android:id="@+id/fragment_group"
+        android:icon="@drawable/ic_groups_24"
+        android:title="group" />
 
-    <item android:id="@+id/fragment_schedule"
-        android:title="schedule"/>
+    <item
+        android:id="@+id/fragment_schedule"
+        android:icon="@drawable/ic_calendar_today_24"
+        android:title="schedule" />
 
-    <item android:id="@+id/fragment_setting"
-        android:title="setting"/>
+    <item
+        android:id="@+id/fragment_setting"
+        android:icon="@drawable/ic_settings_24"
+        android:title="setting" />
 
 </menu>

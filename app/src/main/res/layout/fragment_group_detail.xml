@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_schedule_detail"
+        app:menu="@menu/menu_detail"
         app:title="@string/group_detail_title"
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
@@ -64,6 +64,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_schedule_title" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_group_evaluate_title"
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/guideline_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="@string/artist_detail_eval"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_schedule" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pie_group_chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/large_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_group_evaluate_title" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_artist_title"
@@ -74,7 +94,7 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:text="@string/group_detail_artist"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_schedule" />
+                app:layout_constraintTop_toBottomOf="@id/pie_group_chart" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_artist"

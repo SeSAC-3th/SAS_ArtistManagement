@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistBinding
-import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
 class ArtistFragment :
@@ -23,6 +22,7 @@ class ArtistFragment :
     private var artistGridLayoutManager: GridLayoutManager? = null
     private var artistList: ArrayList<Artist>? = null
     private var artistAdapter: ArtistAdapter? = null
+    private val viewModel: ArtistViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -31,15 +31,7 @@ class ArtistFragment :
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
 
         with(binding) {
-            artistRecyclerView = rvArtist
-            artistGridLayoutManager =
-                GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-            artistRecyclerView?.layoutManager = artistGridLayoutManager
-            artistRecyclerView?.setHasFixedSize(true)
-            artistList = ArrayList()
-            artistList = setDataInList()
-            artistAdapter = ArtistAdapter(requireContext(), artistList!!, requireParentFragment())
-            artistRecyclerView?.adapter = artistAdapter
+            settingArtistRecyclerView()
             setTabItemMargin(tlArtistCategory, 30)
             tbArtist.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
@@ -50,8 +42,8 @@ class ArtistFragment :
                 true
             }
 
+            return binding.root
         }
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,28 +73,36 @@ class ArtistFragment :
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+    }
 
+    private fun settingArtistRecyclerView() {
+        with(binding) {
+            artistRecyclerView = rvArtist
+            artistGridLayoutManager =
+                GridLayoutManager(
+                    context,
+                    2,
+                    androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                    false
+                )
+            artistRecyclerView?.layoutManager = artistGridLayoutManager
+            artistRecyclerView?.setHasFixedSize(true)
+            artistList = ArrayList()
+            artistList = setDataInList()
+            artistAdapter = ArtistAdapter(requireContext(), artistList!!, requireParentFragment())
+            artistRecyclerView?.adapter = artistAdapter
+        }
     }
 
     private fun setDataInList(): ArrayList<Artist> {
 
         var items: ArrayList<Artist> = ArrayList()
 
-        items.add(Artist("김채원", "src"))
-        items.add(Artist("김채원", "src"))
-        items.add(Artist("김채원", "src"))
-
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Artist(R.drawable.ic_add_circle_24, "김채원"))
-
+        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
+            Artists.forEach { artist ->
+                items.add(Artist(artist.artistName!!, "src"))
+            }
+        }
         return items
     }
 

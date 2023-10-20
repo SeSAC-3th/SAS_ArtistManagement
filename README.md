@@ -1,11 +1,16 @@
 # SAS_ArtistManagement
 
-## Description
+## :loudspeaker: Description
 엔터테인먼트 소속 아티스트 관리할 수 있는 플랫폼입니다. 
 
+## :mega: 주요 기능
+
+  - 아티스트 관리 (등록, 수정, 삭제)
+  - 그룹 관리 (등록, 수정, 삭제)
+  - 스케줄 관리 (등록, 수정, 삭제)
 
 
-## OverView
+## :mag_right: OverView
 ### 1. 유저 로그인 페이지(User Login Page) 
 
 <center>
@@ -38,7 +43,9 @@
 
 </center>
 
-회사 소속 아티스트 CRUD
+회사 소속 아티스트 등록, 조회, 수정, 삭제할 수 있다. 
+
+소속 아티스트 평가를 보여준다.
 
 ### 4. 그룹 목록
 
@@ -52,7 +59,9 @@
 
 </center>
 
-회사 소속 그룹 CRUD 
+회사 소속 그룹 등록, 조회, 수정, 삭제할 수 있다. 
+
+소속 그룹 평가를 보여준다.
 
 ### 5. 스케쥴 목록
 
@@ -64,7 +73,9 @@
 
 </center>
 
-스케쥴 CRUD
+회사 소속 아티스트, 그룹의 스케줄 등록, 조회, 수정, 삭제할 수 있다. 
+
+현재 날짜 기준 스케줄을 보여준다.
 
 ### 6. 설정
 <center>
@@ -73,15 +84,26 @@
   
 </center>
 
-## Author
+ ## :iphone: 사용 기술
 
-**이기영**
+| Name             | Description                                  |
+| ---------------- | -------------------------------------------- |
+| Room DB          | 안드로이드 DB 라이브러리                       |
+| MPAndroidChart   | 차트 라이브러                                 |
+| Navigation       | 프래그먼트 전환 라이브러리                     |
+| Material         | UI 라이브러리                                 |    
+| ViewModel        | 데이터를 저장, 관리                           |
+| Rxbinding        | UI Widget Event 처리 라이브러리               |
+| Calendarview     | 캘린더 라이브러리                             |
+## :star: Author
 
-**박지혜**
+:dog: **이기영**
 
-**윤성욱**
+:rabbit: **박지혜**
 
-**이종윤**
+:tiger: **윤성욱**
 
-**이원형**
+:wolf: **이종윤**
+
+:cow: **이원형**
 <br>

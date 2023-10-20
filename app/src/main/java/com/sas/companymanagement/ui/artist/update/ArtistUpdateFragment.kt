@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
-import com.sas.companymanagement.ui.artist.ArtistAdapter
-import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -22,9 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 
 class ArtistUpdateFragment :
     ViewBindingBaseFragment<FragmentArtistUpdateBinding>(FragmentArtistUpdateBinding::inflate) {
@@ -39,6 +34,7 @@ class ArtistUpdateFragment :
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         with(compositeDisposable) {
             with(binding) {
                 tvArtistBirth
@@ -71,7 +67,7 @@ class ArtistUpdateFragment :
     @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
         binding.tbArtistUpdate.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.menu_add) {
+            if (item.itemId == R.id.menu_update) {
                 val name = binding.teArtistName.text.toString()
                 val nickname = binding.teArtistNickname.text.toString()
                 if (name.isNotEmpty()) {
@@ -88,7 +84,7 @@ class ArtistUpdateFragment :
     private fun observerSetup() {
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
             for (item in Artists.indices) {
-                Log.e("Insert",Artists.get(item).artistName.toString())
+                Log.e("Insert",Artists.get(item).id.toString())
             }
         }
     }
