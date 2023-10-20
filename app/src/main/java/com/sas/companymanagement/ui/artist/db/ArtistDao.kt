@@ -12,6 +12,9 @@ import com.sas.companymanagement.ui.artist.Artist
 interface ArtistDao {
     @Insert
     fun insertArtist(artist: Artist)
+//    @Query("SELECT artistName, artistImage FROM artist_tbl WHERE artistId = :id")
+//    fun findArtist(id: Int): List<Artist>
+
     @Query("SELECT * FROM artist_tbl WHERE artistId = :id")
     fun findArtist(id: Int): List<Artist>
 

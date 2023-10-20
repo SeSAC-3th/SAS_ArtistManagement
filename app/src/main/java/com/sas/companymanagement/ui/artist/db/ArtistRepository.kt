@@ -50,6 +50,4 @@ class ArtistRepository(application: Application) {
             }.await()
         }
     }
-
-
 }

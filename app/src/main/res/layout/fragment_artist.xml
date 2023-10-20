@@ -7,6 +7,7 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".ui.MainActivity">
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_artist_start"
         android:layout_width="wrap_content"
@@ -44,53 +45,71 @@
     </com.google.android.material.appbar.MaterialToolbar>
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_artist_category"
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_artist_category"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimaryLight"
+                app:layout_constraintEnd_toEndOf="@id/gl_artist_end"
+                app:layout_constraintStart_toStartOf="@id/gl_artist_start"
+                app:layout_constraintTop_toBottomOf="@id/tb_artist"
+                app:tabBackground="@drawable/style_artist_tab"
+                app:tabGravity="fill"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/textLight"
+                app:tabTextAppearance="@style/subTitle"
+                app:tabTextColor="@color/textPrimary">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/artist_tap_all" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/artist_tap_singer" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/artist_tap_actor" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/artist_tap_talent" />
+            </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_post_travel_log"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:background="@color/colorPrimaryLight"
-        app:layout_constraintEnd_toEndOf="@id/gl_artist_end"
-        app:layout_constraintStart_toStartOf="@id/gl_artist_start"
-        app:layout_constraintTop_toBottomOf="@id/tb_artist"
-        app:tabBackground="@drawable/style_artist_tab"
-        app:tabGravity="fill"
-        app:tabIndicatorHeight="0dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/textLight"
-        app:tabTextAppearance="@style/subTitle"
-        app:tabTextColor="@color/textPrimary">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/artist_tap_all" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/artist_tap_singer" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/artist_tap_actor" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/artist_tap_talent" />
-    </com.google.android.material.tabs.TabLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_artist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toEndOf="@id/gl_artist_end"
-        app:layout_constraintStart_toStartOf="@id/gl_artist_start"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tl_artist_category">
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

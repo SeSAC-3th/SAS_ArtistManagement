@@ -37,6 +37,9 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
 //        Log.e("name", "${schedule.scheduleName}")
 
         holder.scheduleNames.text = schedule.scheduleName
+
+        holder.scheduleDates.text = schedule.scheduleDateBefore
+
         holder.scheduleDates.text = schedule.scheduleDate
 
     }
@@ -45,5 +48,6 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
     fun setScheduleList(schedules: List<Schedule>) {
         arrayList = schedules.toMutableList()
         notifyDataSetChanged()
+
     }
 }

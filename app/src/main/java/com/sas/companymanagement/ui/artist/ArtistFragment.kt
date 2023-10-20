@@ -95,12 +95,11 @@ class ArtistFragment :
     }
 
     private fun setDataInList(): ArrayList<Artist> {
-
         var items: ArrayList<Artist> = ArrayList()
 
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
             Artists.forEach { artist ->
-                items.add(Artist(artist.artistName!!, "src"))
+                items.add(Artist(artistName = artist.artistName, artistImage = "src"))
             }
         }
         return items
