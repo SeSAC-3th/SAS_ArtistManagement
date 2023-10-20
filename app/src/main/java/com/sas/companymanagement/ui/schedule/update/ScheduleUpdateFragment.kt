@@ -57,7 +57,7 @@ class ScheduleUpdateFragment :
 
         with(binding.tbScheduleUpdate) {
             title = "스케쥴 추가"
-            menu.findItem(R.id.menu_add).setIcon(R.drawable.ic_check_24)
+            menu.findItem(R.id.menu_update).setIcon(R.drawable.ic_check_24)
         }
 
         with(compositeDisposable) {
@@ -133,7 +133,7 @@ class ScheduleUpdateFragment :
     }
     private fun listenerSetup() {
         binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.menu_add) {
+            if (item.itemId == R.id.update) {
                 val name = binding.edScheduleName.text.toString()
                 val place = binding.edSchedulePlaceName.text.toString()
                 val date =

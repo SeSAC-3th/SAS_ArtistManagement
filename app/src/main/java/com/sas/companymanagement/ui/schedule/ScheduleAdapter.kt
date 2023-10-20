@@ -15,7 +15,10 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
     RecyclerView.Adapter<ScheduleAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var scheduleNames = itemView.findViewById<TextView>(R.id.tv_schedule_info)
+        /**
+         *  xml 상에서 date 부분이 없음
         var scheduleDates = itemView.findViewById<TextView>(R.id.tv_schedule_date)
+         **/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -38,9 +41,13 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
 
         holder.scheduleNames.text = schedule.scheduleName
 
-        holder.scheduleDates.text = schedule.scheduleDateBefore
-
-        holder.scheduleDates.text = schedule.scheduleDate
+        /**
+         *
+         *         holder.scheduleDates.text = schedule.scheduleDateBefore
+         *
+         *         holder.scheduleDates.text = schedule.scheduleDate
+         *
+         * **/
 
     }
 
