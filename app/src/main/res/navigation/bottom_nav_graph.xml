@@ -85,9 +85,13 @@
         android:id="@+id/scheduleUpdateFragment"
         android:name="com.sas.companymanagement.ui.schedule.update.ScheduleUpdateFragment"
         android:label="ScheduleUpdateFragment" >
+
         <argument
             android:name="scheduleId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_scheduleUpdateFragment_to_fragment_artist"
+            app:destination="@id/fragment_artist" />
     </fragment>
     <fragment
         android:id="@+id/groupUpdateFragment"

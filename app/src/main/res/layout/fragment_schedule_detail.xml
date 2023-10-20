@@ -7,7 +7,7 @@
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/tb_schedule_detail"
+        android:id="@+id/tb_schedule_update"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
         android:text="@string/schedule_detail_name"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
-        app:layout_constraintTop_toBottomOf="@+id/tb_schedule_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_schedule_update" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_name"

@@ -7,13 +7,13 @@
     tools:context=".ui.schedule.detail.ScheduleDetailFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/tb_schedule_detail"
+        android:id="@+id/tb_schedule_update"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_schedule_detail"
+        app:menu="@menu/menu_update"
         app:title="@string/schedule_detail_title"
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_schedule_detail">
+        app:layout_constraintTop_toBottomOf="@id/tb_schedule_update">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/schedule_tv"
+                android:id="@+id/tv_schedule"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,10 +70,10 @@
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="@id/gl_schedule_update_end"
                 app:layout_constraintStart_toStartOf="@id/gl_schedule_update_start"
-                app:layout_constraintTop_toBottomOf="@id/schedule_tv">
+                app:layout_constraintTop_toBottomOf="@id/tv_schedule">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/schedule_name"
+                    android:id="@+id/ed_schedule_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -81,7 +81,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/schedule_place_tv"
+                android:id="@+id/tv_schedule_place"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,10 +100,10 @@
                 android:layout_marginTop="@dimen/tiny_margin"
                 app:layout_constraintEnd_toEndOf="@id/gl_schedule_update_end"
                 app:layout_constraintStart_toStartOf="@id/gl_schedule_update_start"
-                app:layout_constraintTop_toBottomOf="@id/schedule_place_tv">
+                app:layout_constraintTop_toBottomOf="@id/tv_schedule_place">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/schedule_place_name"
+                    android:id="@+id/ed_schedule_place_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -118,11 +118,11 @@
                 app:icon="@drawable/ic_edit_calendar_24"
                 app:layout_constraintEnd_toEndOf="@+id/schedule_date_picker"
                 app:layout_constraintStart_toStartOf="@+id/gl_schedule_update_start"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_date_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_schedule_dates" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/schedule_date_tv"
+                android:id="@+id/tv_schedule_dates"
                 style="@style/subTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/schedule_update_date_picker"
-                app:layout_constraintStart_toEndOf="@id/schedule_date_tv"
+                app:layout_constraintStart_toEndOf="@id/tv_schedule_dates"
                 app:layout_constraintStart_toStartOf="@id/gl_schedule_update_start"
                 app:layout_constraintTop_toBottomOf="@+id/calendar_button" />
 
