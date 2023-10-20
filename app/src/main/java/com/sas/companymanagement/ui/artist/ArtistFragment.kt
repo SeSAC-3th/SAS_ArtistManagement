@@ -99,7 +99,7 @@ class ArtistFragment :
 
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
             Artists.forEach { artist ->
-                items.add(Artist(artist.artistName!!, "src"))
+                items.add(Artist(artistName = artist.artistName, artistImage = "src"))
             }
         }
         return items
