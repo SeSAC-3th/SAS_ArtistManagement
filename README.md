@@ -11,6 +11,12 @@
 
 
 ## :mag_right: OverView
+
+<details>
+    <summary>자세히</summary>
+
+
+
 ### 1. 유저 로그인 페이지(User Login Page) 
 
 <center>
@@ -83,6 +89,8 @@
 ![image](https://github.com/SeSAC-3th/SAS_ArtistManagement/assets/78207730/0e2fa425-12cb-4ede-ae8c-f35efb607e52)
   
 </center>
+
+</details>
 
  ## :iphone: 사용 기술
 
