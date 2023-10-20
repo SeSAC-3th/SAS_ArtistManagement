@@ -58,4 +58,5 @@ dependencies {
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation ("io.github.reactivecircus.flowbinding:flowbinding-android:1.2.0")
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    implementation "io.github.reactivecircus.flowbinding:flowbinding-android:1.2.0"
 }
