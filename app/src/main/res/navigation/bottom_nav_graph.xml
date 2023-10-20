@@ -111,7 +111,7 @@
         android:id="@+id/scheduleDetailFragment"
         android:name="com.sas.companymanagement.ui.schedule.detail.ScheduleDetailFragment"
         android:label="fragment_schedule_update"
-        tools:layout="@layout/fragment_schedule_update" >
+        tools:layout="@layout/fragment_schedule_detail" >
         <action
             android:id="@+id/action_scheduleDetailFragment_to_scheduleUpdateFragment"
             app:destination="@id/scheduleUpdateFragment" />
