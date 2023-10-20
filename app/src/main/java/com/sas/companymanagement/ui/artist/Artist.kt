@@ -1,37 +1,44 @@
 package com.sas.companymanagement.ui.artist
 
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.sas.companymanagement.ui.schedule.Schedule
 
 
 @Entity(tableName = "artist_tbl")
-class Artist {
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "artistId")
-    var id: Int = 0
-
+data class Artist(
     @ColumnInfo(name = "artistName")
-    var artistName: String? = null
+    var artistName: String = "",
+
+    @ColumnInfo(name = "artistNickname")
+    var artistNickname: String = "",
 
     @ColumnInfo(name = "artistImage")
-    var artistImage: String? = null
+    var artistImage: String = "",
 
     @ColumnInfo(name = "artistCategory")
-    var artistCategory: String? = null
-    constructor() {}
-    @Ignore
-    constructor(id: Int, artistName: String, artistImage: String) {
-        this.id = id
-        this.artistName = artistName
-        this.artistImage = artistImage
-    }
-    @Ignore
-    constructor(artistName: String, artistImage: String) {
-        this.artistName = artistName
-        this.artistImage = artistImage
-    }
-}
+    var artistCategory: String = "",
+
+    @ColumnInfo(name = "artistBirth")
+    var artistBirth: String = "",
+
+    @ColumnInfo(name = "artistGender")
+    var artistGender: String = "",
+
+    @ColumnInfo(name = "artistSchedule")
+    var scheduleId: Int = 0,
+
+    @ColumnInfo(name = "artistEvaluate")
+    var evaluateId: Int = 0,
+
+    @ColumnInfo(name = "groupId")
+    var groupId: Int? = 0,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "artistId")
+    var id: Int = 0,
+    )

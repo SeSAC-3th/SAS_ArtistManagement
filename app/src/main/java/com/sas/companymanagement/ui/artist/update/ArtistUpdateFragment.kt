@@ -72,7 +72,16 @@ class ArtistUpdateFragment :
                 val nickname = binding.teArtistNickname.text.toString()
                 if (name.isNotEmpty()) {
                     viewModel.getAllArtists()
-                    viewModel.insertArtist(Artist(name, nickname))
+                    viewModel.insertArtist(
+                        Artist(
+                            artistName = "테스트_이름",
+                            artistNickname = "테스트_닉네임",
+                            artistBirth = "1000-00-00",
+                            artistCategory = "테스트_가수",
+                            artistImage = "테스트_이미지",
+                            artistGender = "테스트 성별"
+                        )
+                    )
                     clearFields()
                 }
             }

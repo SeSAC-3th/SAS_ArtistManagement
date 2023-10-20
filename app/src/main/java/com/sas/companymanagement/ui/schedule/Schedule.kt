@@ -1,12 +1,31 @@
 package com.sas.companymanagement.ui.schedule
 
-class Schedule {
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    var scheduleDate: String? = null
-    var scheduleName: String? = null
+@Entity(tableName = "schedule_tbl")
+data class Schedule(
+    @ColumnInfo(name = "scheduleName")
+    var scheduleName: String = "",
 
-    constructor(scheduleName: String?, scheduleDate: String?) {
-        this.scheduleName = scheduleName
-        this.scheduleDate = scheduleDate
-    }
-}
+    @ColumnInfo(name = "scheduleDateBefore")
+    var scheduleDateBefore: String = "",
+
+    @ColumnInfo(name = "scheduleDateAfter")
+    var scheduleDateAfter: String = "",
+
+    @ColumnInfo(name = "scheduleAddress")
+    var scheduleAddress: String = "",
+
+    @ColumnInfo(name = "scheduleContent")
+    var scheduleContent: String = "",
+
+
+    @ColumnInfo(name = "artistId")
+    var artistId: Int? = 0,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "scheduleId")
+    var id: Int = 0,
+)

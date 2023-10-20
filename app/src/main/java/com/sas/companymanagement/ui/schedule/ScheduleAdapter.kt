@@ -32,6 +32,6 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
         Log.e("size", "${getItemCount()}")
         Log.e("name", "${schedule.scheduleName}")
         holder.scheduleNames.text = schedule.scheduleName
-        holder.scheduleDates.text = schedule.scheduleDate
+        holder.scheduleDates.text = schedule.scheduleDateBefore
     }
 }
