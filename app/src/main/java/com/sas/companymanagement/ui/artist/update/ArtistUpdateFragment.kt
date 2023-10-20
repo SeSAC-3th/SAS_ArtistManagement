@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -12,6 +14,8 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
+import com.sas.companymanagement.ui.artist.ArtistCategory
+import com.sas.companymanagement.ui.artist.ArtistGender
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -19,6 +23,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.Locale.Category
 import java.util.concurrent.TimeUnit
 
 class ArtistUpdateFragment :
@@ -30,8 +35,11 @@ class ArtistUpdateFragment :
 
     private val viewModel: ArtistUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
-
-    @SuppressLint("CheckResult")
+    private var name = ""
+    private var birth =""
+    private var gender = ""
+    private var nickname = ""
+    private var category = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,8 +59,47 @@ class ArtistUpdateFragment :
                     })
             }
         }
+
         listenerSetup()
         observerSetup()
+
+        binding.rgArtistGender.setOnCheckedChangeListener { group, checkdId ->
+            gender = when (checkdId) {
+                R.id.radioButtonFemale -> ArtistGender.FEMALE.toString()
+                else -> ArtistGender.MALE.toString()
+            }
+        }
+//        val testList = resources.getStringArray(R.array.job_array)
+
+//        var category = ""
+
+//                binding.spArtistJob.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+//                        category = parent.getItemAtPosition(position).toString()
+//                        Log.e("categor",category)
+//                    }
+//                    override fun onNothingSelected(parent: AdapterView<*>) {
+//
+//                    }
+//                }
+
+        binding.spArtistJob.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    category = when (parent!!.getItemAtPosition(position).toString()) {
+                        ArtistCategory.ACTOR.job -> ArtistCategory.ACTOR.job
+                        ArtistCategory.TALENT.job -> ArtistCategory.TALENT.job
+                        else -> ArtistCategory.SINGER.job
+                    }
+                }
+            }
+
 //        uiSetup()
     }
 
@@ -64,15 +111,33 @@ class ArtistUpdateFragment :
         }
     }
 
+
     @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
+        Log.i("artistInfo","listenersetup")
+
         binding.tbArtistUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
-                val name = binding.teArtistName.text.toString()
-                val nickname = binding.teArtistNickname.text.toString()
-                if (name.isNotEmpty()) {
-                    viewModel.getAllArtists()
-                    viewModel.insertArtist(Artist(artistName = name, artistNickname = nickname))
+                Log.i("artistInfo","listenersetup2")
+                name = binding.teArtistName.text.toString()
+                nickname = binding.teArtistNickname.text.toString()
+                // 갤러리 호출하여 저장
+                // val imageSrc
+                birth = binding.tvArtistBirth.text.toString()
+                if (name.isNotEmpty()) { //TODO 예외처리
+//                    viewModel.getAllArtists()
+
+                    Log.i("artistInfo","${gender} ${category}")
+                    viewModel.insertArtist(
+                        Artist(
+                            artistName = name,
+                            artistNickname = nickname,
+                            artistImage = "src",
+                            artistGender = gender,
+                            artistCategory = category,
+                            artistBirth = birth
+                        )
+                    )
                     clearFields()
                 }
             }
@@ -84,7 +149,7 @@ class ArtistUpdateFragment :
     private fun observerSetup() {
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
             for (item in Artists.indices) {
-                Log.e("Insert",Artists.get(item).id.toString())
+                Log.e("Insert", Artists.get(item).id.toString())
             }
         }
     }

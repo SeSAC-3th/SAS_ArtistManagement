@@ -1,6 +1,7 @@
 package com.sas.companymanagement.ui.artist.update
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,8 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     private val allArtists: LiveData<List<Artist>>? = repository.allArtists
     private val searchResults: MutableLiveData<List<Artist>> = repository.searchResults
     fun insertArtist(artist: Artist) {
+        Log.i("artistInfo","${artist}")
+
         repository.insertArtist(artist)
     }
     fun findArtist(id: Int) {
