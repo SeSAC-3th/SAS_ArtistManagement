@@ -27,8 +27,7 @@ class ArtistAdapter(
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
-        var artistNames = itemView.findViewById<TextView>(R.id.recyclerName)
-
+        var names = itemView.findViewById<TextView>(R.id.recyclerName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -40,12 +39,11 @@ class ArtistAdapter(
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var artist: Artist = arrayList.get(position)
+        val artist: Artist = arrayList.get(position)
 //        holder.images.setImageResource(artist.artistImage!!)
-        holder.artistNames.text = artist.artistName
+        holder.names.text = artist.artistName
 
         artistClickEvent(holder.images)
-
     }
 
     private fun artistClickEvent(view: View) {

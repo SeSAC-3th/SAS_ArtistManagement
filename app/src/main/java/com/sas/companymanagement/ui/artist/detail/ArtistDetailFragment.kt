@@ -1,18 +1,23 @@
 package com.sas.companymanagement.ui.artist.detail
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
@@ -30,7 +35,39 @@ class ArtistDetailFragment :
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setPieChart()
+        binding.tvArtist.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.update) {
+                val action =
+                    ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(0)
+                findNavController().navigate(action)
+            }
+            if (item.itemId == R.id.delete) {
+                val ad = AlertDialog.Builder(this.context)
+                ad.setIcon(R.drawable.ic_launcher_foreground)
+                ad.setTitle("삭제하시겠습니까?")
+
+                ad.setNegativeButton("취소"){ dialog,_ ->
+                    dialog.dismiss()
+                }
+                // Artist 삭제 event
+                ad.setPositiveButton("확인") { dialog, _ ->
+                    val action =
+                        ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistFragment()
+                    findNavController().navigate(action)
+                    dialog.dismiss()
+                    parentFragmentManager.popBackStack()
+                    parentFragmentManager.popBackStack()
+                }
+                ad.show()
+            }
+            true
+        }
         with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(
                 this.context,
@@ -39,8 +76,6 @@ class ArtistDetailFragment :
             )
             adapter = ScheduleAdapter(this.context, scheduleData())
         }
-
-        return binding.root
     }
 
     private fun scheduleData() = mutableListOf<Schedule>().apply {
