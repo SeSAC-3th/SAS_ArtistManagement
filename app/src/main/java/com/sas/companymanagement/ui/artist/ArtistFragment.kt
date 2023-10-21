@@ -75,7 +75,7 @@ class ArtistFragment :
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        viewModel.allArtists.observe(viewLifecycleOwner) { artists ->
+        viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
             artistAdapter.setArtistList(artists)
         }
     }
@@ -94,34 +94,10 @@ class ArtistFragment :
             artistRecyclerView?.setHasFixedSize(true)
 
             artistList = ArrayList()
-//            artistList = setDataInList()
             artistAdapter = ArtistAdapter(artistList!!, requireParentFragment())
             artistRecyclerView?.adapter = artistAdapter
         }
     }
-
-    private fun setDataInList(): ArrayList<Artist> {
-        val items: ArrayList<Artist> = ArrayList()
-        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
-            Log.e("artistInfo", "Artist 객체들 : ")
-            Artists.forEach { artist ->
-                Log.e("artistInfo", "$artist")
-                items.add(
-                    Artist(
-                        artistName = artist.artistName,
-                        artistNickname = artist.artistNickname,
-                        artistCategory = artist.artistCategory,
-                        artistGender = artist.artistGender,
-                        artistBirth = artist.artistBirth,
-                        artistImage = artist.artistImage
-                    )
-                )
-            }
-        }
-
-        return items
-    }
-
 
     override fun onDestroyView() {
         _binding = null

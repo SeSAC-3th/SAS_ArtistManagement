@@ -9,5 +9,5 @@ import com.sas.companymanagement.ui.artist.db.ArtistRepository
 
 class ArtistViewModel(application: Application) : AndroidViewModel(application){
     private val repository: ArtistRepository = ArtistRepository(application)
-    val allArtists: LiveData<List<Artist>> = repository.getAllArtist()
+    val allArtists: LiveData<List<Artist>>? = repository.getAllArtist()
 }

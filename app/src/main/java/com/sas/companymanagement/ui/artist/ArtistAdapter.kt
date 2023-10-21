@@ -16,6 +16,8 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
+import com.sas.companymanagement.ui.schedule.Schedule
+import io.reactivex.rxjava3.core.Scheduler
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(

@@ -23,8 +23,8 @@ class ArtistRepository(application: Application) {
         allArtists = artistDao.getAllArtist()
     }
 
-    fun getAllArtist() : LiveData<List<Artist>> {
-        return artistDao.getAllArtist()
+    fun getAllArtist() : LiveData<List<Artist>>? {
+        return allArtists
     }
 
     fun insertArtist(newArtist: Artist) {
