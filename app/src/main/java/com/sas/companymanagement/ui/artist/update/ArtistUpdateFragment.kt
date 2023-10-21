@@ -114,20 +114,14 @@ class ArtistUpdateFragment :
 
     @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
-        Log.i("artistInfo","listenersetup")
-
         binding.tbArtistUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
-                Log.i("artistInfo","listenersetup2")
                 name = binding.teArtistName.text.toString()
                 nickname = binding.teArtistNickname.text.toString()
                 // 갤러리 호출하여 저장
                 // val imageSrc
                 birth = binding.tvArtistBirth.text.toString()
                 if (name.isNotEmpty()) { //TODO 예외처리
-//                    viewModel.getAllArtists()
-
-                    Log.i("artistInfo","${gender} ${category}")
                     viewModel.insertArtist(
                         Artist(
                             artistName = name,
