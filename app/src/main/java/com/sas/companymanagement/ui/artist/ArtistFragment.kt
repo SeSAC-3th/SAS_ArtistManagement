@@ -21,7 +21,7 @@ class ArtistFragment :
     private var artistRecyclerView: RecyclerView? = null
     private var artistGridLayoutManager: GridLayoutManager? = null
     private var artistList: ArrayList<Artist>? = null
-    private var artistAdapter: ArtistAdapter? = null
+    private var artistAdapter= ArtistAdapter(mutableListOf(),this)
     private val viewModel: ArtistViewModel by viewModels()
 
 
@@ -73,6 +73,9 @@ class ArtistFragment :
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        viewModel.allArtists.observe(viewLifecycleOwner) { artists ->
+            artistAdapter.setArtistList(artists)
+        }
     }
 
     private fun settingArtistRecyclerView() {
@@ -88,8 +91,8 @@ class ArtistFragment :
             artistRecyclerView?.layoutManager = artistGridLayoutManager
             artistRecyclerView?.setHasFixedSize(true)
             artistList = ArrayList()
-            artistList = setDataInList()
-            artistAdapter = ArtistAdapter(requireContext(), artistList!!, requireParentFragment())
+//            artistList = setDataInList()
+            artistAdapter = ArtistAdapter(artistList!!, requireParentFragment())
             artistRecyclerView?.adapter = artistAdapter
         }
     }
@@ -97,11 +100,11 @@ class ArtistFragment :
     private fun setDataInList(): ArrayList<Artist> {
         var items: ArrayList<Artist> = ArrayList()
 
-        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
-            Artists.forEach { artist ->
-                items.add(Artist(artistName = artist.artistName, artistImage = "src"))
-            }
-        }
+//        viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
+//            Artists.forEach { artist ->
+//                items.add(Artist(artistName = artist.artistName, artistImage = "src"))
+//            }
+//        }
         return items
     }
 

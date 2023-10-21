@@ -19,7 +19,6 @@ import com.sas.companymanagement.databinding.FragmentArtistBinding
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
-    var context: Context,
     var arrayList: MutableList<Artist>,
     var fragment: Fragment
 ) :
