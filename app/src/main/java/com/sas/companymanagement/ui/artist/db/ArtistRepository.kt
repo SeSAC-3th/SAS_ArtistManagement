@@ -23,6 +23,10 @@ class ArtistRepository(application: Application) {
         allArtists = artistDao.getAllArtist()
     }
 
+    fun getAllArtist() : LiveData<List<Artist>> {
+        return artistDao.getAllArtist()
+    }
+
     fun insertArtist(newArtist: Artist) {
         coroutineScope.launch(Dispatchers.IO) {
             artistDao.insertArtist(newArtist)

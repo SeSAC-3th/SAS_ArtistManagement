@@ -42,7 +42,7 @@ class GroupDetailFragment :
                 canScrollVertically()
             }
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = ArtistAdapter(this.context, artistData(), requireParentFragment())
+            adapter = ArtistAdapter(artistData(), requireParentFragment())
         }
         return binding.root
 
