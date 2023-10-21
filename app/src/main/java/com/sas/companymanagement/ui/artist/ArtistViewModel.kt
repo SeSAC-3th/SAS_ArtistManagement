@@ -10,6 +10,7 @@ class ArtistViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: ArtistRepository = ArtistRepository(application)
     private val allArtists: LiveData<List<Artist>>? = repository.allArtists
 
+
     fun getAllArtists(): LiveData<List<Artist>>? {
         return allArtists
     }

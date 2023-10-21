@@ -1,6 +1,7 @@
 package com.sas.companymanagement.ui.artist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,13 @@ class ArtistFragment :
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         with(binding) {
             settingArtistRecyclerView()
             setTabItemMargin(tlArtistCategory, 30)
@@ -41,13 +49,7 @@ class ArtistFragment :
                 }
                 true
             }
-
-            return binding.root
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         val tabLayout = binding.tlArtistCategory
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
@@ -87,7 +89,7 @@ class ArtistFragment :
                 )
             artistRecyclerView?.layoutManager = artistGridLayoutManager
             artistRecyclerView?.setHasFixedSize(true)
-            artistList = ArrayList()
+//            artistList = ArrayList()
             artistList = setDataInList()
             artistAdapter = ArtistAdapter(requireContext(), artistList!!, requireParentFragment())
             artistRecyclerView?.adapter = artistAdapter
@@ -95,11 +97,22 @@ class ArtistFragment :
     }
 
     private fun setDataInList(): ArrayList<Artist> {
-        var items: ArrayList<Artist> = ArrayList()
+        val items: ArrayList<Artist> = ArrayList()
 
         viewModel.getAllArtists()?.observe(viewLifecycleOwner) { Artists ->
+            Log.e("artistInfo", "Artist 객체들 : ")
             Artists.forEach { artist ->
-                items.add(Artist(artistName = artist.artistName, artistImage = "src"))
+                Log.e("artistInfo", "$artist")
+                items.add(
+                    Artist(
+                        artistName = artist.artistName,
+                        artistNickname = artist.artistNickname,
+                        artistCategory = artist.artistCategory,
+                        artistGender = artist.artistGender,
+                        artistBirth = artist.artistBirth,
+                        artistImage = artist.artistImage
+                    )
+                )
             }
         }
         return items
