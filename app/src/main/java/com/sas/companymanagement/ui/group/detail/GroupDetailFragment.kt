@@ -1,12 +1,16 @@
 package com.sas.companymanagement.ui.group.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sas.companymanagement.R
+import com.sas.companymanagement.R.menu.menu_detail
+import com.sas.companymanagement.R.menu.menu_update
 import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
@@ -46,6 +50,48 @@ class GroupDetailFragment :
         }
         return binding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listenerSetup()
+    }
+
+    private fun listenerSetup() {
+        binding.tbGroup.setOnMenuItemClickListener { item ->
+
+            when (item.itemId) {
+                R.id.update -> {
+                    val tb = binding.tbGroup
+                    tb.menu.clear()
+                    tb.inflateMenu(menu_update)
+                }
+
+                R.id.delete -> {
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setMessage("삭제하시겠습니까?")
+                        .setPositiveButton("Yes") { dialog, id ->
+
+                        }
+                        .setNegativeButton("No") { dialog, id ->
+
+                        }
+
+                    val alertDialog = builder.create()
+                    alertDialog.show()
+                }
+
+                R.id.menu_update -> {
+                        val tb = binding.tbGroup
+                        tb.menu.clear()
+                        tb.inflateMenu(menu_detail)
+                }
+
+            }
+
+            true
+
+        }
     }
 
     private fun scheduleData() = mutableListOf<Schedule>().apply {
