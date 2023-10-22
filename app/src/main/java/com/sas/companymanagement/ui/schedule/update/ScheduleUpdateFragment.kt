@@ -104,12 +104,29 @@ class ScheduleUpdateFragment :
                         Log.e("RX_ERROR", compositeDisposable.toString())
                     })
 
+                tbScheduleUpdate.setOnMenuItemClickListener { item ->
+                    if (item.itemId == R.id.menu_update) {
+                        val name = binding.edScheduleName.text.toString().trim()
+                        val address = binding.edSchedulePlaceName.text.toString().trim()
+                        val scheduleDateBefore =
+                            binding.scheduleDatePicker.text.toString().trim() +
+                                    binding.scheduleTimeFormatTv.text.toString().trim() +
+                                    binding.scheduleTimePicker.text.toString().trim()
+                        val scheduleDateAfter =
+                            binding.scheduleAfterDatePicker.text.toString().trim() +
+                                    binding.scheduleAfterTimeFormat.text.toString() + binding.scheduleAfterTimePicker.text.toString()
+                        val scheduleContent = binding.scheduleContent.text.toString()
 
+                        if (name.isNotEmpty()) {
+                            viewModel.insertSchedule(Schedule(name, address,scheduleDateBefore,scheduleDateAfter, scheduleContent))
+                        }
+                    }
+                    true
+                }
 
             }
         }
-        listenerSetup()
-        observerSetup()
+
 
 
         /*        with(binding){
@@ -131,7 +148,8 @@ class ScheduleUpdateFragment :
             scheduleTimePicker.text = "초기"
         }
     }
-    private fun listenerSetup() {
+
+/*    private fun listenerSetup() {
         binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.update) {
                 val name = binding.edScheduleName.text.toString()
@@ -144,16 +162,16 @@ class ScheduleUpdateFragment :
             }
             true
         }
-    }
+    }*/
 
 
-    private fun observerSetup() {
+/*    private fun observerSetup() {
         viewModel.getAllSchedules()?.observe(viewLifecycleOwner) { Schedules ->
             for (item in Schedules.indices) {
                 Log.e("Insert",Schedules.get(item).scheduleName.toString())
             }
         }
-    }
+    }*/
 
     private fun showDateTimePicker(
         dateTextView: TextView,
@@ -219,6 +237,3 @@ class ScheduleUpdateFragment :
         compositeDisposable.clear()
     }
 }
-
-
-
