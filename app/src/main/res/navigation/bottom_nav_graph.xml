@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_artistDetailFragment_to_artistUpdateFragment"
             app:destination="@id/artistUpdateFragment" />
+        <action
+            android:id="@+id/action_artistDetailFragment_to_artistFragment"
+            app:destination="@id/fragment_artist" />
     </fragment>
     <fragment
         android:id="@+id/artistUpdateFragment"
