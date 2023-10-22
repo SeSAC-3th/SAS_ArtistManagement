@@ -104,6 +104,9 @@
         <argument
             android:name="groupId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_groupUpdateFragment_to_fragment_artist"
+            app:destination="@id/fragment_artist" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
