@@ -24,13 +24,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
-    var arrayList: MutableList<Artist>,
-    var fragment: Fragment
+    private var arrayList: MutableList<Artist>,
+    private var fragment: Fragment
 ) :
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
-        var names = itemView.findViewById<TextView>(R.id.recyclerName)
+        var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
+        var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -43,11 +43,11 @@ class ArtistAdapter(
 
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val artist: Artist = arrayList.get(position)
+        val artistData: Artist = arrayList[position]
 //        holder.images.setImageResource(artist.artistImage!!)
-        holder.names.text = artist.artistName
+        holder.names.text = artistData.artistName
 
-        artistClickEvent(holder.images, artist)
+        artistClickEvent(holder.images, artistData)
     }
 
     private fun artistClickEvent(view: View, artist: Artist) {

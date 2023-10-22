@@ -31,7 +31,6 @@ class ArtistFragment :
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
 
-
         return binding.root
     }
 
