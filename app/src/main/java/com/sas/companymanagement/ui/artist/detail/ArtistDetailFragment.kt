@@ -8,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
@@ -19,7 +22,10 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
 import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
+import com.sas.companymanagement.ui.artist.db.ArtistDao
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.dateToString
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 
@@ -30,7 +36,9 @@ class ArtistDetailFragment :
         fun newInstance() = ArtistDetailFragment()
     }
 
-    private lateinit var viewModel: ArtistDetailViewModel
+    private val viewModel: ArtistDetailViewModel by viewModels()
+    private val artistArgs: ArtistDetailFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,10 +49,7 @@ class ArtistDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e(
-            "artistInfo",
-            "${findNavController().currentDestination!!.id}, ${R.id.artistDetailFragment} "
-        )
+        fieldSetup()
         setPieChart()
         listenerSetup()
     }
@@ -54,6 +59,23 @@ class ArtistDetailFragment :
         add(Schedule("2023-10-16", "테스트2"))
         add(Schedule("2023-10-17", "테스트3"))
     }
+
+    private fun fieldSetup() {
+        val id = artistArgs.artistId
+        viewModel.findArtist(id)
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
+            val artist = result[0]
+            with(binding) {
+                tvArtistNameLayout.text = artist.artistName
+                tvArtistNicknameLayout.text = artist.artistNickname
+                tvArtistBirthLayout.text = dateToString(artist.artistBirth)
+                tvArtistJobLayout.text = artist.artistCategory
+                tvArtistGenderLayout.text = artist.artistGender
+            }
+        }
+    }
+
+
 
 
     private fun listenerSetup() {
@@ -140,11 +162,5 @@ class ArtistDetailFragment :
             animateY(1400, Easing.EaseInQuad)
             animate()
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ArtistDetailViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 }

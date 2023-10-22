@@ -2,6 +2,7 @@ package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,9 @@ import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.ui.schedule.Schedule
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
@@ -38,20 +41,22 @@ class ArtistAdapter(
 
     override fun getItemCount() = arrayList.size
 
+
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val artist: Artist = arrayList.get(position)
 //        holder.images.setImageResource(artist.artistImage!!)
         holder.names.text = artist.artistName
 
-        artistClickEvent(holder.images)
+        artistClickEvent(holder.images, artist)
     }
 
-    private fun artistClickEvent(view: View) {
+    private fun artistClickEvent(view: View, artist: Artist) {
         view.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
+                Log.e("artistInfo", "viewId : ${artist.id}")
                 val action =
-                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(0)
+                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
                 findNavController(fragment).navigate(action)
             }
     }

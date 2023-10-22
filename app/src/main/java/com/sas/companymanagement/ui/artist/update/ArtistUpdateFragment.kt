@@ -60,7 +60,7 @@ class ArtistUpdateFragment :
                     })
             }
         }
-        fieldSetup()
+
         listenerSetup()
         observerSetup()
     }
@@ -78,37 +78,38 @@ class ArtistUpdateFragment :
         // 갤러리 호출하여 저장
         // val imageSrc = ~~
         birth = binding.tvArtistBirth.text.toString()
-        binding.rgArtistGender.setOnCheckedChangeListener { group, checkdId ->
-            gender = when (checkdId) {
-                R.id.radioButtonFemale -> ArtistGender.FEMALE.toString()
-                else -> ArtistGender.MALE.toString()
-            }
-        }
-        binding.spArtistJob.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    category = when (parent!!.getItemAtPosition(position).toString()) {
-                        ArtistCategory.ACTOR.job -> ArtistCategory.ACTOR.job
-                        ArtistCategory.TALENT.job -> ArtistCategory.TALENT.job
-                        else -> ArtistCategory.SINGER.job
-                    }
-                }
-            }
     }
 
     private fun listenerSetup() {
-        with(binding.tbArtistUpdate) {
-            setNavigationOnClickListener {
+        with(binding) {
+            tbArtistUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
-            setOnMenuItemClickListener { item ->
+            rgArtistGender.setOnCheckedChangeListener { group, checkdId ->
+                gender = when (checkdId) {
+                    R.id.radioButtonFemale -> ArtistGender.FEMALE.gender
+                    else -> ArtistGender.MALE.gender
+                }
+            }
+            spArtistJob.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(p0: AdapterView<*>?) {}
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        category = when (parent!!.getItemAtPosition(position).toString()) {
+                            ArtistCategory.ACTOR.job -> ArtistCategory.ACTOR.job
+                            ArtistCategory.TALENT.job -> ArtistCategory.TALENT.job
+                            else -> ArtistCategory.SINGER.job
+                        }
+                    }
+                }
+            tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
+                    fieldSetup()
                     if (name.isNotEmpty() && nickname.isNotEmpty() && birth.isNotEmpty()) {
                         viewModel.insertArtist(
                             Artist(
@@ -121,6 +122,7 @@ class ArtistUpdateFragment :
                             )
                         )
                         clearFields()
+                        findNavController().popBackStack()
                     } else { //TODO 예외처리
                     }
                 }

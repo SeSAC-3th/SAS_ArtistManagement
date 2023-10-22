@@ -44,7 +44,7 @@ class ArtistFragment :
             tbArtist.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
-                        ArtistFragmentDirections.actionFragmentArtistToArtistUpdateFragment(0)
+                        ArtistFragmentDirections.actionFragmentArtistToArtistUpdateFragment(-1)
                     findNavController().navigate(action)
                 }
                 true
