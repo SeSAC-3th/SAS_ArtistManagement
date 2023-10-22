@@ -3,6 +3,7 @@ package com.sas.companymanagement.ui.schedule.db
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.db.ArtistDao
 import com.sas.companymanagement.ui.artist.db.ArtistRoomDatabase
 import com.sas.companymanagement.ui.schedule.Schedule
@@ -15,13 +16,17 @@ class ScheduleRepository(application: Application) {
     var searchResults = MutableLiveData<List<Schedule>>()
     private var scheduleDao : ScheduleDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-    val allSchedules : LiveData<List<Schedule>>
+    val allSchedules : LiveData<List<Schedule>>?
 
     init {
         val db : ScheduleRoomDatabase = ScheduleRoomDatabase.getDatabase(application)
         scheduleDao = db.scheduleDao()
         allSchedules = scheduleDao.getAllSchedule()
     }
+
+//    fun getAllSchedules() : LiveData<List<Schedule>>? {
+//        return allSchedules
+//    }
 
     fun insertSchedule(newSchedule: Schedule){
         coroutineScope.launch {
