@@ -41,10 +41,8 @@ class MainAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.e("mainInfo", "viewType: $viewType")
         return when (viewType) {
             0 -> {
-                Log.e("mainInfo", "viewType is 0")
                 ArtistHolder(
                     LayoutInflater.from(parent.context).inflate(
                         R.layout.item_main_artist,
@@ -67,7 +65,6 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.e("mainInfo", "holder: $holder")
         val artistData = artistList[position]
 //        val scheduleData = scheduleList[position]
 
@@ -103,8 +100,6 @@ class MainAdapter(
                 scheduleDateBefore = "임시 after"
             )
         )
-        Log.e("mainInfo", "currentThread: ${Thread.currentThread()}")
-        Log.e("mainInfo", "artist : ${artistList[0]}, schedule : ${scheduleList[0]}")
         notifyDataSetChanged()
     }
 

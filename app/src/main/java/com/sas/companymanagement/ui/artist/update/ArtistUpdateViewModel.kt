@@ -14,8 +14,6 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     private val allArtists: LiveData<List<Artist>>? = repository.allArtists
     private val searchResults: MutableLiveData<List<Artist>> = repository.searchResults
     fun insertArtist(artist: Artist) {
-        Log.i("artistInfo","${artist}")
-
         repository.insertArtist(artist)
     }
     fun findArtist(id: Int) {
