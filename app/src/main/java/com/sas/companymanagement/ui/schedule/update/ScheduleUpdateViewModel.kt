@@ -33,4 +33,13 @@ class ScheduleUpdateViewModel(application: Application) : AndroidViewModel(appli
         return allSchedule
     }
 
+    fun updateSchedule(newSchedule: Schedule) {
+        repository.updateSchedule(newSchedule)
+    }
+
+    fun findScheduleById(id: Int): LiveData<Schedule> {
+        return repository.findScheduleById(id)
+    }
+
+
 }
