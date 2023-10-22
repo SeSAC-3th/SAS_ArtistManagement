@@ -25,7 +25,7 @@ class TodayScheduleAdapter(
 ) :
     RecyclerView.Adapter<TodayScheduleAdapter.ItemHolder>() {
 
-    var arrayList: MutableList<TodaySchedule> = mutableListOf()
+    var arrayList: MutableList<Schedule> = mutableListOf()
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var content = itemView.findViewById<TextView>(R.id.tv_schedule_info)
@@ -41,8 +41,8 @@ class TodayScheduleAdapter(
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var schedule: TodaySchedule = arrayList[position]
-        holder.content.text = schedule.content
+        var schedule: Schedule = arrayList[position]
+        holder.content.text = schedule.scheduleContent
 
         artistClickEvent(holder.content)
 
@@ -62,8 +62,10 @@ class TodayScheduleAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setScheduleList(schedules: MutableList<TodaySchedule>) {
-        arrayList = schedules
+    fun setScheduleList(schedules: List<Schedule>?) {
+        if (schedules != null) {
+            arrayList = schedules.toMutableList()
+        }
         notifyDataSetChanged()
     }
 }
