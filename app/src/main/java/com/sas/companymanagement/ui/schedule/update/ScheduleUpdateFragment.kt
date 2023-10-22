@@ -34,7 +34,6 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.flow.onEach
-import reactivecircus.flowbinding.android.widget.textChanges as flowTextWatcher
 
 
 class ScheduleUpdateFragment :

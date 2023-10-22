@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
@@ -36,7 +37,7 @@ class ArtistUpdateFragment :
     private val viewModel: ArtistUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
     private var name = ""
-    private var birth =""
+    private var birth = ""
     private var gender = ""
     private var nickname = ""
     private var category = ""
@@ -59,30 +60,30 @@ class ArtistUpdateFragment :
                     })
             }
         }
-
+        fieldSetup()
         listenerSetup()
         observerSetup()
+    }
 
+    private fun clearFields() {
+        with(binding) {
+            teArtistName.setText("")
+            teArtistNickname.setText("")
+        }
+    }
+
+    private fun fieldSetup() {
+        name = binding.teArtistName.text.toString()
+        nickname = binding.teArtistNickname.text.toString()
+        // 갤러리 호출하여 저장
+        // val imageSrc = ~~
+        birth = binding.tvArtistBirth.text.toString()
         binding.rgArtistGender.setOnCheckedChangeListener { group, checkdId ->
             gender = when (checkdId) {
                 R.id.radioButtonFemale -> ArtistGender.FEMALE.toString()
                 else -> ArtistGender.MALE.toString()
             }
         }
-//        val testList = resources.getStringArray(R.array.job_array)
-
-//        var category = ""
-
-//                binding.spArtistJob.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-//                        category = parent.getItemAtPosition(position).toString()
-//                        Log.e("categor",category)
-//                    }
-//                    override fun onNothingSelected(parent: AdapterView<*>) {
-//
-//                    }
-//                }
-
         binding.spArtistJob.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -99,44 +100,34 @@ class ArtistUpdateFragment :
                     }
                 }
             }
-
-//        uiSetup()
     }
 
-    private fun clearFields() {
-        with(binding) {
-            teArtistName.setText("")
-            teArtistNickname.setText("")
-
-        }
-    }
-
-
-    @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
-        binding.tbArtistUpdate.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.menu_update) {
-                name = binding.teArtistName.text.toString()
-                nickname = binding.teArtistNickname.text.toString()
-                // 갤러리 호출하여 저장
-                // val imageSrc
-                birth = binding.tvArtistBirth.text.toString()
-                if (name.isNotEmpty()) { //TODO 예외처리
-                    viewModel.insertArtist(
-                        Artist(
-                            artistName = name,
-                            artistNickname = nickname,
-                            artistImage = "src",
-                            artistGender = gender,
-                            artistCategory = category,
-                            artistBirth = birth
-                        )
-                    )
-                    clearFields()
-                }
+        with(binding.tbArtistUpdate) {
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
-            true
+            setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.menu_update) {
+                    if (name.isNotEmpty() && nickname.isNotEmpty() && birth.isNotEmpty()) {
+                        viewModel.insertArtist(
+                            Artist(
+                                artistName = name,
+                                artistNickname = nickname,
+                                artistImage = "src",
+                                artistGender = gender,
+                                artistCategory = category,
+                                artistBirth = birth
+                            )
+                        )
+                        clearFields()
+                    } else { //TODO 예외처리
+                    }
+                }
+                true
+            }
         }
+
     }
 
     @SuppressLint("SetTextI18n")

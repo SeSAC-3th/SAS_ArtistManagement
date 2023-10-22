@@ -3,6 +3,7 @@ package com.sas.companymanagement.ui.artist.detail
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,34 +41,56 @@ class ArtistDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e(
+            "artistInfo",
+            "${findNavController().currentDestination!!.id}, ${R.id.artistDetailFragment} "
+        )
         setPieChart()
-        binding.tvArtist.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.update) {
-                val action =
-                    ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(0)
-                findNavController().navigate(action)
-            }
-            if (item.itemId == R.id.delete) {
-                val ad = AlertDialog.Builder(this.context)
-                ad.setIcon(R.drawable.ic_launcher_foreground)
-                ad.setTitle("삭제하시겠습니까?")
+        listenerSetup()
+    }
 
-                ad.setNegativeButton("취소"){ dialog,_ ->
-                    dialog.dismiss()
-                }
-                // Artist 삭제 event
-                ad.setPositiveButton("확인") { dialog, _ ->
-                    val action =
-                        ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistFragment()
-                    findNavController().navigate(action)
-                    dialog.dismiss()
-                    parentFragmentManager.popBackStack()
-                    parentFragmentManager.popBackStack()
-                }
-                ad.show()
+    private fun scheduleData() = mutableListOf<Schedule>().apply {
+        add(Schedule("2023-10-15", "테스트1"))
+        add(Schedule("2023-10-16", "테스트2"))
+        add(Schedule("2023-10-17", "테스트3"))
+    }
+
+
+    private fun listenerSetup() {
+        with(binding.tvArtist) {
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
-            true
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.update -> {
+                        findNavController().navigate(
+                            ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(
+                                0
+                            )
+                        )
+                    }
+
+                    R.id.delete -> {
+                        val ad = AlertDialog.Builder(this.context)
+                        ad.setIcon(R.drawable.ic_launcher_foreground)
+                        ad.setTitle("삭제하시겠습니까?")
+
+                        ad.setNegativeButton("취소") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        // Artist 삭제 event
+                        ad.setPositiveButton("확인") { dialog, _ ->
+                            dialog.dismiss()
+                            parentFragmentManager.popBackStack()
+                        }
+                        ad.show()
+                    }
+                }
+                true
+            }
         }
+
         with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(
                 this.context,
@@ -76,12 +99,6 @@ class ArtistDetailFragment :
             )
             adapter = ScheduleAdapter(this.context, scheduleData())
         }
-    }
-
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
     }
 
     /**

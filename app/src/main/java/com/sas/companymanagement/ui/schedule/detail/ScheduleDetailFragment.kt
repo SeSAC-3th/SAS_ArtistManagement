@@ -47,12 +47,18 @@ class ScheduleDetailFragment :
     }
 
     private fun listenerSetup() {
-        binding.tbScheduleDetail.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.update) {
-                val action = ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment(0)
-                findNavController().navigate(action)
+        with(binding.tbScheduleDetail) {
+            setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.update) {
+                    val action =
+                        ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment(
+                            0
+                        )
+                    findNavController().navigate(action)
+                }
+                true
             }
-            true
+
         }
     }
 
