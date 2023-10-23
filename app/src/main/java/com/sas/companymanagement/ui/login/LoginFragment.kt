@@ -8,14 +8,18 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentLoginBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(
     FragmentLoginBinding::inflate
@@ -26,34 +30,29 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(
     }
 
     private lateinit var viewModel: LoginViewModel
-    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            compositeDisposable.add(
-                btnLogin
-                    .clicks()
-                    .observeOn(Schedulers.io())
-                    .debounce(500, TimeUnit.MILLISECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                    if ((etLoginId.text.toString() == "admin") && (etLoginPassword.text.toString() == "123456")) {
-                        val action = LoginFragmentDirections.actionLoginFragmentToFragmentMain()
-                        findNavController().navigate(action)
-                    } else {
-                        //로그인 실패 이벤트
-                    }
-                })
+                    btnLogin
+                        .flowClicks()
+                        .throttleFirst(500)
+                        .onEach {
+                            if ((etLoginId.text.toString() == "admin") && (etLoginPassword.text.toString() == "123456")) {
+                                val action = LoginFragmentDirections.actionLoginFragmentToFragmentMain()
+                                findNavController().navigate(action)
+                            } else {
+                                //로그인 실패 이벤트
+                            }
+                        }
+                        .launchIn(CoroutineScope(Dispatchers.Main))
 
             onCheckboxClicked(binding.checkBoxAutoLogin)
 
@@ -73,7 +72,6 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(
 
     override fun onDestroyView() {
         super.onDestroyView()
-        compositeDisposable.dispose()
     }
 
     private fun onCheckboxClicked(view: View) {
@@ -95,5 +93,22 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(
         }
     }
 
+    private fun View.flowClicks(): Flow<Unit> = callbackFlow {
+        setOnClickListener {
+            trySend(Unit).isSuccess
+        }
+        awaitClose { setOnClickListener(null) }
+    }.buffer(0)
+
+    private fun <T> Flow<T>.throttleFirst(intervalTime: Long): Flow<T> = flow {
+        var throttleTime = 0L
+        collect { upStream ->
+            val currentTime = System.currentTimeMillis()
+            if ((currentTime - throttleTime) > intervalTime) {
+                throttleTime = currentTime
+                emit(upStream)
+            }
+        }
+    }
 
 }
