@@ -29,6 +29,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -115,10 +116,15 @@ class ArtistUpdateFragment :
         if (!imagesFolder.exists()) {
             imagesFolder.mkdirs()
         }
-        val imageName = System.currentTimeMillis().toString()
-        imageSrc = "${activity?.filesDir}/images/${imageName}.jpg"
-        val newFile = File(imageSrc)
-        imageToFile(requireActivity() ,imageUri!!, newFile)
+        try {
+            val imageName = System.currentTimeMillis().toString()
+            imageSrc = "${activity?.filesDir}/images/${imageName}.jpg"
+            val newFile = File(imageSrc)
+            imageToFile(requireActivity() ,imageUri!!, newFile)
+        }catch (e: NullPointerException){
+
+        }
+
     }
 
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
@@ -147,8 +153,6 @@ class ArtistUpdateFragment :
     private fun fieldSetup() {
         name = binding.teArtistName.text.toString()
         nickname = binding.teArtistNickname.text.toString()
-        // 갤러리 호출하여 저장
-        // val imageSrc = ~~
         birth = binding.tvArtistBirth.text.toString()
     }
 
@@ -179,21 +183,22 @@ class ArtistUpdateFragment :
                         }
                     }
                 }
+
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
                     fieldSetup()
                     if (name.isNotEmpty() && nickname.isNotEmpty() && birth.isNotEmpty()) {
+                        saveImage()
                         viewModel.insertArtist(
                             Artist(
                                 artistName = name,
                                 artistNickname = nickname,
-                                artistImage = "src",
+                                artistImage = imageSrc,
                                 artistGender = gender,
                                 artistCategory = category,
                                 artistBirth = birth
                             )
                         )
-                        saveImage()
                         clearFields()
                         findNavController().popBackStack()
                     } else { //TODO 예외처리

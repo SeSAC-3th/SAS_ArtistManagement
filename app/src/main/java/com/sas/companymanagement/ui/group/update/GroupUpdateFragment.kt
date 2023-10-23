@@ -156,13 +156,13 @@ class GroupUpdateFragment :
     private fun listenerSetup() {
         binding.tbGroupUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
+                saveImage()
                 name = binding.teGroupName.text.toString()
-
                 if (name.isNotEmpty()) {
                     viewModel.getAllGroups()
                     viewModel.insertGroup(Group(name,
                         imageSrc))
-                    saveImage()
+
 
                     clearFields()
                 }
