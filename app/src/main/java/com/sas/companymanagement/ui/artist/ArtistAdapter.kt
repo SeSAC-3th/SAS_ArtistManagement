@@ -2,6 +2,7 @@ package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,7 @@ class ArtistAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val artistData: Artist = arrayList[position]
-//        holder.images.setImageResource(artist.artistImage!!)
+        holder.images.setImageURI(Uri.parse(artistData.artistImage))
         holder.names.text = artistData.artistName
 
         artistClickEvent(holder.images, artistData)

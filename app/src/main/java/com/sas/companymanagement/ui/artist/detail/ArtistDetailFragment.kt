@@ -2,6 +2,7 @@ package com.sas.companymanagement.ui.artist.detail
 
 import android.app.AlertDialog
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,9 @@ import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
 import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.artist.db.ArtistDao
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment
+import com.sas.companymanagement.ui.common.CANCEL
+import com.sas.companymanagement.ui.common.DELETE_MESSAGE
+import com.sas.companymanagement.ui.common.OK
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
 import com.sas.companymanagement.ui.schedule.Schedule
@@ -42,7 +46,7 @@ class ArtistDetailFragment :
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,14 +72,13 @@ class ArtistDetailFragment :
             with(binding) {
                 tvArtistNameLayout.text = artist.artistName
                 tvArtistNicknameLayout.text = artist.artistNickname
+                iv.setImageURI(Uri.parse(artist.artistImage))
                 tvArtistBirthLayout.text = dateToString(artist.artistBirth)
                 tvArtistJobLayout.text = artist.artistCategory
                 tvArtistGenderLayout.text = artist.artistGender
             }
         }
     }
-
-
 
 
     private fun listenerSetup() {
@@ -96,15 +99,15 @@ class ArtistDetailFragment :
                     R.id.delete -> {
                         val ad = AlertDialog.Builder(this.context)
                         ad.setIcon(R.drawable.ic_launcher_foreground)
-                        ad.setTitle("삭제하시겠습니까?")
+                        ad.setTitle(DELETE_MESSAGE)
 
-                        ad.setNegativeButton("취소") { dialog, _ ->
+                        ad.setNegativeButton(CANCEL) { dialog, _ ->
                             dialog.dismiss()
                         }
-                        // Artist 삭제 event
-                        ad.setPositiveButton("확인") { dialog, _ ->
+                        ad.setPositiveButton(OK) { dialog, _ ->
                             dialog.dismiss()
-                            parentFragmentManager.popBackStack()
+                            viewModel.deleteArtist(artistArgs.artistId)
+                            findNavController().popBackStack()
                         }
                         ad.show()
                     }

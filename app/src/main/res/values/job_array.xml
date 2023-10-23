@@ -3,6 +3,6 @@
     <string-array name="job_array">
         <item>가수</item>
         <item>배우</item>
-        <item>텔런트</item>
+        <item>탤런트</item>
     </string-array>
 </resources>
