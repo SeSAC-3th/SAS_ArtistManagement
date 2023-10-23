@@ -21,6 +21,8 @@ import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.artist.detail.ArtistDetailViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
+import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.TodayScheduleAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -103,6 +105,8 @@ class ScheduleUpdateFragment :
                         Log.e("RX_ERROR", compositeDisposable.toString())
                     })
 
+//                observerSetup(1)
+                //추가 기능
                 tbScheduleUpdate.setOnMenuItemClickListener { item ->
                     if (item.itemId == R.id.menu_update) {
                         val name = binding.edScheduleName.text.toString().trim()
@@ -114,10 +118,23 @@ class ScheduleUpdateFragment :
                         val scheduleDateAfter =
                             binding.scheduleAfterDatePicker.text.toString().trim() +
                                     binding.scheduleAfterTimeFormat.text.toString() + binding.scheduleAfterTimePicker.text.toString()
+
                         val scheduleContent = binding.scheduleContent.text.toString()
 
                         if (name.isNotEmpty()) {
-                            viewModel.insertSchedule(Schedule(name, address,scheduleDateBefore,scheduleDateAfter, scheduleContent))
+
+                            viewModel.insertSchedule(
+                                Schedule(
+                                    scheduleName = name,
+                                    scheduleDateBefore = scheduleDateBefore,
+                                    scheduleDateAfter = scheduleDateAfter,
+                                    scheduleAddress = address,
+                                    scheduleContent = scheduleContent
+                                )
+                            )
+
+                        } else {
+                            Log.e("edit", "null 발생")
                         }
                     }
                     true
@@ -125,7 +142,6 @@ class ScheduleUpdateFragment :
 
             }
         }
-
 
 
         /*        with(binding){
@@ -138,8 +154,9 @@ class ScheduleUpdateFragment :
 
                 }*/
     }
+
     private fun clearFields() {
-        with(binding){
+        with(binding) {
             edScheduleName.setText("")
             edSchedulePlaceName.setText("")
             edSchedulePlaceName.setText("초기")
@@ -148,29 +165,58 @@ class ScheduleUpdateFragment :
         }
     }
 
-/*    private fun listenerSetup() {
-        binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.update) {
-                val name = binding.edScheduleName.text.toString()
-                val place = binding.edSchedulePlaceName.text.toString()
-                val date =
-                    binding.scheduleDatePicker.text.toString() + binding.scheduleTimeFormatTv.text.toString() + binding.scheduleTimePicker.text.toString()
-                if (name.isNotEmpty()) {
-                    viewModel.insertSchedule(Schedule(name, place, date))
+    private lateinit var scheduleAdapter: ScheduleAdapter
+    private fun observerSetup(scheduleId: Int) {
+        viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
+            if (schedule != null) {
+                with(binding) {
+
+                    edScheduleName.setText(schedule.scheduleName)
+                    edSchedulePlaceName.setText(schedule.scheduleAddress)
+                    Log.e("string",schedule.scheduleDateBefore)
+
+                    scheduleDatePicker.setText(schedule.scheduleDateBefore.substring(0, 13))
+                    scheduleTimeFormatTv.setText(schedule.scheduleDateBefore.substring(13, 15))
+                    scheduleTimePicker.setText(schedule.scheduleDateBefore.substring(15))
+
+                    scheduleAfterDatePicker.setText(schedule.scheduleDateAfter.substring(0, 13))
+                    scheduleAfterTimeFormat.setText(schedule.scheduleDateAfter.substring(13, 15))
+                    scheduleAfterTimePicker.setText(schedule.scheduleDateAfter.substring(15))
+
+                    scheduleContent.setText(schedule.scheduleContent)
+
+                    tbScheduleUpdate.setOnMenuItemClickListener { item ->
+                        if (item.itemId == R.id.menu_update) {
+                            schedule.scheduleName = binding.edScheduleName.text.toString().trim()
+                            schedule.scheduleAddress =
+                                binding.edSchedulePlaceName.text.toString().trim()
+                            schedule.scheduleDateBefore =
+                                binding.scheduleDatePicker.text.toString().trim() +
+                                        binding.scheduleTimeFormatTv.text.toString().trim() +
+                                        binding.scheduleTimePicker.text.toString().trim()
+
+                            schedule.scheduleDateAfter =
+                                binding.scheduleAfterDatePicker.text.toString().trim() +
+                                        binding.scheduleAfterTimeFormat.text.toString().trim() +
+                                        binding.scheduleAfterTimePicker.text.toString().trim()
+
+                            schedule.scheduleContent = binding.scheduleContent.text.toString().trim()
+
+                            viewModel.updateSchedule(schedule)
+                        }
+                        true
+
+                    }
+
                 }
-            }
-            true
-        }
-    }*/
 
-
-/*    private fun observerSetup() {
-        viewModel.getAllSchedules()?.observe(viewLifecycleOwner) { Schedules ->
-            for (item in Schedules.indices) {
-                Log.e("Insert",Schedules.get(item).scheduleName.toString())
+            } else {
+                Log.e("Fragment", "No schedule found with id $scheduleId")
             }
         }
-    }*/
+
+    }
+
 
     private fun showDateTimePicker(
         dateTextView: TextView,
