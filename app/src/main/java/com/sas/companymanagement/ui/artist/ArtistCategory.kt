@@ -6,6 +6,6 @@ enum class ArtistCategory(val job: String) {
     SINGER("가수")
 }
 
-enum class ArtistGender {
-    MALE, FEMALE
+enum class ArtistGender(val gender: String) {
+    MALE("남자"), FEMALE("여자")
 }

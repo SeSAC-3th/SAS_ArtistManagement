@@ -7,7 +7,7 @@
     >
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/artistImage"
+        android:id="@+id/iv_artist"
         android:layout_width="120dp"
         android:layout_height="120dp"
         app:layout_constraintStart_toStartOf="parent"

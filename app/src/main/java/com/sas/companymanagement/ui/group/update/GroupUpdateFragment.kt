@@ -13,6 +13,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
@@ -39,6 +40,7 @@ class GroupUpdateFragment :
     private val compositeDisposable = CompositeDisposable()
     private var imageSrc = ""
     private var imageUri: Uri? = null
+    private var name = ""
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -132,6 +134,7 @@ class GroupUpdateFragment :
     }
 
     private fun addArtistChip() {
+        /*
         var chipName = "이원형"
 
         binding.cgArtistUpdate.removeView(binding.cAdd)
@@ -143,18 +146,24 @@ class GroupUpdateFragment :
             setOnCloseIconClickListener { binding.cgArtistUpdate.removeView(this) }
         })
         binding.cgArtistUpdate.addView(binding.cAdd)
+        */
+        val action = GroupUpdateFragmentDirections.actionGroupUpdateFragmentToFragmentArtist()
+        findNavController().navigate(action)
+
     }
 
     @SuppressLint("SetTextI18n")
     private fun listenerSetup() {
         binding.tbGroupUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
-                val name = binding.teGroupName.text.toString()
+                name = binding.teGroupName.text.toString()
+
                 if (name.isNotEmpty()) {
                     viewModel.getAllGroups()
                     viewModel.insertGroup(Group(name,
                         imageSrc))
                     saveImage()
+
                     clearFields()
                 }
             }
@@ -165,7 +174,7 @@ class GroupUpdateFragment :
     @SuppressLint("SetTextI18n")
     private fun observerSetup() {
         viewModel.getAllGroups()?.observe(viewLifecycleOwner) { Groups ->
-            for (item in Groups.indices) Log.e("Insert", Groups.get(item).groupName.toString())
+            for (item in Groups.indices) Log.e("Insert", Groups.get(item).id.toString())
         }
     }
 

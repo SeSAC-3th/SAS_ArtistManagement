@@ -22,7 +22,7 @@ class ArtistFragment :
     private var artistRecyclerView: RecyclerView? = null
     private var artistGridLayoutManager: GridLayoutManager? = null
     private var artistList: ArrayList<Artist>? = null
-    private var artistAdapter= ArtistAdapter(mutableListOf(),this)
+    private var artistAdapter = ArtistAdapter(mutableListOf(), this)
     private val viewModel: ArtistViewModel by viewModels()
 
 
@@ -30,7 +30,6 @@ class ArtistFragment :
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
-
 
         return binding.root
     }
@@ -44,27 +43,35 @@ class ArtistFragment :
             tbArtist.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
-                        ArtistFragmentDirections.actionFragmentArtistToArtistUpdateFragment(0)
+                        ArtistFragmentDirections.actionFragmentArtistToArtistUpdateFragment(-1)
                     findNavController().navigate(action)
                 }
                 true
             }
         }
 
-        val tabLayout = binding.tlArtistCategory
-        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+
+        binding.tlArtistCategory.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val param = when (tab.position) {
+                when (tab.position) {
                     0 -> { /*ALL*/
+                        viewModel.getAllArtist()
+                        // allArtist 는 데이터 변화가 없기 때문에 다시 view에 보여주기 위하여 해당 코드 작성
+                        viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
+                            artistAdapter.setArtistList(artists)
+                        }
                     }
 
                     1 -> {/*가수*/
+                        viewModel.findArtistByCategory(ArtistCategory.SINGER.job)
                     }
 
                     2 -> {/*배우*/
+                        viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)
                     }
 
                     3 -> {/*탤런트*/
+                        viewModel.findArtistByCategory(ArtistCategory.TALENT.job)
                     }
 
                     else -> throw IllegalStateException()
@@ -76,6 +83,10 @@ class ArtistFragment :
         })
 
         viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
+            artistAdapter.setArtistList(artists)
+        }
+
+        viewModel.categoryResults.observe(viewLifecycleOwner) { artists ->
             artistAdapter.setArtistList(artists)
         }
     }

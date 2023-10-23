@@ -1,19 +1,31 @@
 package com.sas.companymanagement.ui.artist.detail
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
+import com.sas.companymanagement.ui.artist.db.ArtistDao
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.dateToString
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 
@@ -24,13 +36,83 @@ class ArtistDetailFragment :
         fun newInstance() = ArtistDetailFragment()
     }
 
-    private lateinit var viewModel: ArtistDetailViewModel
+    private val viewModel: ArtistDetailViewModel by viewModels()
+    private val artistArgs: ArtistDetailFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fieldSetup()
         setPieChart()
+        listenerSetup()
+    }
+
+    private fun scheduleData() = mutableListOf<Schedule>().apply {
+        add(Schedule("2023-10-15", "테스트1"))
+        add(Schedule("2023-10-16", "테스트2"))
+        add(Schedule("2023-10-17", "테스트3"))
+    }
+
+    private fun fieldSetup() {
+        val id = artistArgs.artistId
+        viewModel.findArtist(id)
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
+            val artist = result[0]
+            with(binding) {
+                tvArtistNameLayout.text = artist.artistName
+                tvArtistNicknameLayout.text = artist.artistNickname
+                tvArtistBirthLayout.text = dateToString(artist.artistBirth)
+                tvArtistJobLayout.text = artist.artistCategory
+                tvArtistGenderLayout.text = artist.artistGender
+            }
+        }
+    }
+
+
+
+
+    private fun listenerSetup() {
+        with(binding.tvArtist) {
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.update -> {
+                        findNavController().navigate(
+                            ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(
+                                0
+                            )
+                        )
+                    }
+
+                    R.id.delete -> {
+                        val ad = AlertDialog.Builder(this.context)
+                        ad.setIcon(R.drawable.ic_launcher_foreground)
+                        ad.setTitle("삭제하시겠습니까?")
+
+                        ad.setNegativeButton("취소") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        // Artist 삭제 event
+                        ad.setPositiveButton("확인") { dialog, _ ->
+                            dialog.dismiss()
+                            parentFragmentManager.popBackStack()
+                        }
+                        ad.show()
+                    }
+                }
+                true
+            }
+        }
+
         with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(
                 this.context,
@@ -39,14 +121,6 @@ class ArtistDetailFragment :
             )
             adapter = ScheduleAdapter(this.context, scheduleData())
         }
-
-        return binding.root
-    }
-
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
     }
 
     /**
@@ -88,11 +162,5 @@ class ArtistDetailFragment :
             animateY(1400, Easing.EaseInQuad)
             animate()
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ArtistDetailViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 }

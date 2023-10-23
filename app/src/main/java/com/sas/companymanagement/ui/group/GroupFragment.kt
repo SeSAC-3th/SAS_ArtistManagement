@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +19,8 @@ class GroupFragment :
     private var groupRecyclerView: RecyclerView? = null
     private var groupGridLayoutManager: GridLayoutManager? = null
     private var groupList: ArrayList<Group>? = null
-    private var groupAdapter: GroupAdapter? = null
+    private var groupAdapter = GroupAdapter(mutableListOf(), this)
+    private val viewModel: GroupViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -27,6 +29,13 @@ class GroupFragment :
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         with(binding) {
 
             settingGroupRecyclerView()
@@ -39,19 +48,17 @@ class GroupFragment :
                 true
             }
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        viewModel.allGroup?.observe(viewLifecycleOwner) { groups ->
+            groupAdapter.setGroupList(groups)
+        }
     }
 
     private fun setDataInList(): ArrayList<Group> {
 
         var items: ArrayList<Group> = ArrayList()
 
-        items.add(Group("르세라핌", ""))
+//        items.add(Group("르세라핌", ""))
 //
 //        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
 //        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
@@ -67,16 +74,15 @@ class GroupFragment :
         return items
     }
 
-    private fun settingGroupRecyclerView(){
-        with(binding){
+    private fun settingGroupRecyclerView() {
+        with(binding) {
             groupRecyclerView = rvGroup
             groupGridLayoutManager =
                 GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
             groupRecyclerView?.layoutManager = groupGridLayoutManager
             groupRecyclerView?.setHasFixedSize(true)
             groupList = ArrayList()
-            groupList = setDataInList()
-            groupAdapter = GroupAdapter(requireContext(), groupList!!, requireParentFragment())
+            groupAdapter = GroupAdapter(groupList!!, requireParentFragment())
             groupRecyclerView?.adapter = groupAdapter
         }
     }

@@ -1,5 +1,6 @@
 package com.sas.companymanagement.ui.group
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +15,15 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 
-class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>, var fragment: Fragment) :
+class GroupAdapter(
+    var arrayList: MutableList<Group>,
+    var fragment: Fragment
+) :
     RecyclerView.Adapter<GroupAdapter.ItemHolder>() {
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
-        var artistNames = itemView.findViewById<TextView>(R.id.recyclerName)
+        var groupNames = itemView.findViewById<TextView>(R.id.recyclerName)
 
     }
 
@@ -35,7 +39,7 @@ class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>, var fr
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         var group: Group = arrayList.get(position)
 //        holder.images.setImageResource(group.groupImage!!)
-        holder.artistNames.text = group.groupName
+        holder.groupNames.text = group.groupName
 
         groupClickEvent(holder.images)
     }
@@ -47,6 +51,12 @@ class GroupAdapter(var context: Context, var arrayList: ArrayList<Group>, var fr
                 GroupFragmentDirections.actionFragmentGroupToGroupDetailFragment(0)
             NavHostFragment.findNavController(fragment).navigate(action)
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setGroupList(groups: List<Group>) {
+        arrayList = groups.toMutableList()
+        notifyDataSetChanged()
     }
 
 }
