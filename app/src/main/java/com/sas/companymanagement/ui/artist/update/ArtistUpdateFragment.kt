@@ -111,19 +111,16 @@ class ArtistUpdateFragment :
     }
 
     //이미지 저장
+    @SuppressLint("SdCardPath")
     private fun saveImage(){
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) {
             imagesFolder.mkdirs()
         }
-        try {
             val imageName = System.currentTimeMillis().toString()
-            imageSrc = "${activity?.filesDir}/images/${imageName}.jpg"
+            imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
             val newFile = File(imageSrc)
             imageToFile(requireActivity() ,imageUri!!, newFile)
-        }catch (e: NullPointerException){
-
-        }
 
     }
 
