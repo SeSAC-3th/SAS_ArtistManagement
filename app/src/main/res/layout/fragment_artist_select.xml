@@ -81,7 +81,6 @@
             android:text="@string/artist_tap_talent" />
     </com.google.android.material.tabs.TabLayout>
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/sv_artist_select"
         android:layout_width="0dp"

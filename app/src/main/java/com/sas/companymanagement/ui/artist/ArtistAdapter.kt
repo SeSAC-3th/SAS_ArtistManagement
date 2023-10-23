@@ -1,27 +1,17 @@
 package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import androidx.navigation.fragment.findNavController
-import com.sas.companymanagement.databinding.FragmentArtistBinding
-import com.sas.companymanagement.ui.artist.select.ArtistSelectFragment
-import com.sas.companymanagement.ui.schedule.Schedule
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
@@ -36,6 +26,7 @@ class ArtistAdapter(
 
     private var selectedSet : MutableSet<Long> = mutableSetOf()
     lateinit var parent: ViewGroup
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
@@ -74,13 +65,11 @@ class ArtistAdapter(
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
                 selectedSet.add(artist.id)
-                selectedSet.forEach {
-                }
             }
     }
 
-    fun getSelectedId(): List<Long> {
-        return selectedSet.toList()
+    fun getSelectedId(): LongArray {
+        return selectedSet.toLongArray()
     }
 
     @SuppressLint("NotifyDataSetChanged")

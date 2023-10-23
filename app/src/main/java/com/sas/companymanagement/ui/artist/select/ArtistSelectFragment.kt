@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -34,7 +35,7 @@ class ArtistSelectFragment :
     private var artistSelectAdapter = ArtistAdapter(mutableListOf(), this)
     private val viewModel: ArtistViewModel by viewModels()
     private val artistSelectedArgs: ArtistSelectFragmentArgs by navArgs()
-    private lateinit var selectedArtistIdList: List<Long>
+    private lateinit var selectedArtistIdList: LongArray
 
     companion object {
         fun newInstance() = ArtistSelectFragment()
@@ -53,61 +54,64 @@ class ArtistSelectFragment :
         with(binding) {
             settingArtistRecyclerView()
             setTabItemMargin(tlArtistSelectCategory, 30)
-            viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
-                artistSelectAdapter.setArtistList(artists)
-            }
-
-            binding.tlArtistSelectCategory.addOnTabSelectedListener(object :
-                TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    when (tab.position) {
-                        0 -> { /*ALL*/
-                            viewModel.getAllArtist()
-                            // allArtist 는 데이터 변화가 없기 때문에 다시 view에 보여주기 위하여 해당 코드 작성
-                            viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
-                                artistSelectAdapter.setArtistList(artists)
-                            }
-                        }
-
-                        1 -> {/*가수*/
-                            viewModel.findArtistByCategory(ArtistCategory.SINGER.job)
-                        }
-
-                        2 -> {/*배우*/
-                            viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)
-                        }
-
-                        3 -> {/*탤런트*/
-                            viewModel.findArtistByCategory(ArtistCategory.TALENT.job)
-                        }
-
-                        else -> throw IllegalStateException()
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-
-            tbArtistSelect.setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.menu_update) {
-                    selectedArtistIdList = artistSelectAdapter.getSelectedId()
-                    if (artistSelectedArgs.from == "group"){
-
-                        findNavController().popBackStack()
-                    }
-                    if (artistSelectedArgs.from == "schedule"){
-
-                        findNavController().popBackStack()
-                    }
-
-                }
-                true
-            }
 
         }
-    }
 
+        binding.tbArtistSelect.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.menu_update) {
+                selectedArtistIdList = artistSelectAdapter.getSelectedId()
+                if (artistSelectedArgs.from == "group"){
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("selectedArtistId", selectedArtistIdList)
+                    findNavController().popBackStack()
+                }
+                if (artistSelectedArgs.from == "schedule"){
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("selectedArtistId", selectedArtistIdList)
+                    findNavController().popBackStack()
+                }
+
+            }
+            true
+        }
+
+        binding.tlArtistSelectCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> { /*ALL*/
+                        viewModel.getAllArtist()
+                        // allArtist 는 데이터 변화가 없기 때문에 다시 view에 보여주기 위하여 해당 코드 작성
+                        viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
+                            artistSelectAdapter.setArtistList(artists)
+                        }
+                    }
+
+                    1 -> {/*가수*/
+                        viewModel.findArtistByCategory(ArtistCategory.SINGER.job)
+                    }
+
+                    2 -> {/*배우*/
+                        viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)
+                    }
+
+                    3 -> {/*탤런트*/
+                        viewModel.findArtistByCategory(ArtistCategory.TALENT.job)
+                    }
+
+                    else -> throw IllegalStateException()
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
+            artistSelectAdapter.setArtistList(artists)
+        }
+
+        viewModel.categoryResults.observe(viewLifecycleOwner) { artists ->
+            artistSelectAdapter.setArtistList(artists)
+        }
+    }
 
     private fun settingArtistRecyclerView() {
         with(binding) {
