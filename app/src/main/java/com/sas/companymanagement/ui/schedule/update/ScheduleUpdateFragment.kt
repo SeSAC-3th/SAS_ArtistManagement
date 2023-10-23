@@ -105,6 +105,8 @@ class ScheduleUpdateFragment :
                         Log.e("RX_ERROR", compositeDisposable.toString())
                     })
 
+//                observerSetup(1)
+                //추가 기능
                 tbScheduleUpdate.setOnMenuItemClickListener { item ->
                     if (item.itemId == R.id.menu_update) {
                         val name = binding.edScheduleName.text.toString().trim()
@@ -116,24 +118,28 @@ class ScheduleUpdateFragment :
                         val scheduleDateAfter =
                             binding.scheduleAfterDatePicker.text.toString().trim() +
                                     binding.scheduleAfterTimeFormat.text.toString() + binding.scheduleAfterTimePicker.text.toString()
+
                         val scheduleContent = binding.scheduleContent.text.toString()
 
                         if (name.isNotEmpty()) {
+
                             viewModel.insertSchedule(
                                 Schedule(
-                                    name,
-                                    address,
-                                    scheduleDateBefore,
-                                    scheduleDateAfter,
-                                    scheduleContent
+                                    scheduleName = name,
+                                    scheduleDateBefore = scheduleDateBefore,
+                                    scheduleDateAfter = scheduleDateAfter,
+                                    scheduleAddress = address,
+                                    scheduleContent = scheduleContent
                                 )
                             )
+
+                        } else {
+                            Log.e("edit", "null 발생")
                         }
                     }
                     true
                 }
-//                observerSetup(1) 1에 들어갈 부분에 해당하는 ID 입력하여 해당하는 Schedule에서 update 진행 가능
-                // 이후 분기 나누어서 update, add 나눌 필요 있음
+
             }
         }
 
@@ -163,29 +169,48 @@ class ScheduleUpdateFragment :
     private fun observerSetup(scheduleId: Int) {
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
             if (schedule != null) {
+                with(binding) {
 
-                // adapter 연결 부분 (스케쥴 선택했을 시 나올 부분)
-                /*with(binding){
                     edScheduleName.setText(schedule.scheduleName)
                     edSchedulePlaceName.setText(schedule.scheduleAddress)
+                    Log.e("string",schedule.scheduleDateBefore)
 
-                    scheduleDatePicker.setText(schedule.scheduleDateAfter)
-                    scheduleAfterDatePicker.setText(schedule.scheduleDateAfter)*/
+                    scheduleDatePicker.setText(schedule.scheduleDateBefore.substring(0, 13))
+                    scheduleTimeFormatTv.setText(schedule.scheduleDateBefore.substring(13, 15))
+                    scheduleTimePicker.setText(schedule.scheduleDateBefore.substring(15))
 
-                    binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
-                    if (item.itemId == R.id.menu_update) {
-                        schedule.scheduleName = binding.edScheduleName.text.toString().trim()
-                        schedule.scheduleAddress =
-                            binding.edSchedulePlaceName.text.toString().trim()
+                    scheduleAfterDatePicker.setText(schedule.scheduleDateAfter.substring(0, 13))
+                    scheduleAfterTimeFormat.setText(schedule.scheduleDateAfter.substring(13, 15))
+                    scheduleAfterTimePicker.setText(schedule.scheduleDateAfter.substring(15))
 
-                        viewModel.updateSchedule(schedule)
+                    scheduleContent.setText(schedule.scheduleContent)
+
+                    tbScheduleUpdate.setOnMenuItemClickListener { item ->
+                        if (item.itemId == R.id.menu_update) {
+                            schedule.scheduleName = binding.edScheduleName.text.toString().trim()
+                            schedule.scheduleAddress =
+                                binding.edSchedulePlaceName.text.toString().trim()
+                            schedule.scheduleDateBefore =
+                                binding.scheduleDatePicker.text.toString().trim() +
+                                        binding.scheduleTimeFormatTv.text.toString().trim() +
+                                        binding.scheduleTimePicker.text.toString().trim()
+
+                            schedule.scheduleDateAfter =
+                                binding.scheduleAfterDatePicker.text.toString().trim() +
+                                        binding.scheduleAfterTimeFormat.text.toString().trim() +
+                                        binding.scheduleAfterTimePicker.text.toString().trim()
+
+                            schedule.scheduleContent = binding.scheduleContent.text.toString().trim()
+
+                            viewModel.updateSchedule(schedule)
+                        }
+                        true
+
                     }
-                    true
 
                 }
 
-            }
-            else{
+            } else {
                 Log.e("Fragment", "No schedule found with id $scheduleId")
             }
         }
@@ -193,69 +218,67 @@ class ScheduleUpdateFragment :
     }
 
 
-
-
-private fun showDateTimePicker(
-    dateTextView: TextView,
-    timeTextView: TextView,
-    amPmTextView: TextView
-) {
-    val datePicker =
-        MaterialDatePicker.Builder.datePicker()
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .build()
-
-    datePicker.addOnPositiveButtonClickListener { selectedDateValue ->
-        val selectDate = Calendar.getInstance()
-        selectDate.timeInMillis = selectedDateValue
-
-        val timePicker =
-            MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
+    private fun showDateTimePicker(
+        dateTextView: TextView,
+        timeTextView: TextView,
+        amPmTextView: TextView
+    ) {
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
 
-        timePicker.addOnPositiveButtonClickListener {
-            val hour = timePicker.hour
-            val minute = timePicker.minute
+        datePicker.addOnPositiveButtonClickListener { selectedDateValue ->
+            val selectDate = Calendar.getInstance()
+            selectDate.timeInMillis = selectedDateValue
 
-            selectDate.set(Calendar.HOUR_OF_DAY, hour)
-            selectDate.set(Calendar.MINUTE, minute)
+            val timePicker =
+                MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .build()
 
-            dateTextView.text =
-                SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(selectDate.time)
-            timeTextView.text =
-                String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
+            timePicker.addOnPositiveButtonClickListener {
+                val hour = timePicker.hour
+                val minute = timePicker.minute
 
-            amPmTextView.text = if (hour < 12) "오전" else "오후"
+                selectDate.set(Calendar.HOUR_OF_DAY, hour)
+                selectDate.set(Calendar.MINUTE, minute)
+
+                dateTextView.text =
+                    SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(selectDate.time)
+                timeTextView.text =
+                    String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
+
+                amPmTextView.text = if (hour < 12) "오전" else "오후"
+            }
+            timePicker.show(childFragmentManager, "time_picker_tag")
         }
-        timePicker.show(childFragmentManager, "time_picker_tag")
+        datePicker.show(childFragmentManager, "time_picker_tag")
+
+
     }
-    datePicker.show(childFragmentManager, "time_picker_tag")
 
+    private fun addArtistChip() {
+        var chipName = "이종윤"
 
-}
+        /*        binding.chipGroup.removeView(binding.addChip)
 
-private fun addArtistChip() {
-    var chipName = "이종윤"
+                binding.chipGroup.addView(Chip(context).apply {
+                    chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_android_24)
+                    text = chipName
+                    isCloseIconVisible = true
+                    setOnCloseIconClickListener{binding.chipGroup.removeView(this)}
+                })
 
-    /*        binding.chipGroup.removeView(binding.addChip)
+                binding.chipGroup.addView(binding.addChip)*/
 
-            binding.chipGroup.addView(Chip(context).apply {
-                chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_android_24)
-                text = chipName
-                isCloseIconVisible = true
-                setOnCloseIconClickListener{binding.chipGroup.removeView(this)}
-            })
+        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentArtist()
+        findNavController().navigate(action)
 
-            binding.chipGroup.addView(binding.addChip)*/
+    }
 
-    val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentArtist()
-    findNavController().navigate(action)
-
-}
-
-override fun onDestroyView() {
-    super.onDestroyView()
-    compositeDisposable.clear()
-}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        compositeDisposable.clear()
+    }
 }
