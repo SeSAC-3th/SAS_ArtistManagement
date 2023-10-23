@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
+import com.sas.companymanagement.ui.artist.select.ArtistSelectFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
@@ -33,9 +34,13 @@ class ArtistAdapter(
         var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
     }
 
+    private var selectedSet : MutableSet<Long> = mutableSetOf()
+    lateinit var parent: ViewGroup
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_grid_layout, parent, false)
+        this.parent = parent
         return ItemHolder(itemHolder)
     }
 
@@ -46,8 +51,11 @@ class ArtistAdapter(
         val artistData: Artist = arrayList[position]
 //        holder.images.setImageResource(artist.artistImage!!)
         holder.names.text = artistData.artistName
-
-        artistClickEvent(holder.images, artistData)
+        if (parent.id == R.id.rv_artist_select ){
+            artistSelectClickEvent(holder.images,artistData)
+        }else {
+            artistClickEvent(holder.images, artistData)
+        }
     }
 
     private fun artistClickEvent(view: View, artist: Artist) {
@@ -59,6 +67,20 @@ class ArtistAdapter(
                     ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
                 findNavController(fragment).navigate(action)
             }
+    }
+
+    private fun artistSelectClickEvent(view: View , artist: Artist){
+        view.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                selectedSet.add(artist.id)
+                selectedSet.forEach {
+                }
+            }
+    }
+
+    fun getSelectedId(): List<Long> {
+        return selectedSet.toList()
     }
 
     @SuppressLint("NotifyDataSetChanged")

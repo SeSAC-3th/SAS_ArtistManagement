@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -19,6 +20,7 @@ import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.artist.detail.ArtistDetailViewModel
+import com.sas.companymanagement.ui.artist.select.ArtistSelectFragmentArgs
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -48,11 +50,17 @@ class ScheduleUpdateFragment :
     private val compositeDisposable = CompositeDisposable()
     private val defaultScope = CoroutineScope(Dispatchers.Default)
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+    }
+
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ScheduleUpdateViewModel::class.java)
+
 
         with(binding.tbScheduleUpdate) {
             title = "스케쥴 추가"
@@ -226,7 +234,7 @@ class ScheduleUpdateFragment :
 
                 binding.chipGroup.addView(binding.addChip)*/
 
-        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentArtist()
+        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToArtistSelectFragment("schedule")
         findNavController().navigate(action)
 
     }

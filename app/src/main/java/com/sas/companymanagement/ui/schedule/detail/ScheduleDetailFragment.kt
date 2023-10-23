@@ -52,7 +52,7 @@ class ScheduleDetailFragment :
                 if (item.itemId == R.id.update) {
                     val action =
                         ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment(
-                            0
+                            longArrayOf()
                         )
                     findNavController().navigate(action)
                 }

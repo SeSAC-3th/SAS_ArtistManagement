@@ -148,7 +148,7 @@ class GroupUpdateFragment :
         })
         binding.cgArtistUpdate.addView(binding.cAdd)
         */
-        val action = GroupUpdateFragmentDirections.actionGroupUpdateFragmentToFragmentArtist()
+        val action = GroupUpdateFragmentDirections.actionGroupUpdateFragmentToArtistSelectFragment("group")
         findNavController().navigate(action)
 
     }
