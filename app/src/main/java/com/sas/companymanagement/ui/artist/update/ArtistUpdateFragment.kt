@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -215,7 +216,7 @@ class ArtistUpdateFragment :
 
     /**
      * Update set
-     * 기존의 정보를 수정한 값을 field 에 저장
+     * 입력값(수정값)을 field 에 저장
      */
     private fun updateSet() {
         with(binding) {
@@ -295,12 +296,11 @@ class ArtistUpdateFragment :
         }
     }
 
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                imageUri = it.data?.data                //uri 가져옴
-                binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
-            }
+private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK){
+            imageUri = it.data?.data                //uri 가져옴
+            binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
+            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
         }
 
     override fun onDestroyView() {

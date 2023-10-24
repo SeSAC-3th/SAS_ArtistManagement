@@ -57,7 +57,7 @@
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/textLight"
-        app:tabTextAppearance="@style/subTitle"
+        app:tabTextAppearance="@style/tabText"
         app:tabTextColor="@color/textPrimary">
 
         <com.google.android.material.tabs.TabItem

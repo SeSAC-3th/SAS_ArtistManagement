@@ -1,6 +1,7 @@
 package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.content.Context
 import android.net.Uri
 import android.util.Log
@@ -29,9 +30,6 @@ class ArtistAdapter(
     private var fragment: Fragment
 ) :
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
-
-//    private var checkFragment = fragment.childFragmentManager.fragments[0] is ArtistFragment
-
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
         var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
@@ -55,9 +53,9 @@ class ArtistAdapter(
         val artistData: Artist = arrayList[position]
         holder.images.setImageURI(Uri.parse(artistData.artistImage))
         holder.names.text = artistData.artistName
-        if (parent.id == R.id.rv_artist_select) {
-            artistSelectClickEvent(holder.images, artistData)
-        } else {
+        if (parent.id == R.id.rv_artist_select ){
+            artistSelectClickEvent(holder,artistData)
+        }else {
             artistClickEvent(holder.images, artistData)
         }
     }
@@ -81,14 +79,21 @@ class ArtistAdapter(
         }
     }
 
-    private fun artistSelectClickEvent(view: View, artist: Artist) {
-        with(view) {
-            clicks()
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe {
+    private fun artistSelectClickEvent(holder: ItemHolder , artist: Artist){
+        holder.itemView.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                if (artist.id in selectedSet){
+                    selectedSet.remove(artist.id)
+                    holder.names.setTextColor(Color.BLACK)
+                }else{
                     selectedSet.add(artist.id)
+                    holder.names.setTextColor(Color.RED)
                 }
-        }
+                selectedSet.forEach {
+                    Log.e("selectID",it.toString())
+                }
+            }
     }
 
     fun getSelectedId(): LongArray {
