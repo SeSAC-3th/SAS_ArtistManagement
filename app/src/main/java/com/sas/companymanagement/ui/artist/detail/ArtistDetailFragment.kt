@@ -77,11 +77,16 @@ class ArtistDetailFragment :
     private fun fieldSetup() {
         val id = artistArgs.artistId
         viewModel.findArtist(id)
-        viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
-            val artist = result[0]
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { artists ->
+            artists.forEach{
+                Log.e("artistInfo", "$it")
+            }
+            val artist = artists[0]
+            Log.e("artistInfo", "$artist")
             with(binding) {
                 tvArtistNameLayout.text = artist.artistName
                 tvArtistNicknameLayout.text = artist.artistNickname
+                Log.e("artistInfo", "detail : ${artist.artistImage}")
                 iv.setImageURI(Uri.parse(artist.artistImage))
                 tvArtistBirthLayout.text = dateToString(artist.artistBirth)
                 tvArtistJobLayout.text = artist.artistCategory

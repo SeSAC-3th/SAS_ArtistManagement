@@ -65,7 +65,7 @@ class ArtistUpdateFragment :
     private var imageUri: Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (artistArgs.artistId != -1) getField()
+        if (artistArgs.artistId != -1L) getField()
         listenerSetup()
     }
 
@@ -77,6 +77,7 @@ class ArtistUpdateFragment :
     private fun getField() {
         viewModel.findArtist(artistArgs.artistId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { artists ->
+            Log.e("artistInfo", "update $artists")
             val artistData = artists[0]
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
@@ -172,11 +173,15 @@ class ArtistUpdateFragment :
             }
 
             listenerField()
+            Log.e("artistInfo", "1 $imageSrc")
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
                     updateSet()
+                    Log.e("artistInfo", "2 $imageSrc")
                     if (requireUpdate()) {
-                        if (artistArgs.artistId != -1) {
+                        Log.e("artistInfo", "3 $imageSrc ${artistArgs.artistId}")
+                        if (artistArgs.artistId != -1L) {
+                            Log.e("artistInfo", "4 $imageSrc")
                             viewModel.updateArtist(
                                 // Edit
                                 Artist(
@@ -192,7 +197,8 @@ class ArtistUpdateFragment :
 
                         } else {
                             // Insert, insert인 경우 image는 file로 저장해야 함
-                            saveImage()
+                            val newFile = File(imageSrc)
+                            imageToFile(requireActivity(), imageUri!!, newFile)
                             viewModel.insertArtist(
                                 Artist(
                                     artistName = name,
@@ -227,6 +233,7 @@ class ArtistUpdateFragment :
                 R.id.radioButtonFemale -> ArtistGender.FEMALE.gender
                 else -> ArtistGender.MALE.gender
             }
+            saveImage()
         }
     }
 
@@ -273,8 +280,6 @@ class ArtistUpdateFragment :
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
         val imageName = System.currentTimeMillis().toString()
         imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
-        val newFile = File(imageSrc)
-        imageToFile(requireActivity(), imageUri!!, newFile)
     }
 
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
@@ -296,11 +301,14 @@ class ArtistUpdateFragment :
         }
     }
 
-private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == Activity.RESULT_OK){
-            imageUri = it.data?.data                //uri 가져옴
-            binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
-            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                imageUri = it.data?.data                //uri 가져옴
+                binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
+                binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+            }
         }
 
     override fun onDestroyView() {

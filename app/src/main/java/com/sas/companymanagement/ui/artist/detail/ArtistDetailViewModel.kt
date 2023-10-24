@@ -12,14 +12,14 @@ import com.sas.companymanagement.ui.artist.db.ArtistRepository
 class ArtistDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ArtistRepository = ArtistRepository(application)
     private val searchResults: MutableLiveData<List<Artist>> = repository.searchResults
-    fun findArtist(id: Int) {
+    fun findArtist(id: Long) {
         repository.findArtist(id)
     }
     fun getSearchResults(): MutableLiveData<List<Artist>> {
         return searchResults
     }
 
-    fun deleteArtist(id: Int) {
+    fun deleteArtist(id: Long) {
         repository.deleteArtist(id)
     }
 }

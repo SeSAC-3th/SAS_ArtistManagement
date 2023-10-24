@@ -19,7 +19,7 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     fun insertArtist(artist: Artist) {
         repository.insertArtist(artist)
     }
-    fun findArtist(id: Int) {
+    fun findArtist(id: Long) {
         repository.findArtist(id)
     }
 
