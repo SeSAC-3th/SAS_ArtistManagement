@@ -13,6 +13,14 @@ class ScheduleUpdateViewModel(application: Application) : AndroidViewModel(appli
     private val allSchedule : LiveData<List<Schedule>>? = repository.allSchedules
     private val searchResults : MutableLiveData<List<Schedule>> = repository.searchResults
 
+    var scheduleDate: String = "00년 00월 00일"
+    var scheduleTime: String = "00:00"
+    var scheduleAmPm: String = "오전"
+
+    var scheduleAfterDate: String = "00년 00월 00일"
+    var scheduleAfterTime: String = "00:00"
+    var scheduleAfterAmPm: String = "오전"
+
     fun insertSchedule(schedule: Schedule){
         repository.insertSchedule(schedule)
     }
