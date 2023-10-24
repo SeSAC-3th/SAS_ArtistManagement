@@ -58,4 +58,8 @@ class ArtistRepository(application: Application) {
             }.await()
         }
     }
+
+    fun findArtistById(id: Int): LiveData<Artist> {
+        return artistDao.findArtistById(id)
+    }
 }

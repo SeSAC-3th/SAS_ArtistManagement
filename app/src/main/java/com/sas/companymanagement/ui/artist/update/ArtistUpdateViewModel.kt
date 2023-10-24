@@ -32,4 +32,7 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     fun getAllArtists(): LiveData<List<Artist>>? {
         return allArtists
     }
+    fun findArtistById(id: Int): LiveData<Artist> {
+        return repository.findArtistById(id)
+    }
 }
