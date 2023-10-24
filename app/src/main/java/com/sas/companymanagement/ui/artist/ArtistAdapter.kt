@@ -69,16 +69,16 @@ class ArtistAdapter(
                     artist.id.toInt()
                 )
             else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id.toInt())
-//        view.setOnClickListener {
-//            findNavController(fragment).navigate(action)
-//        }
-        view.clicks()
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                findNavController(fragment).navigate(
-                    action
-                )
-            }
+        with(view) {
+            clicks()
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    findNavController(fragment).navigate(
+                        action
+                    )
+                }
+
+        }
     }
 
     private fun artistSelectClickEvent(view: View, artist: Artist) {
