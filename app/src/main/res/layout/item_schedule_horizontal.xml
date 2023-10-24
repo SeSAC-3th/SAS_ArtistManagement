@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/schedule_date"
+        android:id="@+id/tv_schedule_date"
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/schedule_name"
+        android:id="@+id/tv_schedule_name"
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

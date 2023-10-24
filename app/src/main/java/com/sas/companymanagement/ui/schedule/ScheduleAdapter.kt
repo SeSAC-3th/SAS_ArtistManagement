@@ -28,14 +28,7 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-
         var schedule: Schedule = arrayList.get(position)
-
-//
-//        Log.e("position", "${position}")
-//        Log.e("arrayList", "${arrayList.get(0)}")
-//        Log.e("size", "${getItemCount()}")
-//        Log.e("name", "${schedule.scheduleName}")
 
         holder.scheduleNames.text = schedule.scheduleName
 
@@ -52,7 +45,7 @@ class ScheduleAdapter(var context: Context, var arrayList: MutableList<Schedule>
     @SuppressLint("NotifyDataSetChanged")
     fun setScheduleList(schedules: List<Schedule>) {
         arrayList = schedules.toMutableList()
-        notifyDataSetChanged()
 
+        notifyDataSetChanged()
     }
 }
