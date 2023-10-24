@@ -29,11 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        if (sharedPref.getBoolean("autoLogin",false)){
-            setupJetpackNavigation()
-        }else{
-
-        }
+        setupJetpackNavigation()
 
 
     }
