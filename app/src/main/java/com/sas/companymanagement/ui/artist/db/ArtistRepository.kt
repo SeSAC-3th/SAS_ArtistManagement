@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ArtistRepository(application: Application) {
-    var searchResults = MutableLiveData<List<Artist>>()
+    var searchResults = MutableLiveData<Artist>()
     private var categoryResults = MutableLiveData<List<Artist>>()
     private var artistDao: ArtistDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)

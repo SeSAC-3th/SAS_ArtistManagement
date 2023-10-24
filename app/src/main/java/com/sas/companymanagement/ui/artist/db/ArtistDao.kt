@@ -14,7 +14,7 @@ interface ArtistDao {
     fun insertArtist(artist: Artist)
 
     @Query("SELECT * FROM artist_tbl WHERE id = :id")
-    fun findArtist(id: Long): List<Artist>
+    fun findArtist(id: Long): Artist
 
     @Update
     fun updateArtist(vararg artists: Artist)
