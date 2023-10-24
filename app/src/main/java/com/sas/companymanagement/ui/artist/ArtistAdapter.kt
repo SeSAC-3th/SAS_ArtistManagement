@@ -19,6 +19,7 @@ import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.ui.MainActivity
+import com.sas.companymanagement.ui.main.MainFragmentDirections
 import com.sas.companymanagement.ui.schedule.Schedule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
@@ -57,15 +58,22 @@ class ArtistAdapter(
     }
 
     private fun artistClickEvent(view: View, artist: Artist) {
-        view.clicks()
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                Log.e("artistInfo", "viewId : ${artist.id}")
-                val action =
-                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
-
-                findNavController(fragment).navigate(action)
-            }
+        val action =
+            if (fragment.childFragmentManager.fragments[0] is ArtistFragment) ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
+                artist.id.toInt()
+            )
+            else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id.toInt())
+        view.setOnClickListener {
+            findNavController(fragment).navigate(action)
+        }
+//        view.clicks()
+//            .throttleFirst(500, TimeUnit.MILLISECONDS)
+//            .subscribe {
+//                val action =
+//                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
+//
+//                findNavController(fragment).navigate(action)
+//            }
     }
 
     @SuppressLint("NotifyDataSetChanged")

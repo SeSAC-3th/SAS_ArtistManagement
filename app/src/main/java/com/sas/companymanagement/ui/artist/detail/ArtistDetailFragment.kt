@@ -15,6 +15,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -32,6 +33,7 @@ import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 
 class ArtistDetailFragment :
     ViewBindingBaseFragment<FragmentArtistDetailBinding>(FragmentArtistDetailBinding::inflate) {
@@ -42,6 +44,8 @@ class ArtistDetailFragment :
 
     private val viewModel: ArtistDetailViewModel by viewModels()
     private val artistArgs: ArtistDetailFragmentArgs by navArgs()
+    private var scheduleRecyclerView: RecyclerView? = null
+    private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,15 +57,21 @@ class ArtistDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        scheduleSetup()
         fieldSetup()
         setPieChart()
         listenerSetup()
     }
 
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
+    private fun scheduleSetup() {
+        with(binding) {
+            scheduleRecyclerView = rvSchedule
+            scheduleAdapter = ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
+            scheduleRecyclerView?.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            scheduleRecyclerView?.setHasFixedSize(true)
+            scheduleRecyclerView?.adapter = scheduleAdapter
+        }
     }
 
     private fun fieldSetup() {
@@ -122,7 +132,7 @@ class ArtistDetailFragment :
                 androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = ScheduleAdapter(this.context, scheduleData())
+//            adapter = ScheduleAdapter(this.context, scheduleData())
         }
     }
 

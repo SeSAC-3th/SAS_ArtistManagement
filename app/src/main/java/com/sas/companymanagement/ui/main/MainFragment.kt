@@ -22,6 +22,7 @@ import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 import java.util.ArrayList
 
 class MainFragment :
@@ -34,6 +35,9 @@ class MainFragment :
     private var singerRecyclerView: RecyclerView? = null
     private var actorRecyclerView: RecyclerView? = null
     private var talentRecyclerView: RecyclerView? = null
+
+    private var scheduleRecyclerView: RecyclerView? = null
+    private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,19 +53,28 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            scheduleRecyclerView = rvSchedule
+            scheduleAdapter = ScheduleHorizontalAdapter(ArrayList(), requireParentFragment())
+            scheduleRecyclerView?.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            scheduleRecyclerView?.setHasFixedSize(true)
+            scheduleRecyclerView?.adapter = scheduleAdapter
+
             singerRecyclerView = rvSinger
             singerAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
-            createByCategory(singerRecyclerView!!, singerAdapter)
+            setRecyclerView(singerRecyclerView!!, singerAdapter)
 
             actorRecyclerView = rvActor
             actorAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
-            createByCategory(actorRecyclerView!!, actorAdapter)
+            setRecyclerView(actorRecyclerView!!, actorAdapter)
 
             talentRecyclerView = rvTalent
             talentAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
-            createByCategory(talentRecyclerView!!, talentAdapter)
+            setRecyclerView(talentRecyclerView!!, talentAdapter)
 
-
+            viewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
+                scheduleAdapter.setScheduleList(schedules)
+            }
             viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
                 val singers = arrayListOf<Artist>()
                 val talents = arrayListOf<Artist>()
@@ -80,18 +93,11 @@ class MainFragment :
         }
     }
 
-    private fun createByCategory(recyclerView: RecyclerView, adapter: ArtistAdapter) {
+    private fun setRecyclerView(recyclerView: RecyclerView, adapter: ArtistAdapter) {
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-    }
-
-
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
     }
 
 

@@ -17,6 +17,7 @@ import com.sas.companymanagement.ui.artist.ArtistAdapter
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 
 
 class GroupDetailFragment :
@@ -38,7 +39,7 @@ class GroupDetailFragment :
         with(binding.rvSchedule) {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 //            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = ScheduleAdapter(this.context, scheduleData())
+            adapter = ScheduleHorizontalAdapter(scheduleData(), this@GroupDetailFragment)
         }
 
         with(binding.rvArtist) {
