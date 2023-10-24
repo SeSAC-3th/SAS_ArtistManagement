@@ -1,9 +1,12 @@
 package com.sas.companymanagement.ui
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.sas.companymanagement.R
@@ -25,8 +28,13 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         setContentView(binding.root)
 
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        if (sharedPref.getBoolean("autoLogin",false)){
+            setupJetpackNavigation()
+        }else{
 
-        setupJetpackNavigation()
+        }
+
 
     }
 
@@ -36,5 +44,4 @@ class MainActivity : AppCompatActivity() {
         navController = host.navController
         binding.bottomNavigationView.setupWithNavController(navController)
     }
-
 }
