@@ -1,6 +1,7 @@
 package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,7 @@ class ArtistAdapter(
 //        holder.images.setImageResource(artist.artistImage!!)
         holder.names.text = artistData.artistName
         if (parent.id == R.id.rv_artist_select ){
-            artistSelectClickEvent(holder.images,artistData)
+            artistSelectClickEvent(holder,artistData)
         }else {
             artistClickEvent(holder.images, artistData)
         }
@@ -60,11 +61,20 @@ class ArtistAdapter(
             }
     }
 
-    private fun artistSelectClickEvent(view: View , artist: Artist){
-        view.clicks()
+    private fun artistSelectClickEvent(holder: ItemHolder , artist: Artist){
+        holder.itemView.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                selectedSet.add(artist.id)
+                if (artist.id in selectedSet){
+                    selectedSet.remove(artist.id)
+                    holder.names.setTextColor(Color.BLACK)
+                }else{
+                    selectedSet.add(artist.id)
+                    holder.names.setTextColor(Color.RED)
+                }
+                selectedSet.forEach {
+                    Log.e("selectID",it.toString())
+                }
             }
     }
 
