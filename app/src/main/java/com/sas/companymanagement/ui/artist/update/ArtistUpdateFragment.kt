@@ -14,20 +14,17 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.get
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.jakewharton.rxbinding4.view.clicks
-import com.jakewharton.rxbinding4.widget.checked
-import com.jakewharton.rxbinding4.widget.itemSelections
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistGender
-import com.sas.companymanagement.ui.artist.detail.ArtistDetailFragmentArgs
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -38,7 +35,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -65,7 +61,7 @@ class ArtistUpdateFragment :
     private var imageUri: Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (artistArgs.artistId != -1) getField()
+        if (artistArgs.artistId != -1L) getField()
         listenerSetup()
     }
 
@@ -76,26 +72,26 @@ class ArtistUpdateFragment :
      */
     private fun getField() {
         viewModel.findArtist(artistArgs.artistId)
-        viewModel.getSearchResults().observe(viewLifecycleOwner) { artists ->
-            val artistData = artists[0]
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { artist ->
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
-                    teArtistName.setText(artistData.artistName)
-                    teArtistNickname.setText(artistData.artistNickname)
-                    tvArtistBirth.setText(artistData.artistBirth)
-                    ibArtist.setImageURI(Uri.parse(artistData.artistImage))
-                    val checkId = when (artistData.artistGender) {
+                    teArtistName.setText(artist.artistName)
+                    teArtistNickname.setText(artist.artistNickname)
+                    tvArtistBirth.setText(artist.artistBirth)
+                    ibArtist.setImageURI(Uri.parse(artist.artistImage))
+                    val checkId = when (artist.artistGender) {
                         ArtistGender.FEMALE.gender -> R.id.radioButtonFemale
                         else -> R.id.radioButtonMale
                     }
                     rgArtistGender.check(checkId)
                     for (position in ArtistCategory.entries.indices) {
                         if (spArtistJob.getItemAtPosition(position)
-                                .toString() == artistData.artistCategory
+                                .toString() == artist.artistCategory
                         ) spArtistJob.setSelection(position)
                     }
-                    imageSrc = artistData.artistImage
-                    id = artistData.id
+                    imageSrc = artist.artistImage
+                    imageUri = artist.artistImage.toUri()
+                    id = artist.id
                 }
             }
         }
@@ -176,7 +172,9 @@ class ArtistUpdateFragment :
                 if (item.itemId == R.id.menu_update) {
                     updateSet()
                     if (requireUpdate()) {
-                        if (artistArgs.artistId != -1) {
+                        if (artistArgs.artistId != -1L) {
+                            val newFile = File(imageSrc)
+                            imageToFile(requireActivity(), imageUri!!, newFile)
                             viewModel.updateArtist(
                                 // Edit
                                 Artist(
@@ -235,7 +233,6 @@ class ArtistUpdateFragment :
      * 한 값이라도 공백일이면 추가 안됨
      * @return
      */
-
     private fun requireUpdate(): Boolean {
         with(binding) {
             if (teArtistName.text.toString() == "" ||
@@ -296,11 +293,14 @@ class ArtistUpdateFragment :
         }
     }
 
-private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == Activity.RESULT_OK){
-            imageUri = it.data?.data                //uri 가져옴
-            binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
-            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                imageUri = it.data?.data                //uri 가져옴
+                binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
+                binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+            }
         }
 
     override fun onDestroyView() {
