@@ -52,7 +52,11 @@
     <fragment
         android:id="@+id/fragment_setting"
         android:name="com.sas.companymanagement.ui.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_fragment_setting_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/artistDetailFragment"
         android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"

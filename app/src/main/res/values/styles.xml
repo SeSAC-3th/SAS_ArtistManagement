@@ -22,4 +22,9 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
+    <style name="tabText" parent="Widget.Material3.TabLayout">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
 </resources>
