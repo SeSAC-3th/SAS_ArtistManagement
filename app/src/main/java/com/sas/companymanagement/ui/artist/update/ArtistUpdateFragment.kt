@@ -296,12 +296,13 @@ class ArtistUpdateFragment :
         }
     }
 
-private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == Activity.RESULT_OK){
-            imageUri = it.data?.data                //uri 가져옴
-            binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
-            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
-        }
+private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    if (it.resultCode == Activity.RESULT_OK) {
+        imageUri = it.data?.data                //uri 가져옴
+        binding.ibArtist.setImageURI(imageUri) //그 uri 셋팅
+        binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+    }
+}
 
     override fun onDestroyView() {
         super.onDestroyView()
