@@ -58,4 +58,10 @@ class ArtistRepository(application: Application) {
             }.await()
         }
     }
+
+    fun updateUser(artist : Artist){
+        coroutineScope.launch(Dispatchers.IO) {
+            artistDao.updateArtist(artist)
+        }
+    }
 }

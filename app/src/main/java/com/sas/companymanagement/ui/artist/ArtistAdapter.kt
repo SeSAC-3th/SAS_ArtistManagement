@@ -37,7 +37,7 @@ class ArtistAdapter(
         var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
     }
 
-    private var selectedSet : MutableSet<Long> = mutableSetOf()
+    private var selectedSet: MutableSet<Long> = mutableSetOf()
     lateinit var parent: ViewGroup
 
 
@@ -55,9 +55,9 @@ class ArtistAdapter(
         val artistData: Artist = arrayList[position]
         holder.images.setImageURI(Uri.parse(artistData.artistImage))
         holder.names.text = artistData.artistName
-        if (parent.id == R.id.rv_artist_select ){
-            artistSelectClickEvent(holder.images,artistData)
-        }else {
+        if (parent.id == R.id.rv_artist_select) {
+            artistSelectClickEvent(holder.images, artistData)
+        } else {
             artistClickEvent(holder.images, artistData)
         }
     }
@@ -81,12 +81,14 @@ class ArtistAdapter(
 //            }
     }
 
-    private fun artistSelectClickEvent(view: View , artist: Artist){
-        view.clicks()
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                selectedSet.add(artist.id)
-            }
+    private fun artistSelectClickEvent(view: View, artist: Artist) {
+        with(view) {
+            clicks()
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    selectedSet.add(artist.id)
+                }
+        }
     }
 
     fun getSelectedId(): LongArray {

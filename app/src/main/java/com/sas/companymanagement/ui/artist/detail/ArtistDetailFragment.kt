@@ -101,7 +101,7 @@ class ArtistDetailFragment :
                     R.id.update -> {
                         findNavController().navigate(
                             ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(
-                                0
+                                artistArgs.artistId
                             )
                         )
                     }
