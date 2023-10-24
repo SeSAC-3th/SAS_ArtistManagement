@@ -30,15 +30,12 @@ class ArtistAdapter(
     private var fragment: Fragment
 ) :
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
-
-//    private var checkFragment = fragment.childFragmentManager.fragments[0] is ArtistFragment
-
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
         var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
     }
 
-    private var selectedSet : MutableSet<Long> = mutableSetOf()
+    private var selectedSet: MutableSet<Long> = mutableSetOf()
     lateinit var parent: ViewGroup
 
 
@@ -65,21 +62,21 @@ class ArtistAdapter(
 
     private fun artistClickEvent(view: View, artist: Artist) {
         val action =
-            if (fragment.childFragmentManager.fragments[0] is ArtistFragment) ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
-                artist.id.toInt()
-            )
+            if (fragment.childFragmentManager.fragments[0] is ArtistFragment)
+                ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
+                    artist.id.toInt()
+                )
             else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id.toInt())
-        view.setOnClickListener {
-            findNavController(fragment).navigate(action)
+        with(view) {
+            clicks()
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    findNavController(fragment).navigate(
+                        action
+                    )
+                }
+
         }
-//        view.clicks()
-//            .throttleFirst(500, TimeUnit.MILLISECONDS)
-//            .subscribe {
-//                val action =
-//                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
-//
-//                findNavController(fragment).navigate(action)
-//            }
     }
 
     private fun artistSelectClickEvent(holder: ItemHolder , artist: Artist){

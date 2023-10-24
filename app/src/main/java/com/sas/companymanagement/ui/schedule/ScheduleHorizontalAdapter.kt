@@ -15,7 +15,9 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
+import java.lang.Integer.max
 import java.util.concurrent.TimeUnit
+import kotlin.math.min
 
 class ScheduleHorizontalAdapter(
     private var arrayList: MutableList<Schedule>,
@@ -23,8 +25,8 @@ class ScheduleHorizontalAdapter(
 ) :
     RecyclerView.Adapter<ScheduleHorizontalAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var scheduleNames = itemView.findViewById<TextView>(R.id.tv_schedule_name)
-        var scheduleDates = itemView.findViewById<TextView>(R.id.tv_schedule_date)
+        var scheduleNames: TextView = itemView.findViewById(R.id.tv_schedule_name)
+        var scheduleDates: TextView = itemView.findViewById(R.id.tv_schedule_date)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -46,18 +48,21 @@ class ScheduleHorizontalAdapter(
     }
 
     private fun scheduleClickEvent(view: View, schedule: Schedule) {
-        view.clicks()
-            .throttleFirst(500, TimeUnit.MILLISECONDS)
-            .subscribe {
-                val action =
-                    MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id.toInt())
-                NavHostFragment.findNavController(fragment).navigate(action)
-            }
+        with(view) {
+            clicks()
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    val action =
+                        MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id.toInt())
+                    NavHostFragment.findNavController(fragment).navigate(action)
+                }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setScheduleList(schedules: List<Schedule>) {
-        arrayList = schedules.toMutableList().subList(0, 3)
+        val maxSize = min(schedules.size, 3)
+        arrayList = schedules.toMutableList().subList(0, maxSize)
         notifyDataSetChanged()
     }
 }

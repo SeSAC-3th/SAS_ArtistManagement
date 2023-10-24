@@ -11,25 +11,23 @@ import com.sas.companymanagement.ui.artist.db.ArtistRepository
 
 class ArtistUpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ArtistRepository = ArtistRepository(application)
-    private val allArtists: LiveData<List<Artist>>? = repository.allArtists
     private val searchResults: MutableLiveData<List<Artist>> = repository.searchResults
+
+    init {
+
+    }
     fun insertArtist(artist: Artist) {
         repository.insertArtist(artist)
     }
     fun findArtist(id: Int) {
         repository.findArtist(id)
     }
-    fun deleteArtist(id: Int) {
-        repository.deleteArtist(id)
-    }
+
     fun getSearchResults(): MutableLiveData<List<Artist>> {
         return searchResults
     }
 
-    fun findArtistByCategory(category: String) {
-        repository.findArtistByCategory(category)
-    }
-    fun getAllArtists(): LiveData<List<Artist>>? {
-        return allArtists
+    fun updateArtist(artist: Artist) {
+        repository.updateUser(artist)
     }
 }
