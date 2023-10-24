@@ -57,7 +57,8 @@ class ArtistDetailFragment :
     private fun scheduleSetup() {
         with(binding) {
             scheduleRecyclerView = rvSchedule
-            scheduleAdapter = ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
+            scheduleAdapter =
+                ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
             scheduleRecyclerView?.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             scheduleRecyclerView?.setHasFixedSize(true)
@@ -114,15 +115,6 @@ class ArtistDetailFragment :
                 }
                 true
             }
-        }
-
-        with(binding.rvSchedule) {
-            layoutManager = LinearLayoutManager(
-                this.context,
-                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
-                false
-            )
-//            adapter = ScheduleAdapter(this.context, scheduleData())
         }
     }
 

@@ -73,7 +73,6 @@ class ArtistUpdateFragment :
     private fun getField() {
         viewModel.findArtist(artistArgs.artistId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { artist ->
-            Log.e("artistInfo", "update $artist")
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teArtistName.setText(artist.artistName)
@@ -92,7 +91,6 @@ class ArtistUpdateFragment :
                     }
                     imageSrc = artist.artistImage
                     imageUri = artist.artistImage.toUri()
-                    Log.e("artistInfo", "3 update getfield uri: $imageUri")
                     id = artist.id
                 }
             }
