@@ -178,6 +178,7 @@ class ArtistUpdateFragment :
                             ArtistCategory.TALENT.job -> ArtistCategory.TALENT.job
                             else -> ArtistCategory.SINGER.job
                         }
+                        Log.e("mainInfo", "${parent!!.getItemAtPosition(position).toString()} category : $category")
                     }
                 }
 

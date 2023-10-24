@@ -3,6 +3,7 @@ package com.sas.companymanagement.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
+import android.net.Uri
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -26,7 +27,6 @@ import kotlin.math.roundToInt
 
 class MainAdapter(
     private var artistList: MutableList<Artist>,
-    private var scheduleList: MutableList<Schedule>,
     private val fragment: Fragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -34,42 +34,21 @@ class MainAdapter(
         var images: ImageView = itemView.findViewById<ImageView>(R.id.iv_artist)
     }
 
-    inner class ScheduleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var names: TextView = itemView.findViewById<TextView>(R.id.schedule_date)
-        var dates: TextView = itemView.findViewById<TextView>(R.id.schedule_name)
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            0 -> {
-                ArtistHolder(
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.item_main_artist,
-                        parent,
-                        false
-                    )
-                )
-            }
-
-            else -> {
-                ScheduleHolder(
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.item_schedule_horizontal,
-                        parent,
-                        false
-                    )
-                )
-            }
-        }
+        return ArtistHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_main_artist,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val artistData = artistList[position]
-//        val scheduleData = scheduleList[position]
 
         if (holder is ArtistHolder) {
-//            holder.images = artistData.artistImage
+            holder.images.setImageURI(Uri.parse(artistData.artistImage))
             artistClickEvent(holder.images, artistData)
         }
     }
@@ -90,16 +69,6 @@ class MainAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setArtistList(artists: List<Artist>) {
         artistList = artists.toMutableList()
-        // 현재 스케쥴 데이터를 가져올 수 없어 임시로 데이터 저장
-        scheduleList = mutableListOf<Schedule>(
-            Schedule(
-                scheduleName = "임시네임",
-                scheduleAddress = "임시주소",
-                scheduleContent = "임시내용",
-                scheduleDateAfter = "임시 before",
-                scheduleDateBefore = "임시 after"
-            )
-        )
         notifyDataSetChanged()
     }
 

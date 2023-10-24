@@ -1,11 +1,13 @@
 package com.sas.companymanagement.ui.artist
 
+import com.sas.companymanagement.ui.common.*
+
 enum class ArtistCategory(val job: String) {
-    ACTOR("배우"),
-    TALENT("탤랜트"),
-    SINGER("가수")
+    ACTOR(JOB_ACTOR),
+    TALENT(JOB_TALENT),
+    SINGER(JOB_SINGER)
 }
 
 enum class ArtistGender(val gender: String) {
-    MALE("남자"), FEMALE("여자")
+    MALE(GENDER_MALE), FEMALE(GENDER_FEMALE)
 }
