@@ -18,6 +18,7 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
+import com.sas.companymanagement.ui.MainActivity
 import com.sas.companymanagement.ui.schedule.Schedule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
@@ -29,6 +30,9 @@ class ArtistAdapter(
     private var fragment: Fragment
 ) :
     RecyclerView.Adapter<ArtistAdapter.ItemHolder>() {
+
+//    private var checkFragment = fragment.childFragmentManager.fragments[0] is ArtistFragment
+
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
         var names: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
@@ -37,6 +41,7 @@ class ArtistAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_grid_layout, parent, false)
+
         return ItemHolder(itemHolder)
     }
 
@@ -58,6 +63,7 @@ class ArtistAdapter(
                 Log.e("artistInfo", "viewId : ${artist.id}")
                 val action =
                     ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
+
                 findNavController(fragment).navigate(action)
             }
     }

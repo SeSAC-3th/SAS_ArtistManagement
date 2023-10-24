@@ -27,9 +27,9 @@ import java.util.ArrayList
 class MainFragment :
     ViewBindingBaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
     private val viewModel: MainViewModel by viewModels()
-    private var singerAdapter = MainAdapter(mutableListOf(), this)
-    private var actorAdapter = MainAdapter(mutableListOf(), this)
-    private var talentAdapter = MainAdapter(mutableListOf(), this)
+    private var singerAdapter = ArtistAdapter(mutableListOf(), this)
+    private var actorAdapter = ArtistAdapter(mutableListOf(), this)
+    private var talentAdapter = ArtistAdapter(mutableListOf(), this)
 
     private var singerRecyclerView: RecyclerView? = null
     private var actorRecyclerView: RecyclerView? = null
@@ -50,15 +50,15 @@ class MainFragment :
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             singerRecyclerView = rvSinger
-            singerAdapter = MainAdapter(ArrayList(), requireParentFragment())
+            singerAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
             createByCategory(singerRecyclerView!!, singerAdapter)
 
             actorRecyclerView = rvActor
-            actorAdapter = MainAdapter(ArrayList(), requireParentFragment())
+            actorAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
             createByCategory(actorRecyclerView!!, actorAdapter)
 
             talentRecyclerView = rvTalent
-            talentAdapter = MainAdapter(ArrayList(), requireParentFragment())
+            talentAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
             createByCategory(talentRecyclerView!!, talentAdapter)
 
 
@@ -80,7 +80,7 @@ class MainFragment :
         }
     }
 
-    private fun createByCategory(recyclerView: RecyclerView, adapter: MainAdapter) {
+    private fun createByCategory(recyclerView: RecyclerView, adapter: ArtistAdapter) {
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.setHasFixedSize(true)
