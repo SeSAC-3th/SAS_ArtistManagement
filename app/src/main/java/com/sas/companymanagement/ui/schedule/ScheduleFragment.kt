@@ -46,7 +46,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
                     .throttleFirst(500, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                       val action = ScheduleFragmentDirections.actionFragmentScheduleToScheduleUpdateFragment(0)
+                       val action = ScheduleFragmentDirections.actionFragmentScheduleToScheduleUpdateFragment()
                         findNavController().navigate(action)
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
