@@ -64,21 +64,21 @@ class ArtistAdapter(
 
     private fun artistClickEvent(view: View, artist: Artist) {
         val action =
-            if (fragment.childFragmentManager.fragments[0] is ArtistFragment) ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
-                artist.id.toInt()
-            )
+            if (fragment.childFragmentManager.fragments[0] is ArtistFragment)
+                ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
+                    artist.id.toInt()
+                )
             else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id.toInt())
-        view.setOnClickListener {
-            findNavController(fragment).navigate(action)
-        }
-//        view.clicks()
-//            .throttleFirst(500, TimeUnit.MILLISECONDS)
-//            .subscribe {
-//                val action =
-//                    ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(artist.id.toInt())
-//
-//                findNavController(fragment).navigate(action)
-//            }
+//        view.setOnClickListener {
+//            findNavController(fragment).navigate(action)
+//        }
+        view.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                findNavController(fragment).navigate(
+                    action
+                )
+            }
     }
 
     private fun artistSelectClickEvent(view: View, artist: Artist) {
