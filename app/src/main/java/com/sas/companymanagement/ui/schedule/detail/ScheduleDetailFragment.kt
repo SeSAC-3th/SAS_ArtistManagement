@@ -51,9 +51,7 @@ class ScheduleDetailFragment :
             setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.update) {
                     val action =
-                        ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment(
-                            0
-                        )
+                        ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment()
                     findNavController().navigate(action)
                 }
                 true
