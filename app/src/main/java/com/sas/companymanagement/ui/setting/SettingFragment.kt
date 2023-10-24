@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupBinding
@@ -98,9 +99,14 @@ class SettingFragment : Fragment() {
 
     }
 
+    val fragmentRefresh = {
+        requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+
     }
 
 }
