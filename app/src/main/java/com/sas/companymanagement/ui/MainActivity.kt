@@ -1,8 +1,12 @@
 package com.sas.companymanagement.ui
 
+import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.sas.companymanagement.R
@@ -21,17 +25,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
         setContentView(binding.root)
 
-   setupJetpackNavigation()
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        setupJetpackNavigation()
+
 
     }
 
-        private fun setupJetpackNavigation() {
-            val host: NavHostFragment = supportFragmentManager
-                .findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment? ?: return
-            navController = host.navController
-            binding.bottomNavigationView.setupWithNavController(navController)
-        }
-
+    private fun setupJetpackNavigation() {
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment? ?: return
+        navController = host.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
+    }
 }

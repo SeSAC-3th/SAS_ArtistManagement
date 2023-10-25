@@ -36,8 +36,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="@dimen/guideline_margin"
                 android:layout_marginTop="@dimen/large_margin"
                 android:src="@drawable/dummy_image"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/large_margin"
-                android:text="김채원"
+                android:tooltipText="김채원"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/tiny_margin"
-                android:text="르세라핌"
+                android:tooltipText="르세라핌"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/tv_artist_name_layout" />
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/tiny_margin"
-                android:text="00.00.00"
+                android:tooltipText="00.00.00"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/tv_artist_nickname_layout" />
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/tiny_margin"
-                android:text="가수"
+                android:tooltipText="가수"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/tv_artist_birth_layout" />
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/tiny_margin"
-                android:text="여자"
+                android:tooltipText="여자"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/tv_artist_job_layout" />

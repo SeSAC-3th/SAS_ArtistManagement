@@ -47,5 +47,13 @@ class ScheduleRepository(application: Application) {
         }
     }
 
+    fun updateSchedule(newSchedule: Schedule) {
+        coroutineScope.launch {
+            scheduleDao.updateSchedule(newSchedule)
+        }
+    }
 
+    fun findScheduleById(id: Int): LiveData<Schedule> {
+        return scheduleDao.findScheduleById(id)
+    }
 }

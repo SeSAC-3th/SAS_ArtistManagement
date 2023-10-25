@@ -40,7 +40,6 @@ class GroupAdapter(
         var group: Group = arrayList.get(position)
 //        holder.images.setImageResource(group.groupImage!!)
         holder.groupNames.text = group.groupName
-
         groupClickEvent(holder.images)
     }
 

@@ -5,11 +5,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -36,11 +39,28 @@ class GroupUpdateFragment :
         fun newInstance() = GroupUpdateFragment()
     }
 
+    private lateinit var selectedArtistIdList: LongArray
     private val viewModel: GroupUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
     private var imageSrc = ""
     private var imageUri: Uri? = null
     private var name = ""
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LongArray>("selectedArtistId")
+            ?.observe(viewLifecycleOwner){
+                selectedArtistIdList = it   //selectedArtistIdList 안에 id값들 들어있음
+                selectedArtistIdList.forEach {
+                    Log.e("group",it.toString())
+                }
+            }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,19 +115,26 @@ class GroupUpdateFragment :
         if (it.resultCode == Activity.RESULT_OK){
             imageUri = it.data?.data                //uri 가져옴
             binding.ibGroup.setImageURI(imageUri) //그 uri 셋팅
+            binding.ibGroup.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
     //이미지 저장
+    @SuppressLint("SdCardPath")
     private fun saveImage(){
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) {
             imagesFolder.mkdirs()
         }
-        val imageName = System.currentTimeMillis().toString()
-        imageSrc = "${activity?.filesDir}/images/${imageName}.jpg"
-        val newFile = File(imageSrc)
-        imageToFile(requireActivity() ,imageUri!!, newFile)
+        try {
+            val imageName = System.currentTimeMillis().toString()
+            imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
+            val newFile = File(imageSrc)
+            imageToFile(requireActivity(), imageUri!!, newFile)
+        } catch (e: NullPointerException) {
+            imageSrc = ""
+            Log.e("Update", "이미지 안고름")
+        }
     }
 
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
@@ -147,7 +174,7 @@ class GroupUpdateFragment :
         })
         binding.cgArtistUpdate.addView(binding.cAdd)
         */
-        val action = GroupUpdateFragmentDirections.actionGroupUpdateFragmentToFragmentArtist()
+        val action = GroupUpdateFragmentDirections.actionGroupUpdateFragmentToArtistSelectFragment("group")
         findNavController().navigate(action)
 
     }

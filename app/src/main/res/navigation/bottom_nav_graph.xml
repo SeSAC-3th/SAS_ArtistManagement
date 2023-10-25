@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_fragment_main_to_artistDetailFragment"
             app:destination="@id/artistDetailFragment" />
+        <action
+            android:id="@+id/action_fragment_main_to_scheduleDetailFragment"
+            app:destination="@id/scheduleDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_schedule"
@@ -49,7 +52,11 @@
     <fragment
         android:id="@+id/fragment_setting"
         android:name="com.sas.companymanagement.ui.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment">
+        <action
+    android:id="@+id/action_fragment_setting_to_loginFragment"
+    app:destination="@id/loginFragment" />
+</fragment>
     <fragment
         android:id="@+id/artistDetailFragment"
         android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"
@@ -57,7 +64,7 @@
         tools:layout="@layout/fragment_artist_detail" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_artistDetailFragment_to_artistUpdateFragment"
             app:destination="@id/artistUpdateFragment" />
@@ -71,7 +78,7 @@
         android:label="ArtistUpdateFragment" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/groupDetailFragment"
@@ -95,6 +102,9 @@
         <action
             android:id="@+id/action_scheduleUpdateFragment_to_fragment_artist"
             app:destination="@id/fragment_artist" />
+        <action
+            android:id="@+id/action_scheduleUpdateFragment_to_artistSelectFragment"
+            app:destination="@id/artistSelectFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupUpdateFragment"
@@ -107,6 +117,9 @@
         <action
             android:id="@+id/action_groupUpdateFragment_to_fragment_artist"
             app:destination="@id/fragment_artist" />
+        <action
+            android:id="@+id/action_groupUpdateFragment_to_artistSelectFragment"
+            app:destination="@id/artistSelectFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -137,4 +150,20 @@
         android:name="com.sas.companymanagement.ui.MainActivity"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/artistSelectFragment"
+        android:name="com.sas.companymanagement.ui.artist.select.ArtistSelectFragment"
+        android:label="ArtistSelectFragment"
+        tools:layout="@layout/fragment_artist_select"
+        >
+        <argument
+            android:name="from"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_artistSelectFragment_to_groupUpdateFragment"
+            app:destination="@id/groupUpdateFragment" />
+        <action
+            android:id="@+id/action_artistSelectFragment_to_scheduleUpdateFragment"
+            app:destination="@id/scheduleUpdateFragment" />
+    </fragment>
 </navigation>
