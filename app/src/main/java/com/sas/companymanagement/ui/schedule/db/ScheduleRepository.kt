@@ -53,7 +53,7 @@ class ScheduleRepository(application: Application) {
         }
     }
 
-    fun findScheduleById(id: Int): LiveData<Schedule> {
+    fun findScheduleById(id: Long): LiveData<Schedule> {
         return scheduleDao.findScheduleById(id)
     }
 }

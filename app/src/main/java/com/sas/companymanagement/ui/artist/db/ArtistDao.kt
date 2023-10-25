@@ -30,5 +30,5 @@ interface ArtistDao {
     fun getAllArtist(): LiveData<List<Artist>>
 
     @Query("SELECT * FROM artist_tbl WHERE id = :id")
-    fun findArtistById(id: Int): LiveData<Artist>
+    fun findArtistById(id: Long): LiveData<Artist>
 }

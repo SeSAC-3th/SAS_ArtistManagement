@@ -35,7 +35,7 @@ class ArtistSelectFragment :
     private var artistSelectAdapter = ArtistAdapter(mutableListOf(), this)
     private val viewModel: ArtistViewModel by viewModels()
     private val artistSelectedArgs: ArtistSelectFragmentArgs by navArgs()
-    private lateinit var selectedArtistIdList: LongArray
+    private lateinit var selectedArtistIdList: MutableSet<Long>
 
     companion object {
         fun newInstance() = ArtistSelectFragment()

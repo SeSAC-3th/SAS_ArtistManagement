@@ -30,6 +30,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.merge
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -49,7 +50,7 @@ class ScheduleUpdateFragment :
 
     private val compositeDisposable = CompositeDisposable()
     private val defaultScope = CoroutineScope(Dispatchers.Default)
-    private lateinit var selectedArtistIdList: LongArray
+    private var selectedArtistIdList: MutableSet<Long> = mutableSetOf()
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -60,10 +61,11 @@ class ScheduleUpdateFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LongArray>("selectedArtistId")
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<MutableSet<Long>>("selectedArtistId")
             ?.observe(viewLifecycleOwner) {
-                selectedArtistIdList = it       //selectedArtistIdList 안에 id값들 들어있음
-                addArtistChip()
+                if(it.isNotEmpty()){
+                    selectedArtistIdList = it       //selectedArtistIdList 안에 id값들 들어있음
+                }
             }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -76,16 +78,20 @@ class ScheduleUpdateFragment :
         artistViewModel = ViewModelProvider(this).get(ArtistUpdateViewModel::class.java)
 
         commonUi()
-        if (scheduleArgs.scheduleId != -1) {
+
+        if (scheduleArgs.scheduleId != -1L) {
             observerSetup(scheduleArgs.scheduleId)
             with(binding.tbScheduleUpdate) {
                 title = "스케쥴 수정"
                 menu.findItem(R.id.menu_update).setIcon(R.drawable.ic_check_24)
             }
         } else {
+            observerSetup(-1)
             with(binding.tbScheduleUpdate) {
+
                 title = "스케쥴 추가"
                 menu.findItem(R.id.menu_update).setIcon(R.drawable.ic_check_24)
+
             }
             insertUiSetUp()
         }
@@ -160,7 +166,7 @@ class ScheduleUpdateFragment :
         }
     }
 
-    fun insertUiSetUp(){
+    private fun insertUiSetUp(){
         binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
                 val name = binding.edScheduleName.text.toString().trim()
@@ -175,6 +181,7 @@ class ScheduleUpdateFragment :
 
                 val scheduleContent = binding.scheduleContent.text.toString()
 
+
                 if (name.isNotEmpty()) {
 
                     viewModel.insertSchedule(
@@ -187,11 +194,10 @@ class ScheduleUpdateFragment :
                             artistId = selectedArtistIdList.joinToString()
                         )
                     )
-                    viewModel.updateSchedule(
-                        Schedule(
-
-                        )
-                    )
+                    if(item.itemId == R.id.menu_update) {
+                        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentSchedule()
+                        findNavController().navigate(action)
+                    }
 
 
                 } else {
@@ -201,7 +207,8 @@ class ScheduleUpdateFragment :
             true
         }
     }
-    private fun observerSetup(scheduleId: Int) {
+    private fun observerSetup(scheduleId: Long) {
+        var tempSet: MutableSet<Long>
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
             if (schedule != null) {
                 with(binding) {
@@ -220,17 +227,27 @@ class ScheduleUpdateFragment :
 
                     scheduleContent.setText(schedule.scheduleContent)
 
-                    var artistList = schedule.artistId.split(",")
-                    artistList.forEach {
+                    var artistList = schedule.artistId.split(",").map {
+                        it.trim().toLong()
+                    }.toMutableSet()
+
+
+                    tempSet = (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
+
+                    editArtistChip(tempSet)
+
+
+
+                    /*artistList.forEach {
                         binding.chipGroup.removeView(binding.addChip)
                         binding.chipGroup.addView(Chip(context).apply {
                             artistViewModel.findArtistById(it.trim().toInt())
                                 .observe(viewLifecycleOwner) { artist ->
                                     text = artist.artistName
                                 }
-
                         })
-                    }
+                    }*/
+//                    editArtistChip(artistList)
 
                     binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
                         if (item.itemId == R.id.menu_update) {
@@ -251,7 +268,13 @@ class ScheduleUpdateFragment :
                             schedule.scheduleContent =
                                 binding.scheduleContent.text.toString().trim()
 
+                            schedule.artistId = tempSet.joinToString()
+
                             viewModel.updateSchedule(schedule)
+
+                            if(item.itemId == R.id.menu_update){
+                                findNavController().popBackStack()
+                            }
                         }
                         true
 
@@ -260,7 +283,10 @@ class ScheduleUpdateFragment :
                 }
 
             } else {
-                Log.e("Fragment", "No schedule found with id $scheduleId")
+                tempSet = selectedArtistIdList
+                editArtistChip(tempSet)
+
+
             }
         }
 
@@ -325,29 +351,67 @@ class ScheduleUpdateFragment :
 
     }
 
+    private fun editArtistChip(temp : MutableSet<Long>) {
+
+//        if (selectedArtistIdList.isEmpty())
+        // selectedFragment에서 가져온 값을 기반으로 Chip 을 생성
+        /*if(selectedArtistIdList.isNotEmpty()){
+            binding.chipGroup.removeView(binding.addChip)
+            selectedArtistIdList.forEach { id ->
+                binding.chipGroup.addView(Chip(context).apply {
+                    artistViewModel.findArtistById(id.toLong()).observe(viewLifecycleOwner) { artist ->
+                        text = artist.artistName
+                        isCloseIconVisible = true
+                        Log.e("ad",selectedArtistIdList.joinToString())
+                    }
+                    //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
+                    setOnCloseIconClickListener {
+                        selectedArtistIdList.remove(id)
+                        binding.chipGroup.removeView(this)
+                    }
+                })
+            }
+            binding.chipGroup.addView(binding.addChip)
+        }*/
+        if(temp.isNotEmpty()){
+            binding.chipGroup.removeView(binding.addChip)
+            temp.forEach { id ->
+                binding.chipGroup.addView(Chip(context).apply {
+                    artistViewModel.findArtistById(id.toLong()).observe(viewLifecycleOwner) { artist ->
+                        text = artist.artistName
+                        isCloseIconVisible = true
+                    }
+                    //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
+                    setOnCloseIconClickListener {
+                        temp.remove(id)
+                        binding.chipGroup.removeView(this)
+                    }
+                })
+            }
+            binding.chipGroup.addView(binding.addChip)
+        }
+    }
+
     private fun addArtistChip() {
         binding.chipGroup.removeView(binding.addChip)
-
+//        if (selectedArtistIdList.isEmpty())
+        // selectedFragment에서 가져온 값을 기반으로 Chip 을 생성
         selectedArtistIdList.forEach { id ->
             binding.chipGroup.addView(Chip(context).apply {
-                artistViewModel.findArtistById(id.toInt()).observe(viewLifecycleOwner) { artist ->
+                artistViewModel.findArtistById(id.toLong()).observe(viewLifecycleOwner) { artist ->
                     text = artist.artistName
                     isCloseIconVisible = true
                 }
-
+                //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
                 setOnCloseIconClickListener {
-                    selectedArtistIdList = selectedArtistIdList.filter { value ->
-                        value != id
-                    }.toLongArray()
-
+                    selectedArtistIdList.remove(id)
                     binding.chipGroup.removeView(this)
                 }
             })
         }
-
         binding.chipGroup.addView(binding.addChip)
-
     }
+
 
 
     override fun onDestroyView() {

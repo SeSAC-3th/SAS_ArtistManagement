@@ -91,8 +91,9 @@ class ScheduleDetailFragment :
                 tvScheduleContent.text = schedule.scheduleContent
 
                 val artistIds = schedule.artistId.split(", ")
+                tvScheduleArtist.text =  ""
                 artistIds.forEach{
-                    artistViewModel.findArtistById(it.toInt()).observe(viewLifecycleOwner) { artist ->
+                    artistViewModel.findArtistById(it.toLong()).observe(viewLifecycleOwner) { artist ->
                         tvScheduleArtist.append(artist.artistName+" ")
                     }
                 }

@@ -53,9 +53,9 @@ class ArtistAdapter(
         val artistData: Artist = arrayList[position]
         holder.images.setImageURI(Uri.parse(artistData.artistImage))
         holder.names.text = artistData.artistName
-        if (parent.id == R.id.rv_artist_select ){
-            artistSelectClickEvent(holder,artistData)
-        }else {
+        if (parent.id == R.id.rv_artist_select) {
+            artistSelectClickEvent(holder, artistData)
+        } else {
             artistClickEvent(holder.images, artistData)
         }
     }
@@ -79,25 +79,25 @@ class ArtistAdapter(
         }
     }
 
-    private fun artistSelectClickEvent(holder: ItemHolder , artist: Artist){
+    private fun artistSelectClickEvent(holder: ItemHolder, artist: Artist) {
         holder.itemView.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                if (artist.id in selectedSet){
+                if (artist.id in selectedSet) {
                     selectedSet.remove(artist.id)
                     holder.names.setTextColor(Color.BLACK)
-                }else{
+                } else {
                     selectedSet.add(artist.id)
                     holder.names.setTextColor(Color.RED)
                 }
                 selectedSet.forEach {
-                    Log.e("selectID",it.toString())
+                    Log.e("selectID", it.toString())
                 }
             }
     }
 
-    fun getSelectedId(): LongArray {
-        return selectedSet.toLongArray()
+    fun getSelectedId() : MutableSet<Long> {
+        return selectedSet
     }
 
     @SuppressLint("NotifyDataSetChanged")
