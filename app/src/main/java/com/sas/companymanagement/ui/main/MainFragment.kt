@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -91,6 +92,7 @@ class MainFragment :
                 actorAdapter.setArtistList(actors)
             }
         }
+        onBackPressed()
     }
 
     private fun setRecyclerView(recyclerView: RecyclerView, adapter: ArtistAdapter) {
@@ -104,6 +106,18 @@ class MainFragment :
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    /**
+     * On back pressed
+     *  뒤로가기 버튼 눌렀을 때 처리
+     */
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
     }
 
 }

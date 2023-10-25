@@ -55,7 +55,7 @@
         android:label="SettingFragment" >
         <action
             android:id="@+id/action_fragment_setting_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/fragment_login" />
     </fragment>
     <fragment
         android:id="@+id/artistDetailFragment"
@@ -64,7 +64,7 @@
         tools:layout="@layout/fragment_artist_detail" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_artistDetailFragment_to_artistUpdateFragment"
             app:destination="@id/artistUpdateFragment" />
@@ -78,7 +78,7 @@
         android:label="ArtistUpdateFragment" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/groupDetailFragment"
@@ -114,7 +114,7 @@
 
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
+        android:id="@+id/fragment_login"
         android:name="com.sas.companymanagement.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >

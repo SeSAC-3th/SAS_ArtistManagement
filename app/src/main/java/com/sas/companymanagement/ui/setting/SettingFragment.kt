@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupBinding
 import com.sas.companymanagement.databinding.FragmentSettingBinding
+import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.toastMessage
 import com.sas.companymanagement.ui.login.LoginFragment
 import kotlinx.coroutines.CoroutineScope
@@ -26,14 +28,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class SettingFragment : Fragment() {
-    private var _binding: FragmentSettingBinding? = null
-    private val binding get() = _binding!!
+class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(FragmentSettingBinding::inflate) {
 
     companion object {
         fun newInstance() = SettingFragment()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -98,9 +97,14 @@ class SettingFragment : Fragment() {
 
     }
 
+    val fragmentRefresh = {
+        requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+
     }
 
 }

@@ -14,13 +14,13 @@ interface ArtistDao {
     fun insertArtist(artist: Artist)
 
     @Query("SELECT * FROM artist_tbl WHERE id = :id")
-    fun findArtist(id: Int): List<Artist>
+    fun findArtist(id: Long): Artist
 
     @Update
     fun updateArtist(vararg artists: Artist)
 
     @Query(value = "DELETE FROM artist_tbl WHERE id = :id")
-    fun deleteArtist(id: Int)
+    fun deleteArtist(id: Long)
 
     @Query("SELECT * FROM artist_tbl WHERE artistCategory = :category")
     fun findArtistByCategory(category: String): List<Artist>
@@ -28,4 +28,7 @@ interface ArtistDao {
 
     @Query("SELECT * FROM artist_tbl")
     fun getAllArtist(): LiveData<List<Artist>>
+
+    @Query("SELECT * FROM artist_tbl WHERE id = :id")
+    fun findArtistById(id: Int): LiveData<Artist>
 }
