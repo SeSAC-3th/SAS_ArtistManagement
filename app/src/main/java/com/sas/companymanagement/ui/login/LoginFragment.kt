@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.R
@@ -53,6 +54,7 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
                         .throttleFirst(500)
                         .onEach {
                             if ((etLoginId.text.toString() == "admin") && (etLoginPassword.text.toString() == "123456")) {
+                                checkAutoLogin(binding.checkBoxAutoLogin)
                                 val action = LoginFragmentDirections.actionLoginFragmentToFragmentMain()
                                 findNavController().navigate(action)
                             } else {
@@ -60,17 +62,21 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
                             }
                         }
                         .launchIn(CoroutineScope(Dispatchers.Main))
-
-            onCheckboxClicked(binding.checkBoxAutoLogin)
-
         }
+        onBackPressed()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
     }
 
-    private fun onCheckboxClicked(view: View) {
+    /**
+     * Check auto login
+     *  자동로그인 체크박스 확인
+     * @param view
+     */
+    private fun checkAutoLogin(view: View) {
         if (view is CheckBox) {
             val checked: Boolean = view.isChecked
             if (checked) {
@@ -107,4 +113,15 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
         }
     }
 
+    /**
+     * On back pressed
+     *  뒤로가기 버튼 눌렀을 때 처리
+     */
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
+    }
 }
