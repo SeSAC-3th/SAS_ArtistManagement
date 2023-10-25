@@ -137,7 +137,7 @@ class GroupUpdateFragment :
 
         selectedArtistIdList.forEach { id ->
             binding.cgArtistUpdate.addView(Chip(context).apply {
-                artistUpdateViewModel.findArtistById(id.toInt())
+                artistUpdateViewModel.findArtistById(id)
                     .observe(viewLifecycleOwner) { artist ->
                         text = artist.artistName
                         isCloseIconVisible = true

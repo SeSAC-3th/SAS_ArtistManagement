@@ -195,7 +195,7 @@ class ScheduleUpdateFragment :
                         )
                     )
                     if(item.itemId == R.id.menu_update) {
-                        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentSchedule()
+                        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToArtistSelectFragment("schedule")
                         findNavController().navigate(action)
                     }
 
@@ -207,7 +207,6 @@ class ScheduleUpdateFragment :
             true
         }
     }
-
     private fun observerSetup(scheduleId: Long) {
         var tempSet: MutableSet<Long>
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
