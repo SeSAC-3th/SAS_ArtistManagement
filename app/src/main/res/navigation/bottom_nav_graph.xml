@@ -95,6 +95,12 @@
         android:id="@+id/scheduleUpdateFragment"
         android:name="com.sas.companymanagement.ui.schedule.update.ScheduleUpdateFragment"
         android:label="ScheduleUpdateFragment" >
+        <argument
+            android:name="scheduleId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_scheduleUpdateFragment_to_fragment_artist"
+            app:destination="@id/fragment_artist" />
         <action
             android:id="@+id/action_scheduleUpdateFragment_to_artistSelectFragment"
             app:destination="@id/artistSelectFragment" />
@@ -108,6 +114,9 @@
         <argument
             android:name="groupId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_groupUpdateFragment_to_fragment_artist"
+            app:destination="@id/fragment_artist" />
         <action
             android:id="@+id/action_groupUpdateFragment_to_artistSelectFragment"
             app:destination="@id/artistSelectFragment" />
@@ -132,7 +141,10 @@
             app:destination="@id/scheduleUpdateFragment" />
         <argument
             android:name="scheduleId"
-            app:argType="integer" />
+            app:argType="long" />
+        <action
+            android:id="@+id/action_scheduleDetailFragment_to_fragment_schedule"
+            app:destination="@id/fragment_schedule" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
@@ -155,5 +167,4 @@
             android:id="@+id/action_artistSelectFragment_to_scheduleUpdateFragment"
             app:destination="@id/scheduleUpdateFragment" />
     </fragment>
-
 </navigation>

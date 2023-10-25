@@ -24,7 +24,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
 
     private val compositeDisposable = CompositeDisposable()
     private var scheduleAdapter = TodayScheduleAdapter(
-        navigateScheduleDetail = {scheduleId -> navigateScheduleDetail(scheduleId)}
+        navigateScheduleDetail = { scheduleId -> navigateScheduleDetail(scheduleId)}
     )
     private val viewModel: ScheduleViewModel by viewModels()
     override fun onCreateView(
@@ -46,7 +46,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
                     .throttleFirst(500, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                       val action = ScheduleFragmentDirections.actionFragmentScheduleToScheduleUpdateFragment()
+                       val action = ScheduleFragmentDirections.actionFragmentScheduleToScheduleUpdateFragment(-1)
                         findNavController().navigate(action)
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
@@ -78,7 +78,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
 
     private fun setCalendarDays(schedules: List<Schedule>){
         schedules.forEach{
-            val data = it.scheduleDateAfter.substring(0,13)
+            val data = it.scheduleDateBefore.substring(0,13)
             val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
             val date = dateFormat.parse(data)
 
@@ -91,7 +91,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
         }
     }
 
-    private fun navigateScheduleDetail(id: Int){
+    private fun navigateScheduleDetail(id: Long){
         val action = ScheduleFragmentDirections.actionFragmentScheduleToScheduleDetailFragment(id)
         findNavController().navigate(action)
     }

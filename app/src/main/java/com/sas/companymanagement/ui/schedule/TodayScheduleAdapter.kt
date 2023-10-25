@@ -19,9 +19,8 @@ import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import java.util.concurrent.TimeUnit
 
-data class TodaySchedule(val content: String)
 class TodayScheduleAdapter(
-    private val navigateScheduleDetail: (Int) -> Unit,
+    private val navigateScheduleDetail: (Long) -> Unit,
 ) :
     RecyclerView.Adapter<TodayScheduleAdapter.ItemHolder>() {
 
@@ -40,24 +39,24 @@ class TodayScheduleAdapter(
 
     override fun getItemCount() = arrayList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         var schedule: Schedule = arrayList[position]
-        holder.content.text = schedule.scheduleContent
+        holder.content.text =
+            schedule.scheduleContent + " (" + schedule.scheduleDateBefore.substring(13) + "~" + schedule.scheduleDateAfter.substring(
+                13
+            ) + ")"
 
-        artistClickEvent(holder.content)
+        artistClickEvent(holder.content, schedule.id)
 
     }
 
     @SuppressLint("CheckResult")
-    private fun artistClickEvent(view: View) {
+    private fun artistClickEvent(view: View, scheduleId: Long) {
         view.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                Log.e("navigate","button click")
-                navigateScheduleDetail(0)
-//                val action =
-//                    ScheduleFragmentDirections.actionFragmentScheduleToScheduleDetailFragment(0)
-//                findNavController(fragment).navigate(action)
+                navigateScheduleDetail(scheduleId)
             }
     }
 
