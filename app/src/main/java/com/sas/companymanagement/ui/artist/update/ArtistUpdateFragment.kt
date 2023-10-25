@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
@@ -171,10 +172,9 @@ class ArtistUpdateFragment :
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
                     updateSet()
+                    saveImage(artistArgs.artistId)
                     if (requireUpdate()) {
                         if (artistArgs.artistId != -1L) {
-                            val newFile = File(imageSrc)
-                            imageToFile(requireActivity(), imageUri!!, newFile)
                             viewModel.updateArtist(
                                 // Edit
                                 Artist(
@@ -190,7 +190,6 @@ class ArtistUpdateFragment :
 
                         } else {
                             // Insert, insert인 경우 image는 file로 저장해야 함
-                            saveImage()
                             viewModel.insertArtist(
                                 Artist(
                                     artistName = name,
@@ -240,7 +239,10 @@ class ArtistUpdateFragment :
                 tvArtistBirth.text.toString() == "" ||
                 rgArtistGender.checkedRadioButtonId == -1 ||
                 imageSrc == ""
-            ) return false
+            ) {
+                Toast.makeText(activity, "빈 입력이 있습니다.", Toast.LENGTH_SHORT).show()
+                return false
+            }
         }
         return true
     }
@@ -265,11 +267,13 @@ class ArtistUpdateFragment :
 
     //이미지 저장
     @SuppressLint("SdCardPath")
-    private fun saveImage() {
+    private fun saveImage(id: Long) {
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
-        val imageName = System.currentTimeMillis().toString()
-        imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
+        if (id == -1L) {
+            val imageName = System.currentTimeMillis().toString()
+            imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
+        }
         val newFile = File(imageSrc)
         imageToFile(requireActivity(), imageUri!!, newFile)
     }
