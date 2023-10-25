@@ -98,6 +98,9 @@
         <action
             android:id="@+id/action_scheduleUpdateFragment_to_artistSelectFragment"
             app:destination="@id/artistSelectFragment" />
+        <argument
+            android:name="scheduleId"
+            app:argType="integer" />
 
     </fragment>
     <fragment
