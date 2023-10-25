@@ -30,4 +30,7 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     fun updateArtist(artist: Artist) {
         repository.updateUser(artist)
     }
+    fun findArtistById(id: Int): LiveData<Artist> {
+        return repository.findArtistById(id)
+    }
 }
