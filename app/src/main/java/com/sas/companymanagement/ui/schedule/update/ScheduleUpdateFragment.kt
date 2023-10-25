@@ -207,6 +207,7 @@ class ScheduleUpdateFragment :
             true
         }
     }
+    private lateinit var scheduleAdapter: ScheduleAdapter
     private fun observerSetup(scheduleId: Long) {
         var tempSet: MutableSet<Long>
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
@@ -241,10 +242,11 @@ class ScheduleUpdateFragment :
                     /*artistList.forEach {
                         binding.chipGroup.removeView(binding.addChip)
                         binding.chipGroup.addView(Chip(context).apply {
-                            artistViewModel.findArtistById(it.trim().toInt())
-                                .observe(viewLifecycleOwner) { artist ->
-                                    text = artist.artistName
-                                }
+              
+                            artistViewModel.findArtistById(it.trim().toLong()).observe(viewLifecycleOwner) { artist ->
+                                text = artist.artistName
+                            }
+
                         })
                     }*/
 //                    editArtistChip(artistList)
@@ -398,7 +400,7 @@ class ScheduleUpdateFragment :
         // selectedFragment에서 가져온 값을 기반으로 Chip 을 생성
         selectedArtistIdList.forEach { id ->
             binding.chipGroup.addView(Chip(context).apply {
-                artistViewModel.findArtistById(id.toLong()).observe(viewLifecycleOwner) { artist ->
+                artistViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
                     text = artist.artistName
                     isCloseIconVisible = true
                 }

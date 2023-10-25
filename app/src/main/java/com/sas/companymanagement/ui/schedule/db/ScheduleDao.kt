@@ -26,4 +26,5 @@ interface ScheduleDao {
 
     @Query("SELECT * FROM schedule_tbl WHERE id = :id")
     fun findScheduleById(id: Long): LiveData<Schedule>
+
 }

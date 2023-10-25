@@ -11,3 +11,14 @@ const val OK = "확인"
 const val CANCEL = "취소"
 
 const val DELETE_MESSAGE = "삭제하시겠습니까?"
+const val FAN = "팬"
+const val EXECUTIVE = "경영"
+const val POTENTIAL = "잠재력"
+const val REVENUE = "수익"
+const val SCANDAL = "스캔들"
+val SCORE_LIST = arrayOf(FAN, EXECUTIVE, POTENTIAL, REVENUE, SCANDAL)
+const val SCORE_SIZE = 5 - 1
+const val SCORE_START = 0
+const val EVAL_SCORE = "평가 지수"
+
+const val ERROR_MESSAGE_EMPTY = "모든 내용을 입력해 주세요."

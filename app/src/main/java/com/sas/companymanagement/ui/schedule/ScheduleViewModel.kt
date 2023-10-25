@@ -17,7 +17,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     private val _selectedSchedule = MutableLiveData<List<Schedule>?>(emptyList())
     val selectedSchedule: LiveData<List<Schedule>?> get() = _selectedSchedule
 
-    fun getSelectedSchedule(selectedDay: CalendarDay){
+    fun getSelectedSchedule(selectedDay: CalendarDay) {
         val selectedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(
             selectedDay.toString().substring(12).removeSuffix("}")
         )
@@ -29,5 +29,9 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
             scheduleDate == selectedDate
         }
         _selectedSchedule.postValue(newSchedules)
+    }
+
+    fun findScheduleById(id: Long) {
+        repository.findSchedule(id)
     }
 }

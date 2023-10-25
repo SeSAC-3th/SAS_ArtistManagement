@@ -26,7 +26,10 @@ import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistGender
+import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.getRandomListToString
+import com.sas.companymanagement.ui.common.toastMessage
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -39,6 +42,8 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.Random
+import java.util.concurrent.Flow
 import java.util.concurrent.TimeUnit
 
 class ArtistUpdateFragment :
@@ -60,6 +65,7 @@ class ArtistUpdateFragment :
     private var imageSrc = ""
     private var id = 0L
     private var imageUri: Uri? = null
+    private var eval = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (artistArgs.artistId != -1L) getField()
@@ -93,6 +99,7 @@ class ArtistUpdateFragment :
                     imageSrc = artist.artistImage
                     imageUri = artist.artistImage.toUri()
                     id = artist.id
+                    eval = artist.artistEval
                 }
             }
         }
@@ -184,6 +191,7 @@ class ArtistUpdateFragment :
                                     artistGender = gender,
                                     artistCategory = category,
                                     artistBirth = birth,
+                                    artistEval = eval,
                                     id = id
                                 )
                             )
@@ -197,7 +205,8 @@ class ArtistUpdateFragment :
                                     artistImage = imageSrc,
                                     artistGender = gender,
                                     artistCategory = category,
-                                    artistBirth = birth
+                                    artistBirth = birth,
+                                    artistEval = getRandomListToString(),
                                 )
                             )
                         }
@@ -240,7 +249,7 @@ class ArtistUpdateFragment :
                 rgArtistGender.checkedRadioButtonId == -1 ||
                 imageSrc == ""
             ) {
-                Toast.makeText(activity, "빈 입력이 있습니다.", Toast.LENGTH_SHORT).show()
+                toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
                 return false
             }
         }
@@ -306,6 +315,8 @@ class ArtistUpdateFragment :
                 binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
             }
         }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

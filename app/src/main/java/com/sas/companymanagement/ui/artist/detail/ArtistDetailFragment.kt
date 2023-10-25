@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,16 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
 import com.sas.companymanagement.ui.common.CANCEL
 import com.sas.companymanagement.ui.common.DELETE_MESSAGE
+import com.sas.companymanagement.ui.common.EVAL_SCORE
 import com.sas.companymanagement.ui.common.OK
+import com.sas.companymanagement.ui.common.SCORE_LIST
+import com.sas.companymanagement.ui.common.SCORE_SIZE
+import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
+import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleViewModel
 
 class ArtistDetailFragment :
     ViewBindingBaseFragment<FragmentArtistDetailBinding>(FragmentArtistDetailBinding::inflate) {
@@ -34,6 +41,7 @@ class ArtistDetailFragment :
     }
 
     private val viewModel: ArtistDetailViewModel by viewModels()
+    private val scheduleViewModel: ScheduleViewModel by viewModels()
     private val artistArgs: ArtistDetailFragmentArgs by navArgs()
     private var scheduleRecyclerView: RecyclerView? = null
     private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
@@ -49,18 +57,32 @@ class ArtistDetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scheduleSetup()
+        getScheduleData()
         fieldSetup()
-        setPieChart()
         listenerSetup()
+    }
+
+    private fun getScheduleData() {
+        val newSchedules = mutableListOf<Schedule>()
+        scheduleViewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
+            schedules.forEach { schedule ->
+                schedule.artistId.split(", ").forEach { id ->
+                    if (id == artistArgs.artistId.toString()) {
+                        newSchedules.add(schedule)
+                    }
+                }
+            }
+            scheduleAdapter.setScheduleList(newSchedules.toList())
+        }
     }
 
     private fun scheduleSetup() {
         with(binding) {
             scheduleRecyclerView = rvSchedule
             scheduleAdapter =
-                ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
+                ScheduleHorizontalAdapter(ArrayList(), requireParentFragment())
             scheduleRecyclerView?.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             scheduleRecyclerView?.setHasFixedSize(true)
             scheduleRecyclerView?.adapter = scheduleAdapter
         }
@@ -77,6 +99,7 @@ class ArtistDetailFragment :
                 tvArtistBirthLayout.text = dateToString(artist.artistBirth)
                 tvArtistJobLayout.text = artist.artistCategory
                 tvArtistGenderLayout.text = artist.artistGender
+                setPieChart(artist.artistEval)
             }
         }
     }
@@ -123,16 +146,14 @@ class ArtistDetailFragment :
      * mpChart
      * referrencelink : https://goodgoodminki.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%9B%90%ED%98%95-%EA%B7%B8%EB%9E%98%ED%94%84-%ED%8C%8C%EC%9D%B4-%EA%B7%B8%EB%9E%98%ED%94%84-Android-Koltin-Circle-Graph-Pie-Graph
      */
-    private fun setPieChart() {
+    private fun setPieChart(inputData: String) {
         val pieChart = binding.pieChart
         pieChart.setUsePercentValues(true)
 
         val entries = ArrayList<PieEntry>()
-        entries.add(PieEntry(508f, "Apple"))
-        entries.add(PieEntry(600f, "Orange"))
-        entries.add(PieEntry(750f, "Mango"))
-        entries.add(PieEntry(508f, "Grapes"))
-        entries.add(PieEntry(670f, "Banana"))
+        for (index in SCORE_START..SCORE_SIZE) {
+            entries.add(PieEntry(inputData[index].toString().toFloat(), SCORE_LIST[index]))
+        }
 
         val colorItems = ArrayList<Int>()
         ColorTemplate.VORDIPLOM_COLORS.forEach { colorItems.add(it) }
@@ -152,7 +173,7 @@ class ArtistDetailFragment :
             data = pieData
             description.isEnabled = false
             isRotationEnabled = false
-            centerText = "level"
+            centerText = EVAL_SCORE
             setEntryLabelColor(Color.BLACK)
             animateY(1400, Easing.EaseInQuad)
             animate()
