@@ -99,11 +99,12 @@
             android:name="scheduleId"
             app:argType="long" />
         <action
-            android:id="@+id/action_scheduleUpdateFragment_to_fragment_artist"
-            app:destination="@id/fragment_artist" />
-        <action
             android:id="@+id/action_scheduleUpdateFragment_to_artistSelectFragment"
             app:destination="@id/artistSelectFragment" />
+        <action
+            android:id="@+id/action_scheduleUpdateFragment_to_fragment_schedule"
+            app:destination="@id/fragment_schedule" />
+
 
     </fragment>
     <fragment
