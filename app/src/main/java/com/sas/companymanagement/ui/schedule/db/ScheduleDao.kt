@@ -25,5 +25,6 @@ interface ScheduleDao {
     fun getAllSchedule(): LiveData<List<Schedule>>
 
     @Query("SELECT * FROM schedule_tbl WHERE id = :id")
-    fun findScheduleById(id: Int): LiveData<Schedule>
+    fun findScheduleById(id: Long): LiveData<Schedule>
+
 }

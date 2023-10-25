@@ -29,7 +29,9 @@ import com.sas.companymanagement.ui.common.SCORE_SIZE
 import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
+import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleViewModel
 
 class ArtistDetailFragment :
     ViewBindingBaseFragment<FragmentArtistDetailBinding>(FragmentArtistDetailBinding::inflate) {
@@ -39,6 +41,7 @@ class ArtistDetailFragment :
     }
 
     private val viewModel: ArtistDetailViewModel by viewModels()
+    private val scheduleViewModel: ScheduleViewModel by viewModels()
     private val artistArgs: ArtistDetailFragmentArgs by navArgs()
     private var scheduleRecyclerView: RecyclerView? = null
     private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
@@ -54,17 +57,32 @@ class ArtistDetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scheduleSetup()
+        getScheduleData()
         fieldSetup()
         listenerSetup()
+    }
+
+    private fun getScheduleData() {
+        val newSchedules = mutableListOf<Schedule>()
+        scheduleViewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
+            schedules.forEach { schedule ->
+                schedule.artistId.split(", ").forEach { id ->
+                    if (id == artistArgs.artistId.toString()) {
+                        newSchedules.add(schedule)
+                    }
+                }
+            }
+            scheduleAdapter.setScheduleList(newSchedules.toList())
+        }
     }
 
     private fun scheduleSetup() {
         with(binding) {
             scheduleRecyclerView = rvSchedule
             scheduleAdapter =
-                ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
+                ScheduleHorizontalAdapter(ArrayList(), requireParentFragment())
             scheduleRecyclerView?.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             scheduleRecyclerView?.setHasFixedSize(true)
             scheduleRecyclerView?.adapter = scheduleAdapter
         }

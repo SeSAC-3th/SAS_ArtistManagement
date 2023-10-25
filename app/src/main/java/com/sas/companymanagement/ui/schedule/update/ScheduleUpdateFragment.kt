@@ -192,7 +192,7 @@ class ScheduleUpdateFragment :
     }
 
     private lateinit var scheduleAdapter: ScheduleAdapter
-    private fun observerSetup(scheduleId: Int) {
+    private fun observerSetup(scheduleId: Long) {
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
             if (schedule != null) {
                 with(binding) {
@@ -215,7 +215,7 @@ class ScheduleUpdateFragment :
                     artistList.forEach {
                         binding.chipGroup.removeView(binding.addChip)
                         binding.chipGroup.addView(Chip(context).apply {
-                            artistViewModel.findArtistById(it.trim().toInt()).observe(viewLifecycleOwner) { artist ->
+                            artistViewModel.findArtistById(it.trim().toLong()).observe(viewLifecycleOwner) { artist ->
                                 text = artist.artistName
                             }
 
@@ -319,7 +319,7 @@ class ScheduleUpdateFragment :
 
         selectedArtistIdList.forEach { id ->
             binding.chipGroup.addView(Chip(context).apply {
-                artistViewModel.findArtistById(id.toInt()).observe(viewLifecycleOwner) { artist ->
+                artistViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
                     text = artist.artistName
                     isCloseIconVisible = true
                 }
