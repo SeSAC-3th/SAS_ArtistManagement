@@ -1,10 +1,12 @@
 package com.sas.companymanagement.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,31 +18,33 @@ import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.databinding.FragmentMainBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
+import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
+import java.util.ArrayList
 
 class MainFragment :
     ViewBindingBaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
-
     private val viewModel: MainViewModel by viewModels()
-    private var mainAdapter = MainAdapter(mutableListOf(), mutableListOf(), this)
+    private var singerAdapter = ArtistAdapter(mutableListOf(), this)
+    private var actorAdapter = ArtistAdapter(mutableListOf(), this)
+    private var talentAdapter = ArtistAdapter(mutableListOf(), this)
 
-    private var artistList: MutableList<Artist>? = null
     private var singerRecyclerView: RecyclerView? = null
     private var actorRecyclerView: RecyclerView? = null
     private var talentRecyclerView: RecyclerView? = null
 
-    private var scheduleList: MutableList<Schedule>? = null
     private var scheduleRecyclerView: RecyclerView? = null
-
+    private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -50,50 +54,70 @@ class MainFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            artistList = ArrayList()
-            scheduleList = ArrayList()
-            mainAdapter = MainAdapter(
-                artistList!!,
-                scheduleList!!, requireParentFragment()
-            )
+            scheduleRecyclerView = rvSchedule
+            scheduleAdapter = ScheduleHorizontalAdapter(ArrayList(), requireParentFragment())
+            scheduleRecyclerView?.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            scheduleRecyclerView?.setHasFixedSize(true)
+            scheduleRecyclerView?.adapter = scheduleAdapter
 
             singerRecyclerView = rvSinger
-            createByCategory(singerRecyclerView!!)
+            singerAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
+            setRecyclerView(singerRecyclerView!!, singerAdapter)
 
             actorRecyclerView = rvActor
-            createByCategory(actorRecyclerView!!)
+            actorAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
+            setRecyclerView(actorRecyclerView!!, actorAdapter)
 
             talentRecyclerView = rvTalent
-            createByCategory(talentRecyclerView!!)
+            talentAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
+            setRecyclerView(talentRecyclerView!!, talentAdapter)
 
-//            rvSchedule.layoutManager =
-//                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            addItemDecoration(ScheduleItem(context, 10f, 35f, Color.CYAN, 20f))
+            viewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
+                scheduleAdapter.setScheduleList(schedules)
+            }
+            viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
+                val singers = arrayListOf<Artist>()
+                val talents = arrayListOf<Artist>()
+                val actors = arrayListOf<Artist>()
+                artists.forEach { artist ->
+                    when (artist.artistCategory) {
+                        ArtistCategory.SINGER.job -> singers.add(artist)
+                        ArtistCategory.TALENT.job -> talents.add(artist)
+                        else -> actors.add(artist)
+                    }
+                }
+                singerAdapter.setArtistList(singers)
+                talentAdapter.setArtistList(talents)
+                actorAdapter.setArtistList(actors)
+            }
         }
-
-        viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
-            Log.e("mainInfo", "$artists")
-            mainAdapter.setArtistList(artists)
-        }
-
+        onBackPressed()
     }
 
-    private fun createByCategory(recyclerView: RecyclerView) {
+    private fun setRecyclerView(recyclerView: RecyclerView, adapter: ArtistAdapter) {
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = mainAdapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
     }
 
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
-    }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    /**
+     * On back pressed
+     *  뒤로가기 버튼 눌렀을 때 처리
+     */
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
     }
 
 }

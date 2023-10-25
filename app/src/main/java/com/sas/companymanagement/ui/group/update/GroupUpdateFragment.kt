@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -114,6 +117,7 @@ class GroupUpdateFragment :
         if (it.resultCode == Activity.RESULT_OK){
             imageUri = it.data?.data                //uri 가져옴
             binding.ibGroup.setImageURI(imageUri) //그 uri 셋팅
+            binding.ibGroup.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
@@ -124,10 +128,15 @@ class GroupUpdateFragment :
         if (!imagesFolder.exists()) {
             imagesFolder.mkdirs()
         }
-        val imageName = System.currentTimeMillis().toString()
-        imageSrc = "/data/data/com.sas.companymanagement/files/images/{imageName}.jpg"
-        val newFile = File(imageSrc)
-        imageToFile(requireActivity() ,imageUri!!, newFile)
+        try {
+            val imageName = System.currentTimeMillis().toString()
+            imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
+            val newFile = File(imageSrc)
+            imageToFile(requireActivity(), imageUri!!, newFile)
+        } catch (e: NullPointerException) {
+            imageSrc = ""
+            Log.e("Update", "이미지 안고름")
+        }
     }
 
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {

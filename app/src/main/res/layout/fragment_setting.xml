@@ -18,20 +18,37 @@
         app:titleTextColor="?attr/colorOnSurface" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/settingGuideline"
+        android:id="@+id/gl_setting_start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="80dp" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_setting_end"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/iv_sesac_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/logo_sesac"
+        android:layout_marginTop="@dimen/large_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingGuideline" />
+        app:layout_constraintTop_toBottomOf="@id/tb_setting" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_setting_company"
@@ -44,44 +61,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_sesac_logo" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="350dp" />
 
     <Button
         android:id="@+id/btn_setting_logout"
-        android:layout_width="match_parent"
+        style="@style/title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_margin"
         android:backgroundTint="@color/textLight"
         android:text="@string/setting_logout"
         android:textColor="@color/text"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/guideline4" />
+        app:layout_constraintEnd_toStartOf="@+id/gl_setting_end"
+        app:layout_constraintStart_toStartOf="@+id/gl_setting_start"
+        app:layout_constraintTop_toBottomOf="@id/tv_setting_company" />
 
     <Button
         android:id="@+id/btn_setting_help"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textLight"
         android:text="@string/setting_help"
         android:textColor="@color/text"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        style="@style/title"
+        app:layout_constraintEnd_toStartOf="@+id/gl_setting_end"
+        app:layout_constraintStart_toStartOf="@+id/gl_setting_start"
         app:layout_constraintTop_toBottomOf="@id/btn_setting_logout" />
 
     <Button
         android:id="@+id/btn_setting_versionInformation"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textLight"
         android:text="@string/setting_versionInformation"
         android:textColor="@color/text"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        style="@style/title"
+        app:layout_constraintEnd_toStartOf="@+id/gl_setting_end"
+        app:layout_constraintStart_toStartOf="@+id/gl_setting_start"
         app:layout_constraintTop_toBottomOf="@id/btn_setting_help" />
 
 
