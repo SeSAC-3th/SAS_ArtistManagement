@@ -14,13 +14,13 @@ interface GroupDao {
     fun insertGroup(group: Group)
 
     @Query("SELECT * FROM group_tbl WHERE id = :id")
-    fun findGroup(id: Int): List<Group>
+    fun findGroup(id: Long): Group
 
     @Update
     fun updateGroup(vararg groups: Group)
 
     @Query(value = "DELETE FROM group_tbl WHERE id = :id")
-    fun deleteGroup(id: Int)
+    fun deleteGroup(id: Long)
 
     @Query("SELECT * FROM group_tbl")
     fun getAllGroup(): LiveData<List<Group>>

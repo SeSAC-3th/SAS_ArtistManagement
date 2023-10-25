@@ -39,8 +39,8 @@ class GroupDetailFragment :
     private var artistRecyclerView: RecyclerView? = null
     private val viewModel: GroupDetailViewModel by viewModels()
     private var artistAdapter = ArtistAdapter(mutableListOf(), this)
-    private val artistViewModel: ArtistUpdateViewModel by viewModels()
     private val groupArgs: GroupDetailFragmentArgs by navArgs()
+    private var artistIds = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +53,12 @@ class GroupDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listenerSetup()
         settingArtistRecyclerView()
         fieldSetUp()
+        listenerSetup()
     }
+
+
 
     private fun settingArtistRecyclerView() {
         with(binding) {
@@ -74,15 +76,6 @@ class GroupDetailFragment :
 
 
     private fun listenerSetup() {
-
-        with(binding.rvArtist) {
-            layoutManager = GridLayoutManager(this.context, 2).apply {
-                canScrollVertically()
-            }
-//            addItemDecoration(ScheduleItem(context, 10f,35f, Color.CYAN,20f))
-            adapter = ArtistAdapter(artistData(), requireParentFragment())
-        }
-
         binding.tbGroup.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
@@ -122,72 +115,33 @@ class GroupDetailFragment :
         }
     }
 
-    private fun scheduleData() = mutableListOf<Schedule>().apply {
-        add(Schedule("2023-10-15", "테스트1"))
-        add(Schedule("2023-10-16", "테스트2"))
-        add(Schedule("2023-10-17", "테스트3"))
-    }
 
     private fun fieldSetUp() {
         val id = groupArgs.groupId
-
-        val ids = mutableListOf<Artist>()
         viewModel.findGroup(id)
-        viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
-            if (result.isNotEmpty()) {
-                val group = result[0]
-                with(binding) {
-                    tbGroup.title = group.groupName
-                    iv.setImageURI(group.groupImage.toUri())
-
-                }
-                val artistId = group.artistId.split(", ")
-                Log.e("info", "$artistId")
-
-                val newArtist = mutableListOf<Artist>()
-                artistId.forEach {
-                    artistViewModel.findArtistById(it.toLong())
-                        .observe(viewLifecycleOwner) { artist ->
-                            Log.e("info", "$artist")
-                            newArtist.add(artist)
-                        }
-                    Log.e("info", "${newArtist.size}")
-
-                }
-
-                Log.e("info", "${newArtist.size}")
-
-                artistAdapter.setArtistList(newArtist)
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { group ->
+            with(binding) {
+                tbGroup.title = group.groupName
+                iv.setImageURI(group.groupImage.toUri())
+                artistIds = group.artistId
             }
+            getArtistData()
         }
     }
 
-    /* private fun getArtistData() {
-         val newArtist = mutableListOf<Artist>()
-         artistViewModel.findArtistById()?.observe(viewLifecycleOwner) { artists ->
-             artists.forEach { artist ->
-
-                 if ()
-                     newArtist.add(artist)
-
-             }
-
-         }
-     }*/
-
-
-    private fun artistData() = mutableListOf<Artist>().apply {
-//        add(Artist(R.drawable.dummy_image, "테스트1"))
-//        add(Artist(R.drawable.dummy_image, "테스트2"))
-//        add(Artist(R.drawable.dummy_image, "테스트3"))
-//        add(Artist(R.drawable.dummy_image, "테스트4"))
+    private fun getArtistData() {
+        val newArtists = mutableListOf<Artist>()
+        viewModel.getAllArtist()?.observe(viewLifecycleOwner) { artists ->
+            artists.forEach { artist ->
+                artistIds.split(", ").forEach { id ->
+                    if (id.toLong() == artist.id) {
+                        newArtists.add(artist)
+                    }
+                }
+            }
+            artistAdapter.setArtistList(newArtists)
+        }
     }
-
-    /*    override fun onActivityCreated(savedInstanceState: Bundle?) {
-            super.onActivityCreated(savedInstanceState)
-            viewModel = ViewModelProvider(this).get(GroupDetailViewModel::class.java)
-            // TODO: Use the ViewModel
-        }*/
 
     override fun onDestroyView() {
         _binding = null

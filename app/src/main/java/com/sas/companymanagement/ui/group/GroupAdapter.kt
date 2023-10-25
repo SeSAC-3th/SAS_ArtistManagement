@@ -45,7 +45,7 @@ class GroupAdapter(
         val observable = view.clicks()
         observable.subscribe {
             val action =
-                GroupFragmentDirections.actionFragmentGroupToGroupDetailFragment(group.id.toInt())
+                GroupFragmentDirections.actionFragmentGroupToGroupDetailFragment(group.id)
             NavHostFragment.findNavController(fragment).navigate(action)
         }
     }

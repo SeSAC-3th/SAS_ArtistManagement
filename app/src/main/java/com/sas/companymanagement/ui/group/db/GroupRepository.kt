@@ -10,7 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class GroupRepository(application: Application) {
-    var searchResults = MutableLiveData<List<Group>>()
+    var searchResults = MutableLiveData<Group>()
     private var groupDao: GroupDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     val allGroups: LiveData<List<Group>>?
@@ -27,13 +27,13 @@ class GroupRepository(application: Application) {
         }
     }
 
-    fun deleteGroup(id: Int) {
+    fun deleteGroup(id: Long) {
         coroutineScope.launch(Dispatchers.IO) {
             groupDao.deleteGroup(id)
         }
     }
 
-    fun findGroup(id: Int) {
+    fun findGroup(id: Long) {
         coroutineScope.launch(Dispatchers.Main) {
             searchResults.value = coroutineScope.async(Dispatchers.IO) {
                 return@async groupDao.findGroup(id)

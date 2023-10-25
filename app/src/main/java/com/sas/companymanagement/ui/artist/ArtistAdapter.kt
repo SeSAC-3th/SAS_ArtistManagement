@@ -18,6 +18,10 @@ import com.sas.companymanagement.R
 import androidx.navigation.fragment.findNavController
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.ui.MainActivity
+import com.sas.companymanagement.ui.group.GroupFragment
+import com.sas.companymanagement.ui.group.GroupFragmentDirections
+import com.sas.companymanagement.ui.group.detail.GroupDetailFragment
+import com.sas.companymanagement.ui.group.detail.GroupDetailFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
 import com.sas.companymanagement.ui.schedule.Schedule
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -66,7 +70,9 @@ class ArtistAdapter(
                 ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
                     artist.id
                 )
-            else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id)
+            else if (fragment.childFragmentManager.fragments[0] is GroupDetailFragment) {
+                GroupDetailFragmentDirections.actionGroupDetailFragmentToArtistDetailFragment(artist.id)
+            } else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id)
         with(view) {
             clicks()
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
@@ -96,12 +102,14 @@ class ArtistAdapter(
             }
     }
 
-    fun getSelectedId() : MutableSet<Long> {
+    fun getSelectedId(): MutableSet<Long> {
         return selectedSet
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setArtistList(artists: List<Artist>) {
+        Log.e("artistInfo", "2번")
+
         arrayList = artists.toMutableList()
         notifyDataSetChanged()
     }
