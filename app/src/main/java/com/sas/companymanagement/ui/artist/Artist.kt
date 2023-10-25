@@ -29,6 +29,9 @@ data class Artist(
     @ColumnInfo(name = "artistGender")
     var artistGender: String = "",
 
+    @ColumnInfo(name = "artistEval")
+    var artistEval: String = "",
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0L,
