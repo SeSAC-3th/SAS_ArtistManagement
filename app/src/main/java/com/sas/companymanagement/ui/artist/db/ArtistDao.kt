@@ -28,4 +28,7 @@ interface ArtistDao {
 
     @Query("SELECT * FROM artist_tbl")
     fun getAllArtist(): LiveData<List<Artist>>
+
+    @Query("SELECT * FROM artist_tbl WHERE id = :id")
+    fun findArtistById(id: Int): LiveData<Artist>
 }
