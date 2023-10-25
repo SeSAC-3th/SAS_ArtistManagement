@@ -44,6 +44,9 @@ class ScheduleDetailFragment :
 
     private fun initMenu() {
         with(binding.tbScheduleDetail) {
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
             setOnMenuItemClickListener { item ->
                 when ( item.itemId){
                     R.id.update -> {
@@ -87,8 +90,7 @@ class ScheduleDetailFragment :
                 tvScheduleDateEnd.text = schedule.scheduleDateAfter
                 tvScheduleContent.text = schedule.scheduleContent
 
-                Log.e("artist",schedule.artistId)
-                val artistIds = schedule.artistId.split(",")
+                val artistIds = schedule.artistId.split(", ")
                 artistIds.forEach{
                     artistViewModel.findArtistById(it.toInt()).observe(viewLifecycleOwner) { artist ->
                         tvScheduleArtist.append(artist.artistName+" ")
