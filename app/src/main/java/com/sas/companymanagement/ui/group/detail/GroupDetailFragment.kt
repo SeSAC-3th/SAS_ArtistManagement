@@ -1,6 +1,8 @@
 package com.sas.companymanagement.ui.group.detail
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +12,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sas.companymanagement.R
 import com.sas.companymanagement.R.menu.menu_detail
 import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
+import com.sas.companymanagement.ui.artist.ArtistViewModel
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.dateToString
+import com.sas.companymanagement.ui.group.Group
+import com.sas.companymanagement.ui.group.GroupAdapter
 import com.sas.companymanagement.ui.schedule.Schedule
 
 
@@ -27,7 +36,10 @@ class GroupDetailFragment :
         fun newInstance() = GroupDetailFragment()
     }
 
+    private var artistRecyclerView: RecyclerView? = null
     private val viewModel: GroupDetailViewModel by viewModels()
+    private var artistAdapter = ArtistAdapter(mutableListOf(), this)
+    private val artistViewModel: ArtistUpdateViewModel by viewModels()
     private val groupArgs: GroupDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -42,7 +54,22 @@ class GroupDetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listenerSetup()
+        settingArtistRecyclerView()
         fieldSetUp()
+    }
+
+    private fun settingArtistRecyclerView() {
+        with(binding) {
+            artistRecyclerView = rvArtist
+            artistAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
+            artistRecyclerView?.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            artistRecyclerView?.setHasFixedSize(true)
+            artistRecyclerView?.adapter = artistAdapter
+            /*viewModel.allArtist?.observe(viewLifecycleOwner) { artists ->
+                artistAdapter.setArtistList(artists)
+            }*/
+        }
     }
 
 
@@ -103,6 +130,8 @@ class GroupDetailFragment :
 
     private fun fieldSetUp() {
         val id = groupArgs.groupId
+
+        val ids = mutableListOf<Artist>()
         viewModel.findGroup(id)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
             if (result.isNotEmpty()) {
@@ -110,10 +139,42 @@ class GroupDetailFragment :
                 with(binding) {
                     tbGroup.title = group.groupName
                     iv.setImageURI(group.groupImage.toUri())
+
                 }
+                val artistId = group.artistId.split(", ")
+                Log.e("info", "$artistId")
+
+                val newArtist = mutableListOf<Artist>()
+                artistId.forEach {
+                    artistViewModel.findArtistById(it.toInt())
+                        .observe(viewLifecycleOwner) { artist ->
+                            Log.e("info", "$artist")
+                            newArtist.add(artist)
+                        }
+                    Log.e("info", "${newArtist.size}")
+
+                }
+
+                Log.e("info", "${newArtist.size}")
+
+                artistAdapter.setArtistList(newArtist)
             }
         }
     }
+
+    /* private fun getArtistData() {
+         val newArtist = mutableListOf<Artist>()
+         artistViewModel.findArtistById()?.observe(viewLifecycleOwner) { artists ->
+             artists.forEach { artist ->
+
+                 if ()
+                     newArtist.add(artist)
+
+             }
+
+         }
+     }*/
+
 
     private fun artistData() = mutableListOf<Artist>().apply {
 //        add(Artist(R.drawable.dummy_image, "테스트1"))
