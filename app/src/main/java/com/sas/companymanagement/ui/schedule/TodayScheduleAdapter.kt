@@ -39,9 +39,13 @@ class TodayScheduleAdapter(
 
     override fun getItemCount() = arrayList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         var schedule: Schedule = arrayList[position]
-        holder.content.text = schedule.scheduleContent
+        holder.content.text =
+            schedule.scheduleContent + " (" + schedule.scheduleDateBefore.substring(13) + "~" + schedule.scheduleDateAfter.substring(
+                13
+            ) + ")"
 
         artistClickEvent(holder.content, schedule.id)
 

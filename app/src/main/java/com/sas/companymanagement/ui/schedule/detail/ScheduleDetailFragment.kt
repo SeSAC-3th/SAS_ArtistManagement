@@ -1,35 +1,18 @@
 package com.sas.companymanagement.ui.schedule.detail
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.databinding.FragmentScheduleDetailBinding
-import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
-import com.sas.companymanagement.ui.artist.Artist
-import com.sas.companymanagement.ui.artist.ArtistAdapter
-import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
-import com.sas.companymanagement.ui.artist.detail.ArtistDetailFragmentArgs
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import com.sas.companymanagement.ui.common.dateToString
-import com.sas.companymanagement.ui.schedule.ScheduleAdapter
-import com.sas.companymanagement.ui.schedule.ScheduleFragmentDirections
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class ScheduleDetailFragment :
     ViewBindingBaseFragment<FragmentScheduleDetailBinding>(FragmentScheduleDetailBinding::inflate) {
@@ -40,6 +23,7 @@ class ScheduleDetailFragment :
         //TODO 필드 값 변경 
     private val viewModel: ScheduleDetailViewModel by viewModels()
     private val scheduleArgs: ScheduleDetailFragmentArgs by navArgs()
+    private val artistViewModel: ArtistUpdateViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,7 +86,14 @@ class ScheduleDetailFragment :
                 tvScheduleDateStart.text = schedule.scheduleDateBefore
                 tvScheduleDateEnd.text = schedule.scheduleDateAfter
                 tvScheduleContent.text = schedule.scheduleContent
-                //TODO ARTIST
+
+                Log.e("artist",schedule.artistId)
+                val artistIds = schedule.artistId.split(",")
+                artistIds.forEach{
+                    artistViewModel.findArtistById(it.toInt()).observe(viewLifecycleOwner) { artist ->
+                        tvScheduleArtist.append(artist.artistName+" ")
+                    }
+                }
             }
         }
     }

@@ -78,7 +78,7 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
 
     private fun setCalendarDays(schedules: List<Schedule>){
         schedules.forEach{
-            val data = it.scheduleDateAfter.substring(0,13)
+            val data = it.scheduleDateBefore.substring(0,13)
             val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
             val date = dateFormat.parse(data)
 

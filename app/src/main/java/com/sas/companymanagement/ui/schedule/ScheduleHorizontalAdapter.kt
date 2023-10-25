@@ -53,7 +53,7 @@ class ScheduleHorizontalAdapter(
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
                     val action =
-                        MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id.toInt())
+                        MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id)
                     NavHostFragment.findNavController(fragment).navigate(action)
                 }
         }
