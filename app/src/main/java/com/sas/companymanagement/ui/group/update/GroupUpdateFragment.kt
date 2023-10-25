@@ -4,24 +4,24 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.chip.Chip
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
+import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.group.Group
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -41,23 +41,40 @@ class GroupUpdateFragment :
 
     companion object {
         fun newInstance() = GroupUpdateFragment()
+        //    private var tempImage = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
+
     }
 
     private val groupArgs: GroupUpdateFragmentArgs by navArgs()
     private val viewModel: GroupUpdateViewModel by viewModels()
+    private val artistUpdateViewModel: ArtistUpdateViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
     private var imageSrc = ""
     private var imageUri: Uri? = null
     private var name = ""
     private var id = 0L
+    private lateinit var selectedArtistIdList: LongArray
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LongArray>("selectedArtistId")
+            ?.observe(viewLifecycleOwner) {
+                selectedArtistIdList = it
+                addArtistChip()
+            }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //    binding.ibGroup.setImageURI(tempImage)
         if (groupArgs.groupId != -1) getField()
         listenerSetup()
-        // observerSetup()
     }
 
     private fun getField() {
@@ -71,10 +88,7 @@ class GroupUpdateFragment :
                     ibGroup.setImageURI(Uri.parse(groupData.groupImage))
                     imageSrc = groupData.groupImage
                     imageUri = groupData.groupImage.toUri()
-                    Log.e("groupInfo", imageUri.toString())
-                    Log.e("groupInfo", imageSrc)
                     id = groupData.id
-
                 }
             }
         }
@@ -119,22 +133,26 @@ class GroupUpdateFragment :
     }
 
     private fun addArtistChip() {
-        /*
-        var chipName = "이원형"
-
         binding.cgArtistUpdate.removeView(binding.cAdd)
 
-        binding.cgArtistUpdate.addView(Chip(context).apply {
-            chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_check_24)
-            text = chipName
-            isCloseIconVisible = true
-            setOnCloseIconClickListener { binding.cgArtistUpdate.removeView(this) }
-        })
+        selectedArtistIdList.forEach { id ->
+            binding.cgArtistUpdate.addView(Chip(context).apply {
+                artistUpdateViewModel.findArtistById(id.toInt())
+                    .observe(viewLifecycleOwner) { artist ->
+                        text = artist.artistName
+                        isCloseIconVisible = true
+                    }
+                setOnCloseIconClickListener {
+                    selectedArtistIdList = selectedArtistIdList.filter { value ->
+                        value != id
+                    }.toLongArray()
+
+                    binding.cgArtistUpdate.removeView(this)
+                }
+            })
+        }
+
         binding.cgArtistUpdate.addView(binding.cAdd)
-        */
-        val action =
-            GroupUpdateFragmentDirections.actionGroupUpdateFragmentToArtistSelectFragment("group")
-        findNavController().navigate(action)
 
     }
 
@@ -146,7 +164,11 @@ class GroupUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    addArtistChip()
+                    val action =
+                        GroupUpdateFragmentDirections.actionGroupUpdateFragmentToArtistSelectFragment(
+                            "group"
+                        )
+                    findNavController().navigate(action)
                 }, {
                     Log.e("RX_ERROR", compositeDisposable.toString())
                 })
@@ -172,6 +194,7 @@ class GroupUpdateFragment :
     }
 
     private fun listenerSetup() {
+
         with(binding) {
             tbGroupUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
@@ -179,21 +202,13 @@ class GroupUpdateFragment :
             listenerField()
             tbGroupUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
-                    Log.e("groupInfo", "0.imageSrc: $imageSrc")
-                    Log.e("groupInfo", "0.imageUri: $imageUri")
                     updateSet()
-                    Log.e("groupInfo", "1.imageSrc: $imageSrc")
-                    Log.e("groupInfo", "1.imageUri: $imageUri")
                     saveImage()
-                    Log.e("groupInfo", "2.imageSrc: $imageSrc")
-                    Log.e("groupInfo", "2.imageUri: $imageUri")
                     if (requireUpdate()) {
                         if (groupArgs.groupId != -1) {
-
-                            Log.e("groupInfo", "3.imageSrc: $imageSrc")
-                            Log.e("groupInfo", "3.imageUri: $imageUri")
                             viewModel.updateGroup(
                                 Group(
+                                    artistId = selectedArtistIdList.joinToString(),
                                     groupName = name,
                                     groupImage = imageSrc,
                                     id = id
@@ -202,6 +217,7 @@ class GroupUpdateFragment :
                         } else {
                             viewModel.insertGroup(
                                 Group(
+                                    artistId = selectedArtistIdList.joinToString(),
                                     groupName = name,
                                     groupImage = imageSrc,
                                 )
@@ -210,16 +226,17 @@ class GroupUpdateFragment :
                         findNavController().popBackStack()
                     } else {
                     }
-                    /*saveImage()
-                    viewModel.insertGroup(
-                        Group(
-                            groupName = name,
-                            groupImage = imageSrc,
-                        )
-                    )*/
                 }
                 true
             }
+
+        }
+    }
+
+    //    binding.cgArtistUpdate.addView(binding.cAdd)
+    private fun updateChip() {
+        with(binding) {
+//            selectedArtistIdList = cgArtistUpdate
         }
     }
 
@@ -244,6 +261,7 @@ class GroupUpdateFragment :
                 imageUri = it.data?.data
                 binding.ibGroup.setImageURI(imageUri)
                 binding.ibGroup.setBackgroundColor(Color.TRANSPARENT)
+
             }
         }
 
