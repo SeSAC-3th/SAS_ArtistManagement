@@ -146,7 +146,7 @@ class GroupDetailFragment :
 
                 val newArtist = mutableListOf<Artist>()
                 artistId.forEach {
-                    artistViewModel.findArtistById(it.toInt())
+                    artistViewModel.findArtistById(it.toLong())
                         .observe(viewLifecycleOwner) { artist ->
                             Log.e("info", "$artist")
                             newArtist.add(artist)
