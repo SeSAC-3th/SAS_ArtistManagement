@@ -1,19 +1,17 @@
 package com.sas.companymanagement.ui.group
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 
 class GroupAdapter(
     var arrayList: MutableList<Group>,
@@ -37,17 +35,17 @@ class GroupAdapter(
     override fun getItemCount() = arrayList.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var group: Group = arrayList.get(position)
-//        holder.images.setImageResource(group.groupImage!!)
-        holder.groupNames.text = group.groupName
-        groupClickEvent(holder.images)
+        val groupData: Group = arrayList[position]
+        holder.groupNames.text = groupData.groupName
+        holder.images.setImageURI(groupData.groupImage.toUri())
+        groupClickEvent(holder.images, groupData)
     }
 
-    private fun groupClickEvent(view: View) {
+    private fun groupClickEvent(view: View, group: Group) {
         val observable = view.clicks()
         observable.subscribe {
             val action =
-                GroupFragmentDirections.actionFragmentGroupToGroupDetailFragment(0)
+                GroupFragmentDirections.actionFragmentGroupToGroupDetailFragment(group.id.toInt())
             NavHostFragment.findNavController(fragment).navigate(action)
         }
     }

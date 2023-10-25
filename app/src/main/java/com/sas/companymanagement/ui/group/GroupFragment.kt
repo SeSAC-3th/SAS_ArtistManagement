@@ -44,6 +44,7 @@ class GroupFragment :
                     val action =
                         GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(0)
                     findNavController().navigate(action)
+
                 }
                 true
             }
