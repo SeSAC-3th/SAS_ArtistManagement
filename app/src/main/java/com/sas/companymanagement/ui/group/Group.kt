@@ -15,6 +15,9 @@ data class Group(
     @ColumnInfo(name = "artistId")
     var artistId: String = "",
 
+    @ColumnInfo(name = "groupEval")
+    var groupEval: String = "",
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0L,

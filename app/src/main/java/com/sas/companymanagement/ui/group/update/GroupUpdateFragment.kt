@@ -23,6 +23,7 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.getRandomListToString
 import com.sas.companymanagement.ui.group.Group
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -53,8 +54,12 @@ class GroupUpdateFragment :
     private var imageUri: Uri? = null
     private var name = ""
     private var id = 0L
-    private lateinit var selectedArtistIdList: MutableSet<Long>
-
+    private var artistId = ""
+    private var selectedArtistIdList: MutableSet<Long> = mutableSetOf()
+    private var tempSet: MutableSet<Long> = mutableSetOf()
+    private var isFieldLoaded = false
+    private var eval = ""
+    var i = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,8 +67,11 @@ class GroupUpdateFragment :
     ): View? {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<MutableSet<Long>>("selectedArtistId")
             ?.observe(viewLifecycleOwner) {
+                isFieldLoaded = false
                 selectedArtistIdList = it
-
+                if (groupArgs.groupId == -1L) {
+                    setChip.invoke()
+                }
             }
 
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -78,8 +86,10 @@ class GroupUpdateFragment :
     }
 
     private fun getField() {
+        i++
         viewModel.findGroup(groupArgs.groupId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
+            Log.e("asf", i.toString())
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
@@ -87,13 +97,29 @@ class GroupUpdateFragment :
                     imageSrc = groupData.groupImage
                     imageUri = groupData.groupImage.toUri()
                     id = groupData.id
-                    groupData.artistId
+                    artistId = groupData.artistId
+                    eval = groupData.groupEval
                 }
+                var artistList = groupData.artistId.split(",").map {
+                    it.trim().toLong()
+                }.toMutableSet()
+                if (i < 2) {
+                    tempSet =
+                        (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
+                    editArtistChip(tempSet)
+                } else {
+                    tempSet = selectedArtistIdList
+                    editArtistChip(tempSet)
+                }
+
             }
-            if (selectedArtistIdList.isNotEmpty())  editArtistChip(selectedArtistIdList)
         }
     }
 
+    private val setChip = {
+        tempSet = selectedArtistIdList
+        editArtistChip(tempSet)
+    }
 
     //이미지 저장
     @SuppressLint("SdCardPath")
@@ -132,15 +158,16 @@ class GroupUpdateFragment :
         }
     }
 
-    private fun editArtistChip(temp : MutableSet<Long>) {
-        if(temp.isNotEmpty()){
-            binding.cgArtistUpdate.removeView(binding.cAdd)
+    private fun editArtistChip(temp: MutableSet<Long>) {
+        if (temp.isNotEmpty()) {
+            binding.cgArtistUpdate.removeAllViews()
             temp.forEach { id ->
                 binding.cgArtistUpdate.addView(Chip(context).apply {
-                    artistUpdateViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
-                        text = artist.artistName
-                        isCloseIconVisible = true
-                    }
+                    artistUpdateViewModel.findArtistById(id)
+                        .observe(viewLifecycleOwner) { artist ->
+                            text = artist.artistName
+                            isCloseIconVisible = true
+                        }
                     //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
                     setOnCloseIconClickListener {
                         temp.remove(id)
@@ -204,9 +231,10 @@ class GroupUpdateFragment :
                         if (groupArgs.groupId != -1L) {
                             viewModel.updateGroup(
                                 Group(
-                                    artistId = selectedArtistIdList.joinToString(),
+                                    artistId = tempSet.joinToString(),
                                     groupName = name,
                                     groupImage = imageSrc,
+                                    groupEval = eval,
                                     id = id
                                 )
                             )
@@ -216,6 +244,7 @@ class GroupUpdateFragment :
                                     artistId = selectedArtistIdList.joinToString(),
                                     groupName = name,
                                     groupImage = imageSrc,
+                                    groupEval = getRandomListToString()
                                 )
                             )
                         }
