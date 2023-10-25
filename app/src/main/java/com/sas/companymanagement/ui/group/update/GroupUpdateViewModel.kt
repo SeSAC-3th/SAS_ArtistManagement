@@ -8,17 +8,17 @@ import com.sas.companymanagement.ui.group.db.GroupRepository
 
 class GroupUpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: GroupRepository = GroupRepository(application)
-    private val searchResults: MutableLiveData<List<Group>> = repository.searchResults
+    private val searchResults: MutableLiveData<Group> = repository.searchResults
     fun insertGroup(group: Group) {
         repository.insertGroup(group)
     }
 
-    fun findGroup(id: Int) {
+    fun findGroup(id: Long) {
         repository.findGroup(id)
     }
 
 
-    fun getSearchResults(): MutableLiveData<List<Group>> {
+    fun getSearchResults(): MutableLiveData<Group> {
         return searchResults
     }
 

@@ -53,17 +53,17 @@ class GroupUpdateFragment :
     private var imageUri: Uri? = null
     private var name = ""
     private var id = 0L
-    private lateinit var selectedArtistIdList: LongArray
+    private lateinit var selectedArtistIdList: MutableSet<Long>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<LongArray>("selectedArtistId")
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<MutableSet<Long>>("selectedArtistId")
             ?.observe(viewLifecycleOwner) {
                 selectedArtistIdList = it
-                addArtistChip()
+
             }
 
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -73,15 +73,13 @@ class GroupUpdateFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //    binding.ibGroup.setImageURI(tempImage)
-        if (groupArgs.groupId != -1) getField()
+        if (groupArgs.groupId != -1L) getField()
         listenerSetup()
     }
 
     private fun getField() {
         viewModel.findGroup(groupArgs.groupId)
-        viewModel.getSearchResults().observe(viewLifecycleOwner) { groups ->
-
-            val groupData = groups[0]
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
@@ -89,8 +87,10 @@ class GroupUpdateFragment :
                     imageSrc = groupData.groupImage
                     imageUri = groupData.groupImage.toUri()
                     id = groupData.id
+                    groupData.artistId
                 }
             }
+            if (selectedArtistIdList.isNotEmpty())  editArtistChip(selectedArtistIdList)
         }
     }
 
@@ -100,7 +100,7 @@ class GroupUpdateFragment :
     private fun saveImage() {
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
-        if (groupArgs.groupId == -1) {
+        if (groupArgs.groupId == -1L) {
             val imageName = System.currentTimeMillis().toString()
             imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
 
@@ -132,28 +132,24 @@ class GroupUpdateFragment :
         }
     }
 
-    private fun addArtistChip() {
-        binding.cgArtistUpdate.removeView(binding.cAdd)
-
-        selectedArtistIdList.forEach { id ->
-            binding.cgArtistUpdate.addView(Chip(context).apply {
-                artistUpdateViewModel.findArtistById(id)
-                    .observe(viewLifecycleOwner) { artist ->
+    private fun editArtistChip(temp : MutableSet<Long>) {
+        if(temp.isNotEmpty()){
+            binding.cgArtistUpdate.removeView(binding.cAdd)
+            temp.forEach { id ->
+                binding.cgArtistUpdate.addView(Chip(context).apply {
+                    artistUpdateViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
                         text = artist.artistName
                         isCloseIconVisible = true
                     }
-                setOnCloseIconClickListener {
-                    selectedArtistIdList = selectedArtistIdList.filter { value ->
-                        value != id
-                    }.toLongArray()
-
-                    binding.cgArtistUpdate.removeView(this)
-                }
-            })
+                    //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
+                    setOnCloseIconClickListener {
+                        temp.remove(id)
+                        binding.cgArtistUpdate.removeView(this)
+                    }
+                })
+            }
+            binding.cgArtistUpdate.addView(binding.cAdd)
         }
-
-        binding.cgArtistUpdate.addView(binding.cAdd)
-
     }
 
     private fun listenerField() {
@@ -205,7 +201,7 @@ class GroupUpdateFragment :
                     updateSet()
                     saveImage()
                     if (requireUpdate()) {
-                        if (groupArgs.groupId != -1) {
+                        if (groupArgs.groupId != -1L) {
                             viewModel.updateGroup(
                                 Group(
                                     artistId = selectedArtistIdList.joinToString(),
@@ -270,5 +266,4 @@ class GroupUpdateFragment :
         compositeDisposable.clear()
     }
 }
-
 

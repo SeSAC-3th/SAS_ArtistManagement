@@ -42,7 +42,7 @@ class GroupFragment :
             tbGroup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
-                        GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(0)
+                        GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(-1)
                     findNavController().navigate(action)
 
                 }

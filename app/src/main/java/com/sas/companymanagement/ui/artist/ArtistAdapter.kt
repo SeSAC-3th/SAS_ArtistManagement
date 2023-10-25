@@ -2,7 +2,6 @@ package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,14 +14,9 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import androidx.navigation.fragment.findNavController
-import com.sas.companymanagement.databinding.FragmentArtistBinding
-import com.sas.companymanagement.ui.MainActivity
+import com.sas.companymanagement.ui.group.detail.GroupDetailFragment
+import com.sas.companymanagement.ui.group.detail.GroupDetailFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
-import com.sas.companymanagement.ui.schedule.Schedule
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
@@ -66,7 +60,9 @@ class ArtistAdapter(
                 ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
                     artist.id
                 )
-            else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id)
+            else if (fragment.childFragmentManager.fragments[0] is GroupDetailFragment) {
+                GroupDetailFragmentDirections.actionGroupDetailFragmentToArtistDetailFragment(artist.id)
+            } else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id)
         with(view) {
             clicks()
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
@@ -96,7 +92,7 @@ class ArtistAdapter(
             }
     }
 
-    fun getSelectedId() : MutableSet<Long> {
+    fun getSelectedId(): MutableSet<Long> {
         return selectedSet
     }
 

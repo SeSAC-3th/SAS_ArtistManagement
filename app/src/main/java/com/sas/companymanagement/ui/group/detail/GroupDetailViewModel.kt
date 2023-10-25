@@ -14,24 +14,23 @@ import com.sas.companymanagement.ui.group.db.GroupRepository
 class GroupDetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: GroupRepository = GroupRepository(application)
-    private val searchResults: MutableLiveData<List<Group>> = repository.searchResults
+    private val searchResults: MutableLiveData<Group> = repository.searchResults
 
     private val artistRepository: ArtistRepository = ArtistRepository(application)
-    val allArtist: LiveData<List<Artist>>? = artistRepository.allArtists
 
-    fun findGroup(id: Int) {
+    fun findGroup(id: Long) {
         repository.findGroup(id)
     }
 
-    fun getSearchResults(): MutableLiveData<List<Group>> {
+    fun getSearchResults(): MutableLiveData<Group> {
         return searchResults
     }
 
-    fun deleteGroup(id: Int) {
+    fun deleteGroup(id: Long) {
         repository.deleteGroup(id)
     }
-    fun findArtist(id: Int) {
 
+    fun getAllArtist(): LiveData<List<Artist>>? {
+        return artistRepository.getAllArtist()
     }
-
 }
