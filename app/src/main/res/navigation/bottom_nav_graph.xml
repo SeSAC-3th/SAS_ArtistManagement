@@ -86,10 +86,14 @@
         android:label="GroupDetailFragment" >
         <argument
             android:name="groupId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_groupDetailFragment_to_groupUpdateFragment"
             app:destination="@id/groupUpdateFragment" />
+        <action
+            android:id="@+id/action_groupDetailFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/scheduleUpdateFragment"
@@ -114,7 +118,7 @@
         tools:layout="@layout/fragment_group_update" >
         <argument
             android:name="groupId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_groupUpdateFragment_to_fragment_artist"
             app:destination="@id/fragment_artist" />
