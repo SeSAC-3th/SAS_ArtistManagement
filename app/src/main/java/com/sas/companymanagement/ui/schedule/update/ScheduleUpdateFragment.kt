@@ -207,7 +207,7 @@ class ScheduleUpdateFragment :
             true
         }
     }
-    private lateinit var scheduleAdapter: ScheduleAdapter
+
     private fun observerSetup(scheduleId: Long) {
         var tempSet: MutableSet<Long>
         viewModel.findScheduleById(scheduleId).observe(viewLifecycleOwner) { schedule ->
