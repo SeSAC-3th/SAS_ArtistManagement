@@ -68,9 +68,6 @@ class GroupDetailFragment :
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             artistRecyclerView?.setHasFixedSize(true)
             artistRecyclerView?.adapter = artistAdapter
-            /*viewModel.allArtist?.observe(viewLifecycleOwner) { artists ->
-                artistAdapter.setArtistList(artists)
-            }*/
         }
     }
 
