@@ -4,14 +4,10 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,16 +19,11 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
-import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
-import com.sas.companymanagement.ui.artist.db.ArtistDao
-import com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment
 import com.sas.companymanagement.ui.common.CANCEL
 import com.sas.companymanagement.ui.common.DELETE_MESSAGE
 import com.sas.companymanagement.ui.common.OK
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
-import com.sas.companymanagement.ui.schedule.Schedule
-import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 
 class ArtistDetailFragment :
@@ -66,7 +57,8 @@ class ArtistDetailFragment :
     private fun scheduleSetup() {
         with(binding) {
             scheduleRecyclerView = rvSchedule
-            scheduleAdapter = ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
+            scheduleAdapter =
+                ScheduleHorizontalAdapter(java.util.ArrayList(), requireParentFragment())
             scheduleRecyclerView?.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             scheduleRecyclerView?.setHasFixedSize(true)
@@ -77,8 +69,7 @@ class ArtistDetailFragment :
     private fun fieldSetup() {
         val id = artistArgs.artistId
         viewModel.findArtist(id)
-        viewModel.getSearchResults().observe(viewLifecycleOwner) { result ->
-            val artist = result[0]
+        viewModel.getSearchResults().observe(viewLifecycleOwner) { artist ->
             with(binding) {
                 tvArtistNameLayout.text = artist.artistName
                 tvArtistNicknameLayout.text = artist.artistNickname
@@ -124,15 +115,6 @@ class ArtistDetailFragment :
                 }
                 true
             }
-        }
-
-        with(binding.rvSchedule) {
-            layoutManager = LinearLayoutManager(
-                this.context,
-                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
-                false
-            )
-//            adapter = ScheduleAdapter(this.context, scheduleData())
         }
     }
 

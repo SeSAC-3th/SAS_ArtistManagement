@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ArtistRepository(application: Application) {
-    var searchResults = MutableLiveData<List<Artist>>()
+    var searchResults = MutableLiveData<Artist>()
     private var categoryResults = MutableLiveData<List<Artist>>()
     private var artistDao: ArtistDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
@@ -37,7 +37,7 @@ class ArtistRepository(application: Application) {
         }
     }
 
-    fun deleteArtist(id: Int) {
+    fun deleteArtist(id: Long) {
         coroutineScope.launch(Dispatchers.IO) {
             artistDao.deleteArtist(id)
         }
@@ -51,7 +51,7 @@ class ArtistRepository(application: Application) {
         }
     }
 
-    fun findArtist(id: Int) {
+    fun findArtist(id: Long) {
         coroutineScope.launch(Dispatchers.Main) {
             searchResults.value = coroutineScope.async(Dispatchers.IO) {
                 return@async artistDao.findArtist(id)

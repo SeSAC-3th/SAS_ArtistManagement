@@ -60,7 +60,7 @@ class MainAdapter(
             .subscribe {
                 findNavController(fragment).navigate(
                     MainFragmentDirections.actionFragmentMainToArtistDetailFragment(
-                        artist.id.toInt()
+                        artist.id
                     )
                 )
             }
@@ -73,33 +73,4 @@ class MainAdapter(
     }
 
     override fun getItemCount() = artistList.size
-}
-
-class ArtistItemDecoration(
-    private val context: Context,
-    private val height: Float,
-    private var bottomPadding: Float = 50f,
-) : RecyclerView.ItemDecoration() {
-
-
-    init {
-        bottomPadding = dpToPx(50f)
-    }
-
-    // dp -> pixel 단위로 변경
-    private fun dpToPx(dp: Float) =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, dp,
-            context.resources.displayMetrics
-        )
-
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = bottomPadding.roundToInt()
-    }
 }

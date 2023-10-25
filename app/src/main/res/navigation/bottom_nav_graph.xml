@@ -64,7 +64,7 @@
         tools:layout="@layout/fragment_artist_detail" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_artistDetailFragment_to_artistUpdateFragment"
             app:destination="@id/artistUpdateFragment" />
@@ -78,7 +78,7 @@
         android:label="ArtistUpdateFragment" >
         <argument
             android:name="artistId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/groupDetailFragment"

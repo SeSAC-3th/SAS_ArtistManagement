@@ -64,9 +64,9 @@ class ArtistAdapter(
         val action =
             if (fragment.childFragmentManager.fragments[0] is ArtistFragment)
                 ArtistFragmentDirections.actionFragmentArtistToArtistDetailFragment(
-                    artist.id.toInt()
+                    artist.id
                 )
-            else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id.toInt())
+            else MainFragmentDirections.actionFragmentMainToArtistDetailFragment(artist.id)
         with(view) {
             clicks()
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
