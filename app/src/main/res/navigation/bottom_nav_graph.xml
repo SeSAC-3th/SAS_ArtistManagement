@@ -91,7 +91,7 @@
 
         <argument
             android:name="scheduleId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_scheduleUpdateFragment_to_fragment_artist"
             app:destination="@id/fragment_artist" />
@@ -127,7 +127,10 @@
             app:destination="@id/scheduleUpdateFragment" />
         <argument
             android:name="scheduleId"
-            app:argType="integer" />
+            app:argType="long" />
+        <action
+            android:id="@+id/action_scheduleDetailFragment_to_fragment_schedule"
+            app:destination="@id/fragment_schedule" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

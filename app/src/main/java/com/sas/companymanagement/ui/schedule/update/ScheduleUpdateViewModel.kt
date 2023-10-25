@@ -10,27 +10,10 @@ import com.sas.companymanagement.ui.schedule.db.ScheduleRepository
 
 class ScheduleUpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val repository : ScheduleRepository = ScheduleRepository(application)
-    private val allSchedule : LiveData<List<Schedule>>? = repository.allSchedules
-    private val searchResults : MutableLiveData<List<Schedule>> = repository.searchResults
 
     fun insertSchedule(schedule: Schedule){
         repository.insertSchedule(schedule)
     }
 
-    fun findSchedule(id : Int){
-        repository.findSchedule(id)
-    }
-
-    fun deleteSchedule(id : Int){
-        repository.deleteSchedule(id)
-    }
-
-    fun getSearchSchedules() : MutableLiveData<List<Schedule>>{
-        return searchResults
-    }
-
-    fun getAllSchedules() : LiveData<List<Schedule>>?{
-        return allSchedule
-    }
 
 }

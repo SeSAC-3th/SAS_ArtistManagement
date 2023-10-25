@@ -13,13 +13,13 @@ interface ScheduleDao {
     fun insertSchedule(schedule: Schedule)
 
     @Query("SELECT * FROM schedule_tbl WHERE id = :id")
-    fun findSchedule(id: Int): List<Schedule>
+    fun findSchedule(id: Long): Schedule
 
     @Update
     fun updateSchedule(vararg schedules: Schedule)
 
     @Query(value = "DELETE FROM schedule_tbl WHERE id = :id")
-    fun deleteSchedule(id: Int)
+    fun deleteSchedule(id: Long)
 
     @Query("SELECT * FROM schedule_tbl")
     fun getAllSchedule(): LiveData<List<Schedule>>

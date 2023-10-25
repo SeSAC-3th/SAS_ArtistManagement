@@ -79,7 +79,7 @@
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="서울"
+        tools:text="서울"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
         app:layout_constraintTop_toBottomOf="@+id/tv_schedule_address_title" />
@@ -125,15 +125,7 @@
         app:layout_constraintStart_toEndOf="@+id/iv_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_title" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_address_name"
-        style="@style/body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="서울"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_address_title" />
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_artist_title"

@@ -104,6 +104,7 @@ class ArtistDetailFragment :
                         // Artist 삭제 event
                         ad.setPositiveButton("확인") { dialog, _ ->
                             dialog.dismiss()
+                            viewModel.deleteArtist(artistArgs.artistId)
                             parentFragmentManager.popBackStack()
                         }
                         ad.show()

@@ -13,7 +13,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ScheduleRepository(application: Application) {
-    var searchResults = MutableLiveData<List<Schedule>>()
+    var searchResults = MutableLiveData<Schedule>()
     private var scheduleDao : ScheduleDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     val allSchedules : LiveData<List<Schedule>>?
@@ -34,17 +34,18 @@ class ScheduleRepository(application: Application) {
         }
     }
 
-    fun deleteSchedule(id:Int){
+    fun deleteSchedule(id:Long){
         coroutineScope.launch {
             scheduleDao.deleteSchedule(id)
         }
     }
-    fun findSchedule(id: Int) {
+    fun findSchedule(id: Long) {
         CoroutineScope(Dispatchers.Main).launch {
             searchResults.value = coroutineScope.async {
                 return@async scheduleDao.findSchedule(id)
             }.await()
         }
     }
+
 
 }

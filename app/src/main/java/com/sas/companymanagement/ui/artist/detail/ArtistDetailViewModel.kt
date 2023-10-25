@@ -18,4 +18,8 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
     fun getSearchResults(): MutableLiveData<List<Artist>> {
         return searchResults
     }
+
+    fun deleteArtist(id: Int){
+        repository.deleteArtist(id)
+    }
 }
