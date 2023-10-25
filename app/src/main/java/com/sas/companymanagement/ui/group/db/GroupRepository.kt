@@ -1,7 +1,6 @@
 package com.sas.companymanagement.ui.group.db
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sas.companymanagement.ui.group.Group
@@ -12,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class GroupRepository(application: Application) {
     var searchResults = MutableLiveData<List<Group>>()
-    var categoryResults = MutableLiveData<List<Group>>()
     private var groupDao: GroupDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     val allGroups: LiveData<List<Group>>?
@@ -40,6 +38,12 @@ class GroupRepository(application: Application) {
             searchResults.value = coroutineScope.async(Dispatchers.IO) {
                 return@async groupDao.findGroup(id)
             }.await()
+        }
+    }
+
+    fun updateGroupChange(group: Group) {
+        coroutineScope.launch(Dispatchers.IO) {
+            groupDao.updateGroup(group)
         }
     }
 

@@ -25,7 +25,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
             val scheduleDate = SimpleDateFormat(
                 "yyyy년 MM월 dd일",
                 Locale.getDefault()
-            ).parse(schedule.scheduleDateAfter.substring(0, 13))
+            ).parse(schedule.scheduleDateBefore.substring(0, 13))
             scheduleDate == selectedDate
         }
         _selectedSchedule.postValue(newSchedules)

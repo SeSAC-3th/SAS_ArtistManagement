@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/menu_detail"
         app:title="@string/schedule_detail_title"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
         app:titleTextAppearance="@style/title"
         app:titleTextColor="?attr/colorOnSurface" />
 
@@ -79,7 +80,7 @@
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="서울"
+        tools:text="서울"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
         app:layout_constraintTop_toBottomOf="@+id/tv_schedule_address_title" />
@@ -109,31 +110,22 @@
         android:id="@+id/iv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_forward"
+        android:src="@drawable/ic_arrow_down"
         android:layout_marginStart="@dimen/large_margin"
-        app:layout_constraintStart_toEndOf="@+id/tv_schedule_date_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_title" />
+        app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_start" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_date_end"
         style="@style/body"
-        android:layout_marginStart="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10월 22일\n 10:00"
         android:textColor="?attr/colorOnSurface"
-        app:layout_constraintStart_toEndOf="@+id/iv_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_title" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_address_name"
-        style="@style/body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="서울"
-        android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_address_title" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_date" />
+
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_artist_title"
@@ -144,14 +136,13 @@
         android:text="@string/schedule_detail_artist"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
-        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_start" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_schedule_date_end" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_schedule_artist"
         style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="김채원,허윤진,카즈하"
         android:textColor="?attr/colorOnSurface"
         app:layout_constraintStart_toStartOf="@+id/gl_schedule_start"
         app:layout_constraintTop_toBottomOf="@+id/tv_schedule_artist_title" />

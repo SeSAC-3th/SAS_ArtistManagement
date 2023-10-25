@@ -62,11 +62,10 @@ class ArtistRepository(application: Application) {
 
     fun findArtistById(id: Int): LiveData<Artist> {
         return artistDao.findArtistById(id)
-
-    fun updateUser(artist : Artist){
+    }
+    fun updateUser(artist: Artist) {
         coroutineScope.launch(Dispatchers.IO) {
             artistDao.updateArtist(artist)
         }
-
     }
 }
