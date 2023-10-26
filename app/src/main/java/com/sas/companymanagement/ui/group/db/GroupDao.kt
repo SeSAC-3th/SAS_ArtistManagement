@@ -24,4 +24,7 @@ interface GroupDao {
 
     @Query("SELECT * FROM group_tbl")
     fun getAllGroup(): LiveData<List<Group>>
+
+    @Query("SELECT * FROM group_tbl WHERE id = :id")
+    fun findByIdGroup(id: Long): LiveData<Group>
 }

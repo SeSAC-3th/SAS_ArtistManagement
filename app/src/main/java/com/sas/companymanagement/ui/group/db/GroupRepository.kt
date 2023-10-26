@@ -47,5 +47,8 @@ class GroupRepository(application: Application) {
         }
     }
 
+    fun findByIdGroup(id: Long): LiveData<Group> {
+        return groupDao.findByIdGroup(id)
+    }
 
 }

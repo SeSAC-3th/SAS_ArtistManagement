@@ -2,6 +2,7 @@ package com.sas.companymanagement.ui.group.update
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sas.companymanagement.ui.group.Group
 import com.sas.companymanagement.ui.group.db.GroupRepository
@@ -25,5 +26,9 @@ class GroupUpdateViewModel(application: Application) : AndroidViewModel(applicat
 
     fun updateGroup(group: Group) {
         repository.updateGroupChange(group)
+    }
+
+    fun findByIdGroup(id: Long): LiveData<Group> {
+        return repository.findByIdGroup(id)
     }
 }
