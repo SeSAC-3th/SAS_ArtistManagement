@@ -2,7 +2,6 @@ package com.sas.companymanagement.ui.artist
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,10 +22,6 @@ import com.sas.companymanagement.ui.group.GroupFragmentDirections
 import com.sas.companymanagement.ui.group.detail.GroupDetailFragment
 import com.sas.companymanagement.ui.group.detail.GroupDetailFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
-import com.sas.companymanagement.ui.schedule.Schedule
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class ArtistAdapter(
