@@ -71,7 +71,6 @@ class ArtistAdapter(
                         action
                     )
                 }
-
         }
     }
 

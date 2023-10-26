@@ -230,10 +230,7 @@ class ScheduleUpdateFragment :
                     var artistList = schedule.artistId.split(",").map {
                         it.trim().toLong()
                     }.toMutableSet()
-
-
                     tempSet = (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
-
                     editArtistChip(tempSet)
 
 
@@ -278,16 +275,12 @@ class ScheduleUpdateFragment :
                             }
                         }
                         true
-
                     }
-
                 }
 
             } else {
                 tempSet = selectedArtistIdList
                 editArtistChip(tempSet)
-
-
             }
         }
 
@@ -412,8 +405,6 @@ class ScheduleUpdateFragment :
         }
         binding.chipGroup.addView(binding.addChip)
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
