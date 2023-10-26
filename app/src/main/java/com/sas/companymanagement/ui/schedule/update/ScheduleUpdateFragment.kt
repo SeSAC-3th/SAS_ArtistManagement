@@ -195,7 +195,7 @@ class ScheduleUpdateFragment :
                         )
                     )
                     if(item.itemId == R.id.menu_update) {
-                        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToArtistSelectFragment("schedule")
+                        val action = ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentSchedule()
                         findNavController().navigate(action)
                     }
 
