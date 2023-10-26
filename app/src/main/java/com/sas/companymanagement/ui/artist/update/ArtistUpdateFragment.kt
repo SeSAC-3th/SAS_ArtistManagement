@@ -9,14 +9,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
@@ -46,8 +47,6 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import java.util.Random
-import java.util.concurrent.Flow
 import java.util.concurrent.TimeUnit
 
 class ArtistUpdateFragment :
@@ -109,6 +108,7 @@ class ArtistUpdateFragment :
             }
         }
     }
+
 
     private fun listenerField() {
         // brith listener
@@ -174,7 +174,6 @@ class ArtistUpdateFragment :
             tbArtistUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
-
             listenerField()
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {

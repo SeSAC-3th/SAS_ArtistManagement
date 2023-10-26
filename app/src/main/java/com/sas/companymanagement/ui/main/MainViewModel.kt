@@ -3,7 +3,6 @@ package com.sas.companymanagement.ui.main
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.db.ArtistRepository
 import com.sas.companymanagement.ui.schedule.Schedule

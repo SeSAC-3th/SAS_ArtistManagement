@@ -12,6 +12,7 @@ import com.sas.companymanagement.databinding.FragmentSettingBinding
 import com.sas.companymanagement.ui.common.HELP
 import com.sas.companymanagement.ui.common.VERSIONINFO
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.autoLoginKey
 import com.sas.companymanagement.ui.common.toastMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +29,6 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
     companion object {
         fun newInstance() = SettingFragment()
     }
-
-    private val autoLoginKey = "autoLogin"
 
     override fun onCreateView(
         inflater: LayoutInflater,

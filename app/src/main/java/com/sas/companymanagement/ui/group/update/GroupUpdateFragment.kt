@@ -47,8 +47,6 @@ class GroupUpdateFragment :
 
     companion object {
         fun newInstance() = GroupUpdateFragment()
-        //    private var tempImage = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
-
     }
 
     private val groupArgs: GroupUpdateFragmentArgs by navArgs()

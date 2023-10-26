@@ -1,7 +1,6 @@
 package com.sas.companymanagement.ui.artist.db
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sas.companymanagement.ui.artist.Artist

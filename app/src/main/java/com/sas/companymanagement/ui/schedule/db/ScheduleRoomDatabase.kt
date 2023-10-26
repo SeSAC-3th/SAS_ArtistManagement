@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sas.companymanagement.ui.artist.Artist
-import com.sas.companymanagement.ui.artist.db.ArtistDao
 import com.sas.companymanagement.ui.schedule.Schedule
 
 @Database(entities = [(Schedule::class)], exportSchema = false, version = 1)

@@ -9,7 +9,6 @@ import com.sas.companymanagement.ui.artist.db.ArtistRepository
 import com.sas.companymanagement.ui.group.Group
 import com.sas.companymanagement.ui.group.db.GroupRepository
 
-//class ArtistDetailViewModel(application: Application) : AndroidViewModel(application) {
 
 class GroupDetailViewModel(application: Application) : AndroidViewModel(application) {
 
