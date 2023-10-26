@@ -33,6 +33,8 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
     }
 
     private lateinit var viewModel: LoginViewModel
+    private val id = "admin"
+    private val password = "123456"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -53,7 +55,7 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
                         .flowClicks()
                         .throttleFirst(500)
                         .onEach {
-                            if ((etLoginId.text.toString() == "admin") && (etLoginPassword.text.toString() == "123456")) {
+                            if ((etLoginId.text.toString() == id) && (etLoginPassword.text.toString() == password)) {
                                 checkAutoLogin(binding.checkBoxAutoLogin)
                                 val action = LoginFragmentDirections.actionLoginFragmentToFragmentMain()
                                 findNavController().navigate(action)
