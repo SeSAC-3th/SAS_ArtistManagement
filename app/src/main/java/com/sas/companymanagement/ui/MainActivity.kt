@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var navController: NavController
+    private val autoLoginKey = "autoLogin"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         setupJetpackNavigation()
-        setAutoLoginDestination(sharedPref.getBoolean("autoLogin", false))
+        setAutoLoginDestination(sharedPref.getBoolean(autoLoginKey, false))
     }
 
     private fun setupJetpackNavigation() {

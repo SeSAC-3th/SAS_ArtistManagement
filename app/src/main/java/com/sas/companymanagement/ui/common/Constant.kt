@@ -22,3 +22,6 @@ const val SCORE_START = 0
 const val EVAL_SCORE = "평가 지수"
 
 const val ERROR_MESSAGE_EMPTY = "모든 내용을 입력해 주세요."
+const val PERMISSION_DENY = "권한을 허가해주세요."
+const val VERSIONINFO = "0.1 version"
+const val HELP = "CompanyManagement"

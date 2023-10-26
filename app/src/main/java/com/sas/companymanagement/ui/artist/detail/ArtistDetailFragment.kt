@@ -96,6 +96,7 @@ class ArtistDetailFragment :
                 tvArtistNameLayout.text = artist.artistName
                 tvArtistNicknameLayout.text = artist.artistNickname
                 iv.setImageURI(Uri.parse(artist.artistImage))
+                iv.setBackgroundColor(Color.TRANSPARENT)
                 tvArtistBirthLayout.text = dateToString(artist.artistBirth)
                 tvArtistJobLayout.text = artist.artistCategory
                 tvArtistGenderLayout.text = artist.artistGender

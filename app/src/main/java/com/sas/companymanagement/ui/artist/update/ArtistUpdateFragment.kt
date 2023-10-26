@@ -1,10 +1,12 @@
 package com.sas.companymanagement.ui.artist.update
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +17,7 @@ import android.widget.AdapterView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +30,7 @@ import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistGender
 import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
+import com.sas.companymanagement.ui.common.PERMISSION_DENY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.getRandomListToString
 import com.sas.companymanagement.ui.common.toastMessage
@@ -86,6 +90,7 @@ class ArtistUpdateFragment :
                     teArtistNickname.setText(artist.artistNickname)
                     tvArtistBirth.setText(artist.artistBirth)
                     ibArtist.setImageURI(Uri.parse(artist.artistImage))
+                    ibArtist.setBackgroundColor(Color.TRANSPARENT)
                     val checkId = when (artist.artistGender) {
                         ArtistGender.FEMALE.gender -> R.id.radioButtonFemale
                         else -> R.id.radioButtonMale
@@ -130,12 +135,7 @@ class ArtistUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    val intent = Intent(Intent.ACTION_PICK)
-                    intent.setDataAndType(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        "image/*"
-                    )
-                    startForResult.launch(intent)
+                    requestGalleryPermission()
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -280,6 +280,8 @@ class ArtistUpdateFragment :
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
         if (id == -1L) {
+            val deleteFile = File(imageSrc)
+            if(deleteFile.exists())deleteFile.delete()
             val imageName = System.currentTimeMillis().toString()
             imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
         }
@@ -321,6 +323,56 @@ class ArtistUpdateFragment :
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.clear()
+    }
+
+    /**
+     * Request gallery permission
+     *  권한 요청하는 해서 갤러리에서 이미지를 가져오는 함수
+     */
+    private fun requestGalleryPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_MEDIA_IMAGES
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermission.launch(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*"
+            )
+            startForResult.launch(intent)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (imageUri != null) {
+            binding.ibArtist.setImageURI(imageUri)
+            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
+
+    /**
+     * Request permission 권한요청 팝업 이벤트 처리
+     */
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) {
+        when(it) {
+            true -> {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    "image/*"
+                )
+                startForResult.launch(intent)
+            }
+            false -> {
+                toastMessage(PERMISSION_DENY,requireActivity())
+            }
+        }
     }
 
 }

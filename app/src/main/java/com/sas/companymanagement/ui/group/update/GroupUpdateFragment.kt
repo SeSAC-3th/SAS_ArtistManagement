@@ -1,9 +1,11 @@
 package com.sas.companymanagement.ui.group.update
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,8 +25,10 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
+import com.sas.companymanagement.ui.common.PERMISSION_DENY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.getRandomListToString
+import com.sas.companymanagement.ui.common.toastMessage
 import com.sas.companymanagement.ui.group.Group
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -80,7 +85,6 @@ class GroupUpdateFragment :
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //    binding.ibGroup.setImageURI(tempImage)
         if (groupArgs.groupId != -1L) getField()
         listenerSetup()
     }
@@ -94,6 +98,7 @@ class GroupUpdateFragment :
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
                     ibGroup.setImageURI(Uri.parse(groupData.groupImage))
+                    ibGroup.setBackgroundColor(Color.TRANSPARENT)
                     imageSrc = groupData.groupImage
                     imageUri = groupData.groupImage.toUri()
                     id = groupData.id
@@ -127,9 +132,10 @@ class GroupUpdateFragment :
         val imagesFolder = File(activity?.filesDir, "images")
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
         if (groupArgs.groupId == -1L) {
+            val deleteFile = File(imageSrc)
+            if(deleteFile.exists())deleteFile.delete()
             val imageName = System.currentTimeMillis().toString()
             imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
-
         }
         val newFile = File(imageSrc)
         imageToFile(requireActivity(), imageUri!!, newFile)
@@ -204,12 +210,7 @@ class GroupUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    val intent = Intent(Intent.ACTION_PICK)
-                    intent.setDataAndType(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        "image/*"
-                    )
-                    startForResult.launch(intent)
+                    requestGalleryPermission()
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -258,12 +259,7 @@ class GroupUpdateFragment :
         }
     }
 
-    //    binding.cgArtistUpdate.addView(binding.cAdd)
-    private fun updateChip() {
-        with(binding) {
-//            selectedArtistIdList = cgArtistUpdate
-        }
-    }
+
 
     private fun updateSet() {
         with(binding) {
@@ -271,6 +267,13 @@ class GroupUpdateFragment :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (imageUri != null) {
+            binding.ibGroup.setImageURI(imageUri)
+            binding.ibGroup.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
     private fun requireUpdate(): Boolean {
         with(binding) {
             if (teGroupName.text.toString() == "" ||
@@ -279,7 +282,6 @@ class GroupUpdateFragment :
         }
         return true
     }
-
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -289,10 +291,43 @@ class GroupUpdateFragment :
 
             }
         }
-
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.clear()
+    }
+
+    private fun requestGalleryPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_MEDIA_IMAGES
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermission.launch(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*"
+            )
+            startForResult.launch(intent)
+        }
+    }
+
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) {
+        when(it) {
+            true -> {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    "image/*"
+                )
+                startForResult.launch(intent)
+            }
+            false -> {
+                toastMessage(PERMISSION_DENY,requireActivity())
+            }
+        }
     }
 }
 

@@ -8,9 +8,10 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_artist"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/small_image_margin_width"
+        android:layout_height="@dimen/small_image_margin_height"
         app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_add_circle_24" />
 
