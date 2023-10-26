@@ -84,6 +84,9 @@ class GroupDetailFragment :
 
 
     private fun listenerSetup() {
+        binding.tbGroup.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
         binding.tbGroup.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
