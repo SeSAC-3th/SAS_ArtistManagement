@@ -33,8 +33,8 @@
 
             <ImageButton
                 android:id="@+id/ib_artist"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/medium_image_margin_width"
+                android:layout_height="@dimen/medium_image_margin_height"
                 android:layout_marginTop="@dimen/large_margin"
                 android:src="@drawable/ic_add_40"
                 android:scaleType="fitXY"

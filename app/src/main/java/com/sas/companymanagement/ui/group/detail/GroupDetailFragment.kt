@@ -131,6 +131,7 @@ class GroupDetailFragment :
             with(binding) {
                 tbGroup.title = group.groupName
                 iv.setImageURI(group.groupImage.toUri())
+                iv.setBackgroundColor(Color.TRANSPARENT)
                 artistIds = group.artistId
                 setPieChart(group.groupEval)
             }

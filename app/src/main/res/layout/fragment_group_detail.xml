@@ -36,9 +36,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/medium_image_margin_width"
+                android:layout_height="@dimen/medium_image_margin_height"
                 android:layout_marginTop="@dimen/large_margin"
+                android:scaleType="fitXY"
                 android:src="@drawable/dummy_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

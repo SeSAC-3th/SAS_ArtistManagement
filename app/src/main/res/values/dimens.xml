@@ -5,4 +5,8 @@
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="large_margin">32dp</dimen>
     <dimen name="guideline_margin">24dp</dimen>
+    <dimen name="medium_image_margin_width">150dp</dimen>
+    <dimen name="medium_image_margin_height">150dp</dimen>
+    <dimen name="small_image_margin_width">120dp</dimen>
+    <dimen name="small_image_margin_height">120dp</dimen>
 </resources>

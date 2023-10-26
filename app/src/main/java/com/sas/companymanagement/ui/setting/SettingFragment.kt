@@ -2,22 +2,17 @@ package com.sas.companymanagement.ui.setting
 
 import android.app.Activity
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
-import com.sas.companymanagement.R
-import com.sas.companymanagement.databinding.FragmentGroupBinding
 import com.sas.companymanagement.databinding.FragmentSettingBinding
+import com.sas.companymanagement.ui.common.HELP
+import com.sas.companymanagement.ui.common.VERSIONINFO
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.toastMessage
-import com.sas.companymanagement.ui.login.LoginFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -33,6 +28,9 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
     companion object {
         fun newInstance() = SettingFragment()
     }
+
+    private val autoLoginKey = "autoLogin"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,7 +49,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .onEach {
                     val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                     sharedPref?.edit {
-                        putBoolean("autoLogin", false)
+                        putBoolean(autoLoginKey, false)
                         apply()
                     }
                     val action = SettingFragmentDirections.actionFragmentSettingToLoginFragment()
@@ -63,7 +61,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .flowClicks()
                 .throttleFirst(500)
                 .onEach {
-                    toastMessage("CompanyManagement", activity as Activity)
+                    toastMessage(HELP, activity as Activity)
                 }
                 .launchIn(CoroutineScope(Dispatchers.Main))
 
@@ -71,7 +69,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .flowClicks()
                 .throttleFirst(500)
                 .onEach {
-                    toastMessage("0.1 version", activity as Activity)
+                    toastMessage(VERSIONINFO, activity as Activity)
                 }
                 .launchIn(CoroutineScope(Dispatchers.Main))
 
@@ -95,10 +93,6 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
             }
         }
 
-    }
-
-    val fragmentRefresh = {
-        requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     override fun onDestroyView() {

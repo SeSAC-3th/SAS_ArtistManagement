@@ -6,12 +6,13 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/artistImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/small_image_margin_width"
+        android:layout_height="@dimen/small_image_margin_height"
         android:layout_marginTop="@dimen/small_margin"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_circle_24" />
+        app:srcCompat="@drawable/dummy_image" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/artist_name"
