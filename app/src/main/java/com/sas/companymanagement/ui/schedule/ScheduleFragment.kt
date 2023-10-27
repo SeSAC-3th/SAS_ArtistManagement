@@ -19,7 +19,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.TimeUnit
-
+/**
+ * Schedule Tab
+ *
+ * @fileName             : ScheduleFragment
+ * @auther               : 박지혜
+ * @since                : 2023-10-17
+ **/
 class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(FragmentScheduleBinding::inflate) {
 
     private val compositeDisposable = CompositeDisposable()
@@ -55,6 +61,11 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
         }
 
         binding.rvScheduleToday.adapter = scheduleAdapter
+        /**
+         * material calendarview 연결
+         *
+         * @author 박지혜
+         */
         binding.cvSchedule.run {
             addDecorator(TodayDecorator())
             setOnDateChangedListener { widget, date, selected ->
@@ -76,6 +87,11 @@ class ScheduleFragment :  ViewBindingBaseFragment<FragmentScheduleBinding>(Fragm
         }
     }
 
+    /**
+     * 모든 스케쥴 calendarview에 연동
+     *
+     * @author 박지혜
+     */
     private fun setCalendarDays(schedules: List<Schedule>){
         schedules.forEach{
             val data = it.scheduleDateBefore.substring(0,13)

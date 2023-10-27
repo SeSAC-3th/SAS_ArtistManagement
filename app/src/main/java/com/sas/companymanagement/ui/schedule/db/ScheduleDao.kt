@@ -7,6 +7,13 @@ import androidx.room.Query
 import androidx.room.Update
 import com.sas.companymanagement.ui.schedule.Schedule
 
+/**
+ * Please explain the class!!
+ *
+ * @fileName             : ScheduleDao
+ * @auther               : 이기영, 박지혜, 이종윤
+ * @since                : 2023-10-18
+ **/
 @Dao
 interface ScheduleDao {
     @Insert
