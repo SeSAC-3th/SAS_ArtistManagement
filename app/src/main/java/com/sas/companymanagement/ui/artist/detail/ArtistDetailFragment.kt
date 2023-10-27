@@ -30,6 +30,14 @@ import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 import com.sas.companymanagement.ui.schedule.ScheduleViewModel
 
+
+/**
+* Please explain the class!!
+*
+* @fileName             : ArtistDetailFragment
+* @auther               : 이기영
+* @since                : 2023-10-17
+**/
 class ArtistDetailFragment :
     ViewBindingBaseFragment<FragmentArtistDetailBinding>(FragmentArtistDetailBinding::inflate) {
 
@@ -64,6 +72,10 @@ class ArtistDetailFragment :
         initGroup()
     }
 
+    /**
+     * DB의 스케쥴 data를 받아와서 scheduleAdapter 에 set up
+     * @author 이기영, 박지혜
+     */
     private fun getScheduleData() {
         newSchedules = mutableListOf<Schedule>()
         scheduleViewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
@@ -77,7 +89,10 @@ class ArtistDetailFragment :
             scheduleAdapter.setScheduleList(newSchedules)
         }
     }
-
+    /**
+     * scheduleRecyclerview set up
+     * @author 이기영
+     */
     private fun scheduleSetup() {
         with(binding) {
             scheduleRecyclerView = rvSchedule
@@ -90,6 +105,10 @@ class ArtistDetailFragment :
         }
     }
 
+    /**
+     * Create 가 아닌 Update 인 경우 default 값 설정
+     * @author 이기영
+     */
     private fun fieldSetup() {
         val id = artistArgs.artistId
         viewModel.findArtist(id)
@@ -107,7 +126,10 @@ class ArtistDetailFragment :
         }
     }
 
-
+    /**
+     * 각 View 에 대한 listener Set up
+     * @author 이기영
+     */
     private fun listenerSetup() {
         with(binding.tvArtist) {
             setNavigationOnClickListener {
@@ -115,6 +137,7 @@ class ArtistDetailFragment :
             }
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+                    // 수정 toolbar 클릭 시 UpdateFragment 로 이동
                     R.id.update -> {
                         findNavController().navigate(
                             ArtistDetailFragmentDirections.actionArtistDetailFragmentToArtistUpdateFragment(
@@ -122,7 +145,7 @@ class ArtistDetailFragment :
                             )
                         )
                     }
-
+                    // 삭제 toolbar 클릭 시
                     R.id.delete -> {
                         val ad = AlertDialog.Builder(this.context)
                         ad.setIcon(R.drawable.ic_launcher_foreground)
@@ -132,6 +155,7 @@ class ArtistDetailFragment :
                         }
                         ad.setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                             dialog.dismiss()
+                            // 삭제 로직
                             viewModel.deleteArtist(artistArgs.artistId)
                             deleteArtistInSchedule()
                             deleteArtistInGroup()
@@ -145,6 +169,10 @@ class ArtistDetailFragment :
         }
     }
 
+    /**
+     * Group table 의 artistIds 에서 삭제 할 ID 제거
+     * @author 이기영
+     */
     private fun deleteArtistInGroup() {
         newGroup.forEach { group ->
             val artistIds = mutableListOf<Long>()
@@ -157,6 +185,10 @@ class ArtistDetailFragment :
         }
     }
 
+    /**
+     * artist Id 를 제거 할 group search
+     * @author 이기영
+     */
     private fun initGroup() {
         newGroup = mutableListOf<Group>()
         viewModel.allGroup?.observe(viewLifecycleOwner) { groups ->
@@ -170,6 +202,10 @@ class ArtistDetailFragment :
         }
     }
 
+    /**
+     * Schedule table 의 artistIds 에서 삭제 할 ID 제거
+     * @author 이기영
+     */
     private fun deleteArtistInSchedule() {
         newSchedules.forEach { schedule ->
             val artistIds = mutableListOf<Long>()
@@ -185,6 +221,7 @@ class ArtistDetailFragment :
     /**
      * Set pie chart
      * mpChart
+     * @author 이기영
      * referrencelink : https://goodgoodminki.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%9B%90%ED%98%95-%EA%B7%B8%EB%9E%98%ED%94%84-%ED%8C%8C%EC%9D%B4-%EA%B7%B8%EB%9E%98%ED%94%84-Android-Koltin-Circle-Graph-Pie-Graph
      */
     private fun setPieChart(inputData: String) {

@@ -89,7 +89,6 @@ class GroupUpdateFragment :
 
     private fun getField() {
         binding.tbGroupUpdate.title = resources.getString(R.string.group_update_artist)
-        i++
         fragmentStackSize++
         viewModel.findGroup(groupArgs.groupId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
@@ -252,7 +251,7 @@ class GroupUpdateFragment :
                         }
                         findNavController().popBackStack()
                     } else {
-                        toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
+                        toastMessage(resources.getString(R.string.error_message_empty), activity as Activity)
                     }
                 }
                 true

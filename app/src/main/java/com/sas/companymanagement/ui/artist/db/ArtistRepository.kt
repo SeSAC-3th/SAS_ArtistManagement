@@ -9,12 +9,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
+/**
+* Please explain the class!!
+*
+* @fileName             : ArtistRepository
+* @auther               : 이기영, 박지혜
+* @since                : 2023-10-27
+**/
 class ArtistRepository(application: Application) {
     var searchResults = MutableLiveData<Artist>()
     private var categoryResults = MutableLiveData<List<Artist>>()
     private var artistDao: ArtistDao
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-    val allArtists: LiveData<List<Artist>>?
+    private val allArtists: LiveData<List<Artist>>?
 
     init {
         val db: ArtistRoomDatabase = ArtistRoomDatabase.getDatabase(application)

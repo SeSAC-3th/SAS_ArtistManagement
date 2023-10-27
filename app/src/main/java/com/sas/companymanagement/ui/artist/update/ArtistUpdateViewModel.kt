@@ -11,9 +11,6 @@ class ArtistUpdateViewModel(application: Application) : AndroidViewModel(applica
     private val repository: ArtistRepository = ArtistRepository(application)
     private val searchResults: MutableLiveData<Artist> = repository.searchResults
 
-    init {
-
-    }
     fun insertArtist(artist: Artist) {
         repository.insertArtist(artist)
     }

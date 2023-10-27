@@ -15,6 +15,13 @@ import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 
+/**
+ * Main Tab
+ *
+ * @fileName             : MainFragment
+ * @auther               : 이기영
+ * @since                : 2023-10-17
+ **/
 class MainFragment :
     ViewBindingBaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
     private val viewModel: MainViewModel by viewModels()
@@ -40,6 +47,13 @@ class MainFragment :
     }
 
 
+    /**
+     * main view recycler 처리
+     *
+     * @param view
+     * @param savedInstanceState
+     * @author 이기영
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
@@ -62,6 +76,7 @@ class MainFragment :
             talentAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
             setRecyclerView(talentRecyclerView!!, talentAdapter)
 
+            // artist, schedule 을 모두 가져와 recycler view 에 등록
             viewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
                 scheduleAdapter.setScheduleList(schedules)
             }
@@ -99,7 +114,8 @@ class MainFragment :
 
     /**
      * On back pressed
-     *  뒤로가기 버튼 눌렀을 때 처리
+     * 뒤로가기 버튼 눌렀을 때 처리
+     * @author 윤성욱
      */
     private fun onBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
