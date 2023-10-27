@@ -26,7 +26,6 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
-import com.sas.companymanagement.ui.common.PERMISSION_DENY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.getRandomListToString
 import com.sas.companymanagement.ui.common.toastMessage
@@ -89,10 +88,10 @@ class GroupUpdateFragment :
     }
 
     private fun getField() {
+        binding.tbGroupUpdate.title = resources.getString(R.string.group_update_artist)
         i++
         viewModel.findGroup(groupArgs.groupId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
-            Log.e("asf", i.toString())
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
@@ -219,7 +218,6 @@ class GroupUpdateFragment :
     }
 
     private fun listenerSetup() {
-
         with(binding) {
             tbGroupUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
@@ -326,7 +324,7 @@ class GroupUpdateFragment :
                 startForResult.launch(intent)
             }
             false -> {
-                toastMessage(PERMISSION_DENY,requireActivity())
+                toastMessage(resources.getString(R.string.permission_deny),requireActivity())
             }
         }
     }

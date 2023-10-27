@@ -19,11 +19,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistDetailBinding
-import com.sas.companymanagement.ui.common.CANCEL
-import com.sas.companymanagement.ui.common.DELETE_MESSAGE
-import com.sas.companymanagement.ui.common.EVAL_SCORE
-import com.sas.companymanagement.ui.common.OK
-import com.sas.companymanagement.ui.common.SCORE_LIST
 import com.sas.companymanagement.ui.common.SCORE_SIZE
 import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
@@ -38,6 +33,8 @@ class ArtistDetailFragment :
     companion object {
         fun newInstance() = ArtistDetailFragment()
     }
+
+
 
     private val viewModel: ArtistDetailViewModel by viewModels()
     private val scheduleViewModel: ScheduleViewModel by viewModels()
@@ -123,12 +120,12 @@ class ArtistDetailFragment :
                     R.id.delete -> {
                         val ad = AlertDialog.Builder(this.context)
                         ad.setIcon(R.drawable.ic_launcher_foreground)
-                        ad.setTitle(DELETE_MESSAGE)
+                        ad.setTitle(resources.getString(R.string.delete_message))
 
-                        ad.setNegativeButton(CANCEL) { dialog, _ ->
+                        ad.setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                             dialog.dismiss()
                         }
-                        ad.setPositiveButton(OK) { dialog, _ ->
+                        ad.setPositiveButton(resources.getString(R.string.ok)) { dialog, _ ->
                             dialog.dismiss()
                             viewModel.deleteArtist(artistArgs.artistId)
                             findNavController().popBackStack()
@@ -152,7 +149,7 @@ class ArtistDetailFragment :
 
         val entries = ArrayList<PieEntry>()
         for (index in SCORE_START..SCORE_SIZE) {
-            entries.add(PieEntry(inputData[index].toString().toFloat(), SCORE_LIST[index]))
+            entries.add(PieEntry(inputData[index].toString().toFloat(), resources.getStringArray(R.array.score_list)[index]))
         }
 
         val colorItems = ArrayList<Int>()
@@ -173,7 +170,7 @@ class ArtistDetailFragment :
             data = pieData
             description.isEnabled = false
             isRotationEnabled = false
-            centerText = EVAL_SCORE
+            centerText = resources.getString(R.string.eval_score)
             setEntryLabelColor(Color.BLACK)
             animateY(1400, Easing.EaseInQuad)
             animate()

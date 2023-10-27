@@ -22,9 +22,6 @@ import com.sas.companymanagement.R.menu.menu_detail
 import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
-import com.sas.companymanagement.ui.common.EVAL_SCORE
-import com.sas.companymanagement.ui.common.SCORE_LIST
-import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
 
@@ -35,6 +32,8 @@ class GroupDetailFragment :
     companion object {
         fun newInstance() = GroupDetailFragment()
     }
+
+    val SCORE_START = 0
 
     private var artistRecyclerView: RecyclerView? = null
     private val viewModel: GroupDetailViewModel by viewModels()
@@ -88,13 +87,12 @@ class GroupDetailFragment :
 
                 R.id.delete -> {
                     val builder = AlertDialog.Builder(requireContext())
-                    builder.setMessage("삭제하시겠습니까?")
-                        .setPositiveButton("Yes") { dialog, id ->
+                    builder.setMessage(R.string.delete_message)
+                        .setPositiveButton(resources.getString(R.string.yes)) { dialog, id ->
                             viewModel.deleteGroup(groupArgs.groupId)
                             findNavController().popBackStack()
                         }
-                        .setNegativeButton("No") { dialog, id ->
-
+                        .setNegativeButton(resources.getString(R.string.no)) { dialog, id ->
                         }
 
                     val alertDialog = builder.create()
@@ -156,7 +154,7 @@ class GroupDetailFragment :
             entries.add(
                 PieEntry(
                     inputData[index].toString().toFloat(),
-                    SCORE_LIST.getOrNull(index) ?: ""
+                    resources.getStringArray(R.array.score_list).getOrNull(index) ?: ""
                 )
             ) // 수정된 부분
         }
@@ -179,7 +177,7 @@ class GroupDetailFragment :
             data = pieData
             description.isEnabled = false
             isRotationEnabled = false
-            centerText = EVAL_SCORE
+            centerText = resources.getString(R.string.eval_score)
             setEntryLabelColor(Color.BLACK)
             animateY(1400, Easing.EaseInQuad)
             animate()

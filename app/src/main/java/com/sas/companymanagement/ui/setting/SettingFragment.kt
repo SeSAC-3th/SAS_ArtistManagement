@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
+import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentSettingBinding
-import com.sas.companymanagement.ui.common.HELP
-import com.sas.companymanagement.ui.common.VERSIONINFO
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import com.sas.companymanagement.ui.common.autoLoginKey
 import com.sas.companymanagement.ui.common.toastMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +46,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .onEach {
                     val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                     sharedPref?.edit {
-                        putBoolean(autoLoginKey, false)
+                        putBoolean(resources.getString(R.string.auto_login), false)
                         apply()
                     }
                     val action = SettingFragmentDirections.actionFragmentSettingToLoginFragment()
@@ -60,7 +58,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .flowClicks()
                 .throttleFirst(500)
                 .onEach {
-                    toastMessage(HELP, activity as Activity)
+                    toastMessage(resources.getString(R.string.app_name), activity as Activity)
                 }
                 .launchIn(CoroutineScope(Dispatchers.Main))
 
@@ -68,7 +66,7 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 .flowClicks()
                 .throttleFirst(500)
                 .onEach {
-                    toastMessage(VERSIONINFO, activity as Activity)
+                    toastMessage(resources.getString(R.string.version_info), activity as Activity)
                 }
                 .launchIn(CoroutineScope(Dispatchers.Main))
 

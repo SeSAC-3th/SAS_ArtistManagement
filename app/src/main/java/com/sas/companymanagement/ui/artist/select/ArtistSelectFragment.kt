@@ -19,6 +19,13 @@ import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
+/**
+* Please explain the class!!
+*
+* @fileName             :ArtistSelectFragment.kt
+* @auther               :
+* @since                :2023-10-27
+**/
 class ArtistSelectFragment :
     ViewBindingBaseFragment<FragmentArtistSelectBinding>(FragmentArtistSelectBinding::inflate) {
 
@@ -33,6 +40,7 @@ class ArtistSelectFragment :
     companion object {
         fun newInstance() = ArtistSelectFragment()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,11 +61,11 @@ class ArtistSelectFragment :
         binding.tbArtistSelect.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
                 selectedArtistIdList = artistSelectAdapter.getSelectedId()
-                if (artistSelectedArgs.from == "group"){
+                if (artistSelectedArgs.from == resources.getString(R.string.from_group)){
                     findNavController().previousBackStackEntry?.savedStateHandle?.set("selectedArtistId", selectedArtistIdList)
-                    findNavController().popBackStack()
+                   findNavController().popBackStack()
                 }
-                if (artistSelectedArgs.from == "schedule"){
+                if (artistSelectedArgs.from == resources.getString(R.string.from_schedule)){
                     findNavController().previousBackStackEntry?.savedStateHandle?.set("selectedArtistId", selectedArtistIdList)
                     findNavController().popBackStack()
                 }
@@ -106,6 +114,10 @@ class ArtistSelectFragment :
         }
     }
 
+    /**
+     * Setting artist recycler view
+     *
+     */
     private fun settingArtistRecyclerView() {
         with(binding) {
             artistSelectRecyclerView = rvArtistSelect
@@ -124,6 +136,13 @@ class ArtistSelectFragment :
             artistSelectRecyclerView?.adapter = artistSelectAdapter
         }
     }
+
+    /**
+     * 탭의 마진을 변경
+     * @param tabLayout 적용할 탭 레이아웃
+     * @param marginEnd 마진 길이
+     * @author 윤성욱
+     */
     private fun setTabItemMargin(tabLayout: TabLayout, marginEnd: Int) {
         val tabs = tabLayout.getChildAt(0) as ViewGroup
         for (i in 0 until tabs.childCount) {
