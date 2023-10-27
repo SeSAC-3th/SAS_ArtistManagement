@@ -22,7 +22,6 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
 import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
-import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.toastMessage
 import com.sas.companymanagement.ui.schedule.Schedule
@@ -209,7 +208,7 @@ class ScheduleUpdateFragment :
                         findNavController().navigate(action)
                     }
                 } else {
-                    toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
+                    toastMessage(resources.getString(R.string.error_message_empty), activity as Activity)
                 }
             }
             true

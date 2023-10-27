@@ -5,6 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
+/**
+ * @fileName             : Artist
+ * @auther               : 이기영, 박지혜
+ * @since                : 2023-10-18
+ **/
 @Entity(tableName = "artist_tbl")
 data class Artist(
     @ColumnInfo(name = "artistName")

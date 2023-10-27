@@ -46,6 +46,13 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+/**
+ * Please explain the class!!
+ *
+ * @fileName             : ArtistUpdateFragment
+ * @auther               : 이기영, 윤성욱, 박지혜
+ * @since                : 2023-10-17
+ **/
 class ArtistUpdateFragment :
     ViewBindingBaseFragment<FragmentArtistUpdateBinding>(FragmentArtistUpdateBinding::inflate) {
 
@@ -70,12 +77,13 @@ class ArtistUpdateFragment :
         super.onViewCreated(view, savedInstanceState)
         if (artistArgs.artistId != -1L) getField()
         listenerSetup()
+        toolbarListener()
     }
 
 
     /**
-     * Get field
-     * 기존 Artist의 정보를 수정하려고 할 때
+     * 기존 Artist 의 정보를 수정 할 때 기존 정보 get
+     * @author 이기영
      */
     private fun getField() {
         viewModel.findArtist(artistArgs.artistId)
@@ -107,7 +115,11 @@ class ArtistUpdateFragment :
     }
 
 
-    private fun listenerField() {
+    /**
+     * 각 View 의 event Listener set up
+     * @author 이기영, 윤성욱, 박지혜
+     */
+    private fun listenerSetup() {
         // brith listener
         with(binding) {
             tvArtistBirth
@@ -168,12 +180,15 @@ class ArtistUpdateFragment :
         }
     }
 
-    private fun listenerSetup() {
+    /**
+     * toolBar Listener set up
+     * @author 이기영
+     */
+    private fun toolbarListener() {
         with(binding) {
             tbArtistUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
-            listenerField()
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
                     updateSet()
@@ -193,7 +208,6 @@ class ArtistUpdateFragment :
                                     id = id
                                 )
                             )
-
                         } else {
                             // Insert, insert인 경우 image는 file로 저장해야 함
                             viewModel.insertArtist(
@@ -210,7 +224,7 @@ class ArtistUpdateFragment :
                         }
                         findNavController().popBackStack()
                     } else {
-                        toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
+                        toastMessage(resources.getString(R.string.error_message_empty), activity as Activity)
                     }
                 }
                 true
@@ -220,8 +234,8 @@ class ArtistUpdateFragment :
     }
 
     /**
-     * Update set
-     * 입력값(수정값)을 field 에 저장
+     * 입력값을 field 에 저장
+     * @author 이기영
      */
     private fun updateSet() {
         with(binding) {
@@ -236,9 +250,8 @@ class ArtistUpdateFragment :
     }
 
     /**
-     * Require update
-     * 한 값이라도 공백일이면 추가 안됨
-     * @return
+     * 한 값 이라도 공백일 시 저장 불가
+     * @author 이기영
      */
     private fun requireUpdate(): Boolean {
         with(binding) {
@@ -247,17 +260,15 @@ class ArtistUpdateFragment :
                 tvArtistBirth.text.toString() == "" ||
                 rgArtistGender.checkedRadioButtonId == -1 ||
                 imageSrc == ""
-            ) {
-
-                toastMessage(resources.getString(R.string.error_message_empty), activity as Activity)
-
-                return false
-            }
+            ) return false
         }
         return true
     }
 
-
+    /**
+     *
+     * @author 윤성욱
+     */
     private fun showDateTimePicker(
         dateTextView: TextView
     ) {
@@ -275,7 +286,10 @@ class ArtistUpdateFragment :
 
     }
 
-    //이미지 저장
+    /**
+     * 이미지 저장
+     * @author 윤성욱
+     */
     @SuppressLint("SdCardPath")
     private fun saveImage(id: Long) {
         val imagesFolder = File(activity?.filesDir, "images")
@@ -290,6 +304,10 @@ class ArtistUpdateFragment :
         imageToFile(requireActivity(), imageUri!!, newFile)
     }
 
+    /**
+     * 이미지 저장
+     * @author 윤성욱
+     */
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
         var inputStream: InputStream? = null
         var outputStream: FileOutputStream? = null
@@ -309,7 +327,10 @@ class ArtistUpdateFragment :
         }
     }
 
-
+    /**
+     *
+     * @author 윤성욱
+     */
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -320,6 +341,10 @@ class ArtistUpdateFragment :
         }
 
 
+    /**
+     *
+     * @author 윤성욱
+     */
     override fun onResume() {
         super.onResume()
         if (imageUri != null) {
@@ -337,6 +362,7 @@ class ArtistUpdateFragment :
     /**
      * Request gallery permission
      *  권한 요청하는 해서 갤러리에서 이미지를 가져오는 함수
+     *  @author 윤성욱
      */
     private fun getImageFromGallery(permission: String) {
             if (ContextCompat.checkSelfPermission(
@@ -359,6 +385,7 @@ class ArtistUpdateFragment :
 
     /**
      * Request permission 권한요청 팝업 이벤트 처리
+     * @author 윤성욱
      */
     private val requestPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission()) {

@@ -7,6 +7,14 @@ import androidx.room.Query
 import androidx.room.Update
 import com.sas.companymanagement.ui.artist.Artist
 
+
+/**
+* Please explain the class!!
+*
+* @fileName             : ArtistDao
+* @auther               : 이기영, 박지혜, 이종윤
+* @since                : 2023-10-18
+**/
 @Dao
 interface ArtistDao {
     @Insert
