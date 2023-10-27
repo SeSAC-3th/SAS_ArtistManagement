@@ -2,6 +2,7 @@ package com.sas.companymanagement.ui.schedule.detail
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,10 +95,13 @@ class ScheduleDetailFragment :
                 val artistIds = schedule.artistId.split(", ")
                 tvScheduleArtist.text = ""
                 artistIds.forEach {
-                    artistViewModel.findArtistById(it.toLong())
-                        .observe(viewLifecycleOwner) { artist ->
-                            tvScheduleArtist.append(artist.artistName + " ")
-                        }
+                    if (it.isNotEmpty()) {
+                        artistViewModel.findArtistById(it.toLong())
+                            .observe(viewLifecycleOwner) { artist ->
+                                tvScheduleArtist.append(artist.artistName + " ")
+                            }
+
+                    }
                 }
             }
         }
