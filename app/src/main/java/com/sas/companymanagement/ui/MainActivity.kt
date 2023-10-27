@@ -10,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.ActivityMainBinding
-import com.sas.companymanagement.ui.common.autoLoginKey
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         setContentView(binding.root)
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        setupJetpackNavigation(sharedPref.getBoolean(autoLoginKey, false))
+        setupJetpackNavigation(sharedPref.getBoolean(resources.getString(R.string.auto_login), false))
     }
 
     /**

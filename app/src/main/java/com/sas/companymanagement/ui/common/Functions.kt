@@ -4,6 +4,10 @@ import android.app.Activity
 import android.widget.Toast
 import java.util.Random
 
+const val SCORE_SIZE = 5 - 1
+const val SCORE_START = 0
+
+
 fun dateToString(date: String): String {
     return date.replace("[^[0-9] ]".toRegex(), "").substring(2).replace(" ", ".")
 }

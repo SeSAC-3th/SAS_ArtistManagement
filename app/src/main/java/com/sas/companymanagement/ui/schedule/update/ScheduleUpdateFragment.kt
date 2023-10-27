@@ -52,7 +52,6 @@ class ScheduleUpdateFragment :
     private val scheduleArgs: ScheduleUpdateFragmentArgs by navArgs()
 
     private val compositeDisposable = CompositeDisposable()
-    private val defaultScope = CoroutineScope(Dispatchers.Default)
     private var selectedArtistIdList: MutableSet<Long> = mutableSetOf()
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -79,20 +78,18 @@ class ScheduleUpdateFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ScheduleUpdateViewModel::class.java)
         artistViewModel = ViewModelProvider(this).get(ArtistUpdateViewModel::class.java)
-
         commonUi()
-
         if (scheduleArgs.scheduleId != -1L) {
             observerSetup(scheduleArgs.scheduleId)
             with(binding.tbScheduleUpdate) {
-                title = "스케쥴 수정"
+                title = resources.getString(R.string.schedule_update)
                 menu.findItem(R.id.menu_update).setIcon(R.drawable.ic_check_24)
             }
         } else {
             observerSetup(-1)
             with(binding.tbScheduleUpdate) {
 
-                title = "스케쥴 추가"
+                title = resources.getString(R.string.schedule_insert)
                 menu.findItem(R.id.menu_update).setIcon(R.drawable.ic_check_24)
 
             }
@@ -130,7 +127,7 @@ class ScheduleUpdateFragment :
                             scheduleDatePicker,
                             scheduleTimePicker,
                             scheduleTimeFormatTv,
-                            "Before"
+                            resources.getString(R.string.before)
                         )
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
@@ -146,7 +143,7 @@ class ScheduleUpdateFragment :
                             scheduleAfterDatePicker,
                             scheduleAfterTimePicker,
                             scheduleAfterTimeFormat,
-                            "After"
+                            resources.getString(R.string.after)
                         )
                     }, {
                         Log.e("RX_ERROR", compositeDisposable.toString())
@@ -160,7 +157,7 @@ class ScheduleUpdateFragment :
                     .subscribe({
                         val action =
                             ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToArtistSelectFragment(
-                                "schedule"
+                                resources.getString(R.string.from_schedule)
                             )
                         findNavController().navigate(action)
 
@@ -334,24 +331,24 @@ class ScheduleUpdateFragment :
 
                 dateTextView.text =
                     SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(selectDate.time)
-                if (tag == "Before") {
+                if (tag == resources.getString(R.string.before)) {
                     viewModel.scheduleDate = dateTextView.text.toString().trim()
-                } else if (tag == "After") {
+                } else if (tag == resources.getString(R.string.after)) {
                     viewModel.scheduleAfterDate = dateTextView.text.toString().trim()
                 }
 
                 timeTextView.text =
                     String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
-                if (tag == "Before") {
+                if (tag == resources.getString(R.string.before)) {
                     viewModel.scheduleTime = timeTextView.text.toString().trim()
-                } else if (tag == "After") {
+                } else if (tag == resources.getString(R.string.after)) {
                     viewModel.scheduleAfterTime = timeTextView.text.toString().trim()
                 }
 
-                amPmTextView.text = if (hour < 12) "오전" else "오후"
-                if (tag == "Before") {
+                amPmTextView.text = if (hour < 12) resources.getString(R.string.schedule_update_time_format) else resources.getString(R.string.afternoon)
+                if (tag == resources.getString(R.string.before)) {
                     viewModel.scheduleAmPm = amPmTextView.text.toString().trim()
-                } else if (tag == "After") {
+                } else if (tag == resources.getString(R.string.after)) {
                     viewModel.scheduleAfterAmPm = amPmTextView.text.toString().trim()
                 }
 
@@ -364,7 +361,6 @@ class ScheduleUpdateFragment :
     }
 
     private fun editArtistChip(temp: MutableSet<Long>) {
-
         if (temp.isNotEmpty()) {
             binding.chipGroup.removeView(binding.addChip)
             temp.forEach { id ->

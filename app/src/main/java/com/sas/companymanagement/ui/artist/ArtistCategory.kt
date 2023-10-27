@@ -1,10 +1,12 @@
 package com.sas.companymanagement.ui.artist
 
-import com.sas.companymanagement.ui.common.GENDER_FEMALE
-import com.sas.companymanagement.ui.common.GENDER_MALE
-import com.sas.companymanagement.ui.common.JOB_ACTOR
-import com.sas.companymanagement.ui.common.JOB_SINGER
-import com.sas.companymanagement.ui.common.JOB_TALENT
+
+const val JOB_ACTOR = "배우"
+const val JOB_SINGER = "가수"
+const val JOB_TALENT = "탤런트"
+const val GENDER_MALE = "남자"
+const val GENDER_FEMALE = "여자"
+
 
 enum class ArtistCategory(val job: String) {
     ACTOR(JOB_ACTOR),

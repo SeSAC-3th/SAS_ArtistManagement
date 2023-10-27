@@ -17,7 +17,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
@@ -30,8 +29,6 @@ import com.sas.companymanagement.databinding.FragmentArtistUpdateBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistCategory
 import com.sas.companymanagement.ui.artist.ArtistGender
-import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
-import com.sas.companymanagement.ui.common.PERMISSION_DENY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.getRandomListToString
 import com.sas.companymanagement.ui.common.toastMessage
@@ -251,6 +248,9 @@ class ArtistUpdateFragment :
                 rgArtistGender.checkedRadioButtonId == -1 ||
                 imageSrc == ""
             ) {
+
+                toastMessage(resources.getString(R.string.error_message_empty), activity as Activity)
+
                 return false
             }
         }
@@ -372,7 +372,7 @@ class ArtistUpdateFragment :
                 startForResult.launch(intent)
             }
             false -> {
-                toastMessage(PERMISSION_DENY,requireActivity())
+                toastMessage(resources.getString(R.string.permission_deny),requireActivity())
             }
         }
     }
