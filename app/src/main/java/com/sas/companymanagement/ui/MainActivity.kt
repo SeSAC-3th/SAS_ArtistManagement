@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
+    /**
+     * Androidx SplashScreen compat 라이브러리를 활용하여 SplashScreen 구현
+     * @author 이종윤
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
