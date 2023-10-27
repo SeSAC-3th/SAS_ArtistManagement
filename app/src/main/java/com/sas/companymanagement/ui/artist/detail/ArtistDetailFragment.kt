@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,8 @@ import com.sas.companymanagement.ui.common.SCORE_SIZE
 import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.dateToString
+import com.sas.companymanagement.ui.group.Group
+import com.sas.companymanagement.ui.group.GroupViewModel
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
 import com.sas.companymanagement.ui.schedule.ScheduleViewModel
@@ -44,6 +47,8 @@ class ArtistDetailFragment :
     private val artistArgs: ArtistDetailFragmentArgs by navArgs()
     private var scheduleRecyclerView: RecyclerView? = null
     private var scheduleAdapter = ScheduleHorizontalAdapter(mutableListOf(), this)
+    private var newSchedules = mutableListOf<Schedule>()
+    private var newGroup = mutableListOf<Group>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,10 +64,11 @@ class ArtistDetailFragment :
         getScheduleData()
         fieldSetup()
         listenerSetup()
+        initGroup()
     }
 
     private fun getScheduleData() {
-        val newSchedules = mutableListOf<Schedule>()
+        newSchedules = mutableListOf<Schedule>()
         scheduleViewModel.allSchedules?.observe(viewLifecycleOwner) { schedules ->
             schedules.forEach { schedule ->
                 schedule.artistId.split(", ").forEach { id ->
@@ -71,7 +77,7 @@ class ArtistDetailFragment :
                     }
                 }
             }
-            scheduleAdapter.setScheduleList(newSchedules.toList())
+            scheduleAdapter.setScheduleList(newSchedules)
         }
     }
 
@@ -124,13 +130,14 @@ class ArtistDetailFragment :
                         val ad = AlertDialog.Builder(this.context)
                         ad.setIcon(R.drawable.ic_launcher_foreground)
                         ad.setTitle(DELETE_MESSAGE)
-
                         ad.setNegativeButton(CANCEL) { dialog, _ ->
                             dialog.dismiss()
                         }
                         ad.setPositiveButton(OK) { dialog, _ ->
                             dialog.dismiss()
                             viewModel.deleteArtist(artistArgs.artistId)
+                            deleteArtistInSchedule()
+                            deleteArtistInGroup()
                             findNavController().popBackStack()
                         }
                         ad.show()
@@ -138,6 +145,47 @@ class ArtistDetailFragment :
                 }
                 true
             }
+        }
+    }
+
+    private fun deleteArtistInGroup() {
+        Log.e("artistInfo", "왜지? newgroup = ${newGroup.size}")
+        newGroup.forEach { group ->
+            val artistIds = mutableListOf<Long>()
+            Log.e("artistInfo", "group = ${group}")
+            group.artistId.split(", ").forEach { id ->
+                Log.e("artistInfo", "group id = ${id}")
+                if (id != artistArgs.artistId.toString()) {
+                    artistIds.add(id.toLong())
+                }
+            }
+            Log.e("artistInfo", "${artistIds}")
+            viewModel.updateGroup(group.copy(artistId = artistIds.joinToString()))
+        }
+    }
+
+    private fun initGroup() {
+        newGroup = mutableListOf<Group>()
+        viewModel.allGroup?.observe(viewLifecycleOwner) { groups ->
+            groups.forEach { group ->
+                group.artistId.split(", ").forEach { id ->
+                    if (id == artistArgs.artistId.toString()) {
+                        newGroup.add(group)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun deleteArtistInSchedule() {
+        newSchedules.forEach { schedule ->
+            val artistIds = mutableListOf<Long>()
+            schedule.artistId.split(", ").forEach { id ->
+                if (id != artistArgs.artistId.toString()) {
+                    artistIds.add(id.toLong())
+                }
+            }
+            scheduleViewModel.updateSchedule(schedule.copy(artistId = artistIds.joinToString()))
         }
     }
 

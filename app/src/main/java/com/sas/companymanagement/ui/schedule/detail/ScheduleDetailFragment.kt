@@ -19,7 +19,8 @@ class ScheduleDetailFragment :
     companion object {
         fun newInstance() = ScheduleDetailFragment()
     }
-        //TODO 필드 값 변경 
+
+    //TODO 필드 값 변경
     private val viewModel: ScheduleDetailViewModel by viewModels()
     private val scheduleArgs: ScheduleDetailFragmentArgs by navArgs()
     private val artistViewModel: ArtistUpdateViewModel by viewModels()
@@ -40,14 +41,13 @@ class ScheduleDetailFragment :
     }
 
 
-
     private fun initMenu() {
         with(binding.tbScheduleDetail) {
             setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
             setOnMenuItemClickListener { item ->
-                when ( item.itemId){
+                when (item.itemId) {
                     R.id.update -> {
                         val action =
                             ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToScheduleUpdateFragment(
@@ -55,6 +55,7 @@ class ScheduleDetailFragment :
                             )
                         findNavController().navigate(action)
                     }
+
                     R.id.delete -> {
                         val ad = AlertDialog.Builder(this.context)
                         ad.setIcon(R.drawable.ic_launcher_foreground)
@@ -66,7 +67,8 @@ class ScheduleDetailFragment :
                         ad.setPositiveButton("확인") { dialog, _ ->
                             dialog.dismiss()
                             viewModel.deleteSchedule(scheduleArgs.scheduleId)
-                            val action = ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToFragmentSchedule()
+                            val action =
+                                ScheduleDetailFragmentDirections.actionScheduleDetailFragmentToFragmentSchedule()
                             findNavController().navigate(action)
                         }
                         ad.show()
@@ -79,7 +81,7 @@ class ScheduleDetailFragment :
         }
     }
 
-    private fun initScheduleDetail(){
+    private fun initScheduleDetail() {
         viewModel.findSchedule(scheduleArgs.scheduleId)
         viewModel.getSearchResult().observe(viewLifecycleOwner) { schedule ->
             with(binding) {
@@ -90,11 +92,12 @@ class ScheduleDetailFragment :
                 tvScheduleContent.text = schedule.scheduleContent
 
                 val artistIds = schedule.artistId.split(", ")
-                tvScheduleArtist.text =  ""
-                artistIds.forEach{
-                    artistViewModel.findArtistById(it.toLong()).observe(viewLifecycleOwner) { artist ->
-                        tvScheduleArtist.append(artist.artistName+" ")
-                    }
+                tvScheduleArtist.text = ""
+                artistIds.forEach {
+                    artistViewModel.findArtistById(it.toLong())
+                        .observe(viewLifecycleOwner) { artist ->
+                            tvScheduleArtist.append(artist.artistName + " ")
+                        }
                 }
             }
         }
