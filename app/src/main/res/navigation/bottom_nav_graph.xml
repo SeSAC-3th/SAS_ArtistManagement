@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragment_main"
         android:name="com.sas.companymanagement.ui.main.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_fragment_main_to_artistDetailFragment"
             app:destination="@id/artistDetailFragment" />
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/fragment_schedule"
         android:name="com.sas.companymanagement.ui.schedule.ScheduleFragment"
-        android:label="ScheduleFragment" >
+        android:label="ScheduleFragment">
         <action
             android:id="@+id/action_fragment_schedule_to_scheduleUpdateFragment"
             app:destination="@id/scheduleUpdateFragment" />
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/fragment_artist"
         android:name="com.sas.companymanagement.ui.artist.ArtistFragment"
-        android:label="ArtistFragment" >
+        android:label="ArtistFragment">
         <action
             android:id="@+id/action_fragment_artist_to_artistDetailFragment"
             app:destination="@id/artistDetailFragment" />
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/fragment_group"
         android:name="com.sas.companymanagement.ui.group.GroupFragment"
-        android:label="GroupFragment" >
+        android:label="GroupFragment">
         <action
             android:id="@+id/action_fragment_group_to_groupDetailFragment"
             app:destination="@id/groupDetailFragment" />
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/fragment_setting"
         android:name="com.sas.companymanagement.ui.setting.SettingFragment"
-        android:label="SettingFragment" >
+        android:label="SettingFragment">
         <action
             android:id="@+id/action_fragment_setting_to_loginFragment"
             app:destination="@id/fragment_login" />
@@ -61,7 +61,7 @@
         android:id="@+id/artistDetailFragment"
         android:name="com.sas.companymanagement.ui.artist.detail.ArtistDetailFragment"
         android:label="fragment_artist_detail"
-        tools:layout="@layout/fragment_artist_detail" >
+        tools:layout="@layout/fragment_artist_detail">
         <argument
             android:name="artistId"
             app:argType="long" />
@@ -71,11 +71,14 @@
         <action
             android:id="@+id/action_artistDetailFragment_to_artistFragment"
             app:destination="@id/fragment_artist" />
+        <action
+            android:id="@+id/action_artistDetailFragment_to_scheduleDetailFragment"
+            app:destination="@id/scheduleDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/artistUpdateFragment"
         android:name="com.sas.companymanagement.ui.artist.update.ArtistUpdateFragment"
-        android:label="ArtistUpdateFragment" >
+        android:label="ArtistUpdateFragment">
         <argument
             android:name="artistId"
             app:argType="long" />
@@ -83,7 +86,7 @@
     <fragment
         android:id="@+id/groupDetailFragment"
         android:name="com.sas.companymanagement.ui.group.detail.GroupDetailFragment"
-        android:label="GroupDetailFragment" >
+        android:label="GroupDetailFragment">
         <argument
             android:name="groupId"
             app:argType="long" />
@@ -98,7 +101,7 @@
     <fragment
         android:id="@+id/scheduleUpdateFragment"
         android:name="com.sas.companymanagement.ui.schedule.update.ScheduleUpdateFragment"
-        android:label="ScheduleUpdateFragment" >
+        android:label="ScheduleUpdateFragment">
         <argument
             android:name="scheduleId"
             app:argType="long" />
@@ -115,7 +118,7 @@
         android:id="@+id/groupUpdateFragment"
         android:name="com.sas.companymanagement.ui.group.update.GroupUpdateFragment"
         android:label="fragment_group_update"
-        tools:layout="@layout/fragment_group_update" >
+        tools:layout="@layout/fragment_group_update">
         <argument
             android:name="groupId"
             app:argType="long" />
@@ -131,7 +134,7 @@
         android:id="@+id/fragment_login"
         android:name="com.sas.companymanagement.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_fragment_main"
             app:destination="@id/fragment_main" />
@@ -140,7 +143,7 @@
         android:id="@+id/scheduleDetailFragment"
         android:name="com.sas.companymanagement.ui.schedule.detail.ScheduleDetailFragment"
         android:label="fragment_schedule_update"
-        tools:layout="@layout/fragment_schedule_detail" >
+        tools:layout="@layout/fragment_schedule_detail">
         <action
             android:id="@+id/action_scheduleDetailFragment_to_scheduleUpdateFragment"
             app:destination="@id/scheduleUpdateFragment" />
@@ -160,8 +163,7 @@
         android:id="@+id/artistSelectFragment"
         android:name="com.sas.companymanagement.ui.artist.select.ArtistSelectFragment"
         android:label="ArtistSelectFragment"
-        tools:layout="@layout/fragment_artist_select"
-        >
+        tools:layout="@layout/fragment_artist_select">
         <argument
             android:name="from"
             app:argType="string" />

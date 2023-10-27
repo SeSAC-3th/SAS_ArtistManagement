@@ -10,6 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
+import com.sas.companymanagement.ui.artist.ArtistFragment
+import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
+import com.sas.companymanagement.ui.artist.detail.ArtistDetailFragmentDirections
+import com.sas.companymanagement.ui.main.MainFragment
 import com.sas.companymanagement.ui.main.MainFragmentDirections
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
@@ -43,12 +47,18 @@ class ScheduleHorizontalAdapter(
     }
 
     private fun scheduleClickEvent(view: View, schedule: Schedule) {
+        val action =
+            if (fragment.childFragmentManager.fragments[0] is MainFragment) {
+                MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id)
+            } else {
+                ArtistDetailFragmentDirections.actionArtistDetailFragmentToScheduleDetailFragment(
+                    schedule.id
+                )
+            }
         with(view) {
             clicks()
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    val action =
-                        MainFragmentDirections.actionFragmentMainToScheduleDetailFragment(schedule.id)
                     NavHostFragment.findNavController(fragment).navigate(action)
                 }
         }
