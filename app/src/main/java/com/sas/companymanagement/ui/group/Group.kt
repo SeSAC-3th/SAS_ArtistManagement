@@ -3,6 +3,13 @@ package com.sas.companymanagement.ui.group
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+/**
+* Group
+*
+* @fileName         : Grou
+* @author           : 이기영, 이원형
+* @Since            : 2023-10-19
+*/
 
 @Entity(tableName = "group_tbl")
 data class Group(

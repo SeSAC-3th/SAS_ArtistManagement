@@ -41,6 +41,13 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.util.concurrent.TimeUnit
 
+/**
+ * 그룹 추가 프래그먼트
+ *
+ * @fileName         : GroupUpdateFragment
+ * @author           : 이원형, 박지혜, 이종윤, 이기영, 윤성욱
+ * @Since            : 2023-10-17
+ */
 class GroupUpdateFragment :
     ViewBindingBaseFragment<FragmentGroupUpdateBinding>(FragmentGroupUpdateBinding::inflate) {
 
@@ -63,6 +70,7 @@ class GroupUpdateFragment :
     private var isFieldLoaded = false
     private var eval = ""
     var fragmentStackSize = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,6 +95,10 @@ class GroupUpdateFragment :
         listenerSetup()
     }
 
+    /**
+     * Group 수정시 기존 정보 가져온다.
+     * @author 이원형, 이기영, 이종윤
+     */
     private fun getField() {
         binding.tbGroupUpdate.title = resources.getString(R.string.group_update_artist)
         fragmentStackSize++
@@ -119,12 +131,14 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * chip 설정
+     * @author 이종윤
+     */
     private val setChip = {
         tempSet = selectedArtistIdList
         editArtistChip(tempSet)
     }
-
-    //이미지 저장
     @SuppressLint("SdCardPath")
     private fun saveImage() {
         val imagesFolder = File(activity?.filesDir, "images")
@@ -138,7 +152,6 @@ class GroupUpdateFragment :
         val newFile = File(imageSrc)
         imageToFile(requireActivity(), imageUri!!, newFile)
     }
-
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
         var inputStream: InputStream? = null
         var outputStream: FileOutputStream? = null
@@ -162,6 +175,10 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * chip을 사용해 아티스트 추가
+     * @author 이종윤, 윤성욱
+     */
     private fun editArtistChip(temp: MutableSet<Long>) {
         if (temp.isNotEmpty()) {
             binding.cgArtistUpdate.removeAllViews()
@@ -184,6 +201,10 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * chip, imageButton click event
+     * @author 이원형, 윤성욱
+     */
     private fun listenerField() {
         with(binding) {
             cAdd
@@ -211,13 +232,17 @@ class GroupUpdateFragment :
                 .subscribe({
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         getImageFromGallery(Manifest.permission.READ_MEDIA_IMAGES)
-                    } else  getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    } else getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
         }
     }
 
+    /**
+     * imageButton listenerSetup
+     * @author 이원형, 윤성욱, 박지혜
+     */
     private fun listenerSetup() {
         with(binding) {
             tbGroupUpdate.setNavigationOnClickListener {
@@ -261,6 +286,10 @@ class GroupUpdateFragment :
     }
 
 
+    /**
+     * group 수정시 editText 이름 설정
+     * @author 이원형
+     */
     private fun updateSet() {
         with(binding) {
             name = teGroupName.text.toString()
@@ -275,6 +304,10 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * 공백이 있을 시 저장 불가
+     * @author 이원형
+     */
     private fun requireUpdate(): Boolean {
         with(binding) {
             if (teGroupName.text.toString() == "" ||
@@ -330,7 +363,7 @@ class GroupUpdateFragment :
             }
 
             false -> {
-                toastMessage(resources.getString(R.string.permission_deny),requireActivity())
+                toastMessage(resources.getString(R.string.permission_deny), requireActivity())
             }
         }
     }

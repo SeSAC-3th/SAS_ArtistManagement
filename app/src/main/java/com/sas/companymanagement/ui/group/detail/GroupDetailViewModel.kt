@@ -8,7 +8,13 @@ import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.db.ArtistRepository
 import com.sas.companymanagement.ui.group.Group
 import com.sas.companymanagement.ui.group.db.GroupRepository
-
+/**
+* GroupDetailViewModel
+*
+* @fileName         : GroupDetailViewModel
+* @author           : 이원형, 박지혜
+* @Since            : 2023-10-17
+*/
 
 class GroupDetailViewModel(application: Application) : AndroidViewModel(application) {
 

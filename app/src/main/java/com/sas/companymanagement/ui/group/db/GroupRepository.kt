@@ -8,7 +8,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-
+/**
+* GroupRepository
+*
+* @fileName         : GroupRepository
+* @author           : 이기영, 이원형
+* @Since            : 2023-10-19
+*/
 class GroupRepository(application: Application) {
     var searchResults = MutableLiveData<Group>()
     private var groupDao: GroupDao
