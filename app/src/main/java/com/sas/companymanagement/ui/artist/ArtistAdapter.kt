@@ -86,9 +86,6 @@ class ArtistAdapter(
                     selectedSet.add(artist.id)
                     holder.names.setTextColor(Color.RED)
                 }
-                selectedSet.forEach {
-                    Log.e("selectID", it.toString())
-                }
             }
     }
 

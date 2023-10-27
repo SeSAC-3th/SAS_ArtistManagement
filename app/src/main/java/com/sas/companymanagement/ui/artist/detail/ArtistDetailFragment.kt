@@ -149,17 +149,13 @@ class ArtistDetailFragment :
     }
 
     private fun deleteArtistInGroup() {
-        Log.e("artistInfo", "왜지? newgroup = ${newGroup.size}")
         newGroup.forEach { group ->
             val artistIds = mutableListOf<Long>()
-            Log.e("artistInfo", "group = ${group}")
             group.artistId.split(", ").forEach { id ->
-                Log.e("artistInfo", "group id = ${id}")
                 if (id != artistArgs.artistId.toString()) {
                     artistIds.add(id.toLong())
                 }
             }
-            Log.e("artistInfo", "${artistIds}")
             viewModel.updateGroup(group.copy(artistId = artistIds.joinToString()))
         }
     }

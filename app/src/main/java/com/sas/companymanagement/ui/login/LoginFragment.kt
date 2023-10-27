@@ -45,7 +45,6 @@ class LoginFragment : ViewBindingBaseFragment<FragmentLoginBinding>(FragmentLogi
 
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
         val autoLoginData = sharedPref.getBoolean("autoLogin",false)
-        Log.e("return", autoLoginData.toString())
 
         with(binding) {
                     btnLogin
