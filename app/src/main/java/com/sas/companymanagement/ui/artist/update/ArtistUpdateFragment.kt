@@ -135,7 +135,9 @@ class ArtistUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    requestGalleryPermission()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        getImageFromGallery(Manifest.permission.READ_MEDIA_IMAGES)
+                    } else  getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -318,6 +320,14 @@ class ArtistUpdateFragment :
         }
 
 
+    override fun onResume() {
+        super.onResume()
+        if (imageUri != null) {
+            binding.ibArtist.setImageURI(imageUri)
+            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -328,31 +338,24 @@ class ArtistUpdateFragment :
      * Request gallery permission
      *  권한 요청하는 해서 갤러리에서 이미지를 가져오는 함수
      */
-    private fun requestGalleryPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_MEDIA_IMAGES
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermission.launch(Manifest.permission.READ_MEDIA_IMAGES)
-        } else {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*"
-            )
-            startForResult.launch(intent)
-        }
-
+    private fun getImageFromGallery(permission: String) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermission.launch(permission)
+            } else {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    "image/*"
+                )
+                startForResult.launch(intent)
+            }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (imageUri != null) {
-            binding.ibArtist.setImageURI(imageUri)
-            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
-        }
-    }
+
 
     /**
      * Request permission 권한요청 팝업 이벤트 처리
