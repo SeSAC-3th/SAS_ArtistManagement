@@ -210,8 +210,8 @@ class GroupUpdateFragment :
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        requestGalleryPermission(Manifest.permission.READ_MEDIA_IMAGES)
-                    } else  requestGalleryPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        getImageFromGallery(Manifest.permission.READ_MEDIA_IMAGES)
+                    } else  getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -297,7 +297,7 @@ class GroupUpdateFragment :
         compositeDisposable.clear()
     }
 
-    private fun requestGalleryPermission(permission : String) {
+    private fun getImageFromGallery(permission : String) {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 permission
