@@ -105,6 +105,10 @@ class ScheduleUpdateFragment :
 
     @SuppressLint("CheckResult")
     fun commonUi() {
+        binding.tbScheduleUpdate.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         with(binding) {
             scheduleDatePicker.setText(viewModel.scheduleDate)
             scheduleTimePicker.setText(viewModel.scheduleTime)
@@ -242,7 +246,6 @@ class ScheduleUpdateFragment :
 
                     edScheduleName.setText(schedule.scheduleName)
                     edSchedulePlaceName.setText(schedule.scheduleAddress)
-                    Log.e("string", schedule.scheduleDateBefore)
 
                     scheduleDatePicker.setText(schedule.scheduleDateBefore.substring(0, 13))
                     scheduleTimeFormatTv.setText(schedule.scheduleDateBefore.substring(13, 15))

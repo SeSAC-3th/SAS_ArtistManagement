@@ -93,7 +93,6 @@ class GroupUpdateFragment :
         fragmentStackSize++
         viewModel.findGroup(groupArgs.groupId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
-            Log.e("asf", fragmentStackSize.toString())
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
@@ -165,11 +164,9 @@ class GroupUpdateFragment :
     }
 
     private fun editArtistChip(temp: MutableSet<Long>) {
-        Log.e("artistInfo", "${temp.size}")
         if (temp.isNotEmpty()) {
             binding.cgArtistUpdate.removeAllViews()
             temp.forEach { id ->
-                Log.e("artistInfo", "id = ${id}")
                 binding.cgArtistUpdate.addView(Chip(context).apply {
                     artistUpdateViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
                         if (artist != null) {
