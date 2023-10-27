@@ -1,7 +1,6 @@
 package com.sas.companymanagement.ui.common
 
 import android.app.Activity
-import android.util.Log
 import android.widget.Toast
 import java.util.Random
 

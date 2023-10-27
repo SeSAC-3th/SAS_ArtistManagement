@@ -3,9 +3,6 @@ package com.sas.companymanagement.ui.schedule.db
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sas.companymanagement.ui.artist.Artist
-import com.sas.companymanagement.ui.artist.db.ArtistDao
-import com.sas.companymanagement.ui.artist.db.ArtistRoomDatabase
 import com.sas.companymanagement.ui.schedule.Schedule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

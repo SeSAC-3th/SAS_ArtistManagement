@@ -1,22 +1,13 @@
 package com.sas.companymanagement.ui.schedule
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import androidx.navigation.fragment.findNavController
-import com.sas.companymanagement.databinding.FragmentArtistBinding
 import java.util.concurrent.TimeUnit
 
 class TodayScheduleAdapter(

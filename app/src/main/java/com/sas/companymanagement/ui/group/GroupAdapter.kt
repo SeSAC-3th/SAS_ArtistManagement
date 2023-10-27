@@ -41,6 +41,7 @@ class GroupAdapter(
         groupClickEvent(holder.images, groupData)
     }
 
+    @SuppressLint("CheckResult")
     private fun groupClickEvent(view: View, group: Group) {
         val observable = view.clicks()
         observable.subscribe {

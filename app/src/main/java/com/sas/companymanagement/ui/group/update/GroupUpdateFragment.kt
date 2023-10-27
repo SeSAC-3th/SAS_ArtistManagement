@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -47,8 +48,6 @@ class GroupUpdateFragment :
 
     companion object {
         fun newInstance() = GroupUpdateFragment()
-        //    private var tempImage = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
-
     }
 
     private val groupArgs: GroupUpdateFragmentArgs by navArgs()
@@ -210,7 +209,9 @@ class GroupUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    requestGalleryPermission()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        getImageFromGallery(Manifest.permission.READ_MEDIA_IMAGES)
+                    } else  getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -296,13 +297,13 @@ class GroupUpdateFragment :
         compositeDisposable.clear()
     }
 
-    private fun requestGalleryPermission() {
+    private fun getImageFromGallery(permission : String) {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.READ_MEDIA_IMAGES
+                permission
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            requestPermission.launch(Manifest.permission.READ_MEDIA_IMAGES)
+            requestPermission.launch(permission)
         } else {
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(

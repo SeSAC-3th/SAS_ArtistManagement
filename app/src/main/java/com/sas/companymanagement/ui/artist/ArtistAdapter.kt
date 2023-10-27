@@ -74,6 +74,7 @@ class ArtistAdapter(
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun artistSelectClickEvent(holder: ItemHolder, artist: Artist) {
         holder.itemView.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)

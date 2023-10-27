@@ -1,12 +1,10 @@
 package com.sas.companymanagement.ui.schedule
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.schedule.db.ScheduleRepository
 import java.text.SimpleDateFormat
 import java.util.Locale

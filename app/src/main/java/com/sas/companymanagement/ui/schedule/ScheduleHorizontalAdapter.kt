@@ -1,8 +1,6 @@
 package com.sas.companymanagement.ui.schedule
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
-import com.sas.companymanagement.ui.artist.Artist
-import com.sas.companymanagement.ui.artist.ArtistFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
-import java.lang.Integer.max
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 

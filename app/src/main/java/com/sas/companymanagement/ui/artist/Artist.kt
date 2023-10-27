@@ -1,12 +1,8 @@
 package com.sas.companymanagement.ui.artist
 
-import android.provider.ContactsContract.CommonDataKinds.Nickname
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.sas.companymanagement.ui.schedule.Schedule
 
 
 @Entity(tableName = "artist_tbl")

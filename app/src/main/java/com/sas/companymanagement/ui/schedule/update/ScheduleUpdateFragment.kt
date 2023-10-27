@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,18 +17,15 @@ import com.google.android.material.timepicker.TimeFormat
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
-import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
-import com.sas.companymanagement.ui.schedule.TodayScheduleAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.merge
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -233,20 +228,6 @@ class ScheduleUpdateFragment :
                     tempSet = (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
                     editArtistChip(tempSet)
 
-
-
-                    /*artistList.forEach {
-                        binding.chipGroup.removeView(binding.addChip)
-                        binding.chipGroup.addView(Chip(context).apply {
-              
-                            artistViewModel.findArtistById(it.trim().toLong()).observe(viewLifecycleOwner) { artist ->
-                                text = artist.artistName
-                            }
-
-                        })
-                    }*/
-//                    editArtistChip(artistList)
-
                     binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
                         if (item.itemId == R.id.menu_update) {
 
@@ -346,27 +327,6 @@ class ScheduleUpdateFragment :
     }
 
     private fun editArtistChip(temp : MutableSet<Long>) {
-
-//        if (selectedArtistIdList.isEmpty())
-        // selectedFragment에서 가져온 값을 기반으로 Chip 을 생성
-        /*if(selectedArtistIdList.isNotEmpty()){
-            binding.chipGroup.removeView(binding.addChip)
-            selectedArtistIdList.forEach { id ->
-                binding.chipGroup.addView(Chip(context).apply {
-                    artistViewModel.findArtistById(id.toLong()).observe(viewLifecycleOwner) { artist ->
-                        text = artist.artistName
-                        isCloseIconVisible = true
-                        Log.e("ad",selectedArtistIdList.joinToString())
-                    }
-                    //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
-                    setOnCloseIconClickListener {
-                        selectedArtistIdList.remove(id)
-                        binding.chipGroup.removeView(this)
-                    }
-                })
-            }
-            binding.chipGroup.addView(binding.addChip)
-        }*/
         if(temp.isNotEmpty()){
             binding.chipGroup.removeView(binding.addChip)
             temp.forEach { id ->
@@ -386,25 +346,6 @@ class ScheduleUpdateFragment :
         }
     }
 
-    private fun addArtistChip() {
-        binding.chipGroup.removeView(binding.addChip)
-//        if (selectedArtistIdList.isEmpty())
-        // selectedFragment에서 가져온 값을 기반으로 Chip 을 생성
-        selectedArtistIdList.forEach { id ->
-            binding.chipGroup.addView(Chip(context).apply {
-                artistViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
-                    text = artist.artistName
-                    isCloseIconVisible = true
-                }
-                //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
-                setOnCloseIconClickListener {
-                    selectedArtistIdList.remove(id)
-                    binding.chipGroup.removeView(this)
-                }
-            })
-        }
-        binding.chipGroup.addView(binding.addChip)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

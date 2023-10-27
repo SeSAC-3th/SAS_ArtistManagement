@@ -9,14 +9,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
@@ -46,8 +47,6 @@ import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import java.util.Random
-import java.util.concurrent.Flow
 import java.util.concurrent.TimeUnit
 
 class ArtistUpdateFragment :
@@ -110,6 +109,7 @@ class ArtistUpdateFragment :
         }
     }
 
+
     private fun listenerField() {
         // brith listener
         with(binding) {
@@ -135,7 +135,9 @@ class ArtistUpdateFragment :
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    requestGalleryPermission()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        getImageFromGallery(Manifest.permission.READ_MEDIA_IMAGES)
+                    } else  getImageFromGallery(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }, {
                     Log.e("IB_ERROR", compositeDisposable.toString())
                 })
@@ -174,7 +176,6 @@ class ArtistUpdateFragment :
             tbArtistUpdate.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
-
             listenerField()
             tbArtistUpdate.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.menu_update) {
@@ -319,6 +320,14 @@ class ArtistUpdateFragment :
         }
 
 
+    override fun onResume() {
+        super.onResume()
+        if (imageUri != null) {
+            binding.ibArtist.setImageURI(imageUri)
+            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -329,31 +338,24 @@ class ArtistUpdateFragment :
      * Request gallery permission
      *  권한 요청하는 해서 갤러리에서 이미지를 가져오는 함수
      */
-    private fun requestGalleryPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_MEDIA_IMAGES
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermission.launch(Manifest.permission.READ_MEDIA_IMAGES)
-        } else {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*"
-            )
-            startForResult.launch(intent)
-        }
-
+    private fun getImageFromGallery(permission: String) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermission.launch(permission)
+            } else {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.setDataAndType(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    "image/*"
+                )
+                startForResult.launch(intent)
+            }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (imageUri != null) {
-            binding.ibArtist.setImageURI(imageUri)
-            binding.ibArtist.setBackgroundColor(Color.TRANSPARENT)
-        }
-    }
+
 
     /**
      * Request permission 권한요청 팝업 이벤트 처리

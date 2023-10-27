@@ -55,26 +55,6 @@ class GroupFragment :
         }
     }
 
-    private fun setDataInList(): ArrayList<Group> {
-
-        var items: ArrayList<Group> = ArrayList()
-
-//        items.add(Group("르세라핌", ""))
-//
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-//        items.add(Group(R.drawable.ic_add_circle_24, "김채원"))
-
-        return items
-    }
-
     private fun settingGroupRecyclerView() {
         with(binding) {
             groupRecyclerView = rvGroup

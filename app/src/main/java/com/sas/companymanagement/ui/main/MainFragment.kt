@@ -1,30 +1,19 @@
 package com.sas.companymanagement.ui.main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import com.sas.companymanagement.R
-import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.databinding.FragmentMainBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
 import com.sas.companymanagement.ui.artist.ArtistCategory
-import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import com.sas.companymanagement.ui.schedule.Schedule
-import com.sas.companymanagement.ui.schedule.ScheduleAdapter
 import com.sas.companymanagement.ui.schedule.ScheduleHorizontalAdapter
-import java.util.ArrayList
 
 class MainFragment :
     ViewBindingBaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {

@@ -1,9 +1,7 @@
 package com.sas.companymanagement.ui.group.detail
 
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.animation.Easing
@@ -21,23 +18,14 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.sas.companymanagement.R
-import com.sas.companymanagement.R.menu.menu_add
 import com.sas.companymanagement.R.menu.menu_detail
-import com.sas.companymanagement.R.menu.menu_update
 import com.sas.companymanagement.databinding.FragmentGroupDetailBinding
 import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
-import com.sas.companymanagement.ui.artist.ArtistViewModel
-import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.EVAL_SCORE
 import com.sas.companymanagement.ui.common.SCORE_LIST
-import com.sas.companymanagement.ui.common.SCORE_SIZE
 import com.sas.companymanagement.ui.common.SCORE_START
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-import com.sas.companymanagement.ui.common.dateToString
-import com.sas.companymanagement.ui.group.Group
-import com.sas.companymanagement.ui.group.GroupAdapter
-import com.sas.companymanagement.ui.schedule.Schedule
 
 
 class GroupDetailFragment :
