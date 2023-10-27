@@ -15,6 +15,13 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentArtistBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
+/**
+ * Artist Tab
+ *
+ * @fileName             : ArtistFragment
+ * @auther               : 이기영, 윤성욱
+ * @since                : 2023-10-17
+ **/
 class ArtistFragment :
     ViewBindingBaseFragment<FragmentArtistBinding>(FragmentArtistBinding::inflate) {
 
@@ -48,6 +55,11 @@ class ArtistFragment :
         }
 
 
+        /**
+         * 카테고리 항목 별 artist view set up
+         *
+         * @author 이기영
+         */
         binding.tlArtistCategory.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
@@ -76,7 +88,7 @@ class ArtistFragment :
 
     /**
      * Artist RecyclerView 세팅
-     * @윤성욱
+     * @author 윤성욱
      */
     private fun settingArtistRecyclerView() {
         with(binding) {

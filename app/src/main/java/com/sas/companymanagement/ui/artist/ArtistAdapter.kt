@@ -18,6 +18,12 @@ import com.sas.companymanagement.ui.group.detail.GroupDetailFragmentDirections
 import com.sas.companymanagement.ui.main.MainFragmentDirections
 import java.util.concurrent.TimeUnit
 
+
+/**
+ * @fileName             : ArtistAdapter
+ * @auther               : 이기영, 윤성욱
+ * @since                : 2023-10-18
+ **/
 class ArtistAdapter(
     private var arrayList: MutableList<Artist>,
     private var fragment: Fragment
@@ -42,6 +48,13 @@ class ArtistAdapter(
     override fun getItemCount() = arrayList.size
 
 
+    /**
+     * 아티스트 Detail fragment 의 부모 frargment 추적
+     *
+     * @param holder
+     * @param position
+     * @author 이기영, 윤성욱
+     */
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val artistData: Artist = arrayList[position]
         holder.images.setImageURI(Uri.parse(artistData.artistImage))
@@ -53,6 +66,13 @@ class ArtistAdapter(
         }
     }
 
+    /**
+     * 아티스트 Detail fragment 의 부모 fragment 추적
+     *
+     * @param view
+     * @param artist
+     * @author 이기영
+     */
     private fun artistClickEvent(view: View, artist: Artist) {
         val action =
             if (fragment.childFragmentManager.fragments[0] is ArtistFragment)
@@ -78,6 +98,7 @@ class ArtistAdapter(
      *
      * @param holder RecyclerView의 ItemHolder
      * @param artist Artist Id를 얻기 위한 Artist
+     * @author 윤성욱
      */
     @SuppressLint("CheckResult")
     private fun artistSelectClickEvent(holder: ItemHolder, artist: Artist) {

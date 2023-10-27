@@ -18,6 +18,13 @@ import com.sas.companymanagement.ui.main.MainFragmentDirections
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 
+/**
+ * MainFragment 와 ArtistDetail 에서 보여줄 schedule
+ *
+ * @fileName             : ScheduleHorizontalAdapter
+ * @auther               : 이기영
+ * @since                :
+ **/
 class ScheduleHorizontalAdapter(
     private var arrayList: MutableList<Schedule>,
     private var fragment: Fragment
