@@ -1,12 +1,15 @@
 package com.sas.companymanagement.ui.schedule.update
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,13 +20,20 @@ import com.google.android.material.timepicker.TimeFormat
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
+import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
+import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
+import com.sas.companymanagement.ui.common.toastMessage
 import com.sas.companymanagement.ui.schedule.Schedule
 import com.sas.companymanagement.ui.schedule.ScheduleAdapter
+import com.sas.companymanagement.ui.schedule.TodayScheduleAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.merge
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -95,6 +105,7 @@ class ScheduleUpdateFragment :
         binding.tbScheduleUpdate.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
         with(binding) {
             scheduleDatePicker.setText(viewModel.scheduleDate)
             scheduleTimePicker.setText(viewModel.scheduleTime)
@@ -174,9 +185,14 @@ class ScheduleUpdateFragment :
 
                 val scheduleContent = binding.scheduleContent.text.toString()
 
-
-                if (name.isNotEmpty()) {
-
+                if (requireUpdate(
+                        name,
+                        address,
+                        scheduleDateAfter,
+                        scheduleDateBefore,
+                        scheduleContent
+                    )
+                ) {
                     viewModel.insertSchedule(
                         Schedule(
                             scheduleName = name,
@@ -192,14 +208,31 @@ class ScheduleUpdateFragment :
                             ScheduleUpdateFragmentDirections.actionScheduleUpdateFragmentToFragmentSchedule()
                         findNavController().navigate(action)
                     }
-
-
                 } else {
-                    Log.e("edit", "null 발생")
+                    toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
                 }
             }
             true
         }
+    }
+
+    private fun requireUpdate(
+        name: String,
+        address: String,
+        scheduleDateAfter: String,
+        scheduleDateBefore: String,
+        scheduleContent: String
+    ): Boolean {
+        if (name.isEmpty()
+            || address.isEmpty()
+            || scheduleDateAfter.isEmpty()
+            || scheduleDateBefore.isEmpty()
+            || scheduleContent.isEmpty()
+            || selectedArtistIdList.isEmpty()
+        ) {
+            return false
+        }
+        return true
     }
 
     private fun observerSetup(scheduleId: Long) {
@@ -210,7 +243,6 @@ class ScheduleUpdateFragment :
 
                     edScheduleName.setText(schedule.scheduleName)
                     edSchedulePlaceName.setText(schedule.scheduleAddress)
-                    Log.e("string", schedule.scheduleDateBefore)
 
                     scheduleDatePicker.setText(schedule.scheduleDateBefore.substring(0, 13))
                     scheduleTimeFormatTv.setText(schedule.scheduleDateBefore.substring(13, 15))
@@ -228,6 +260,7 @@ class ScheduleUpdateFragment :
                     tempSet =
                         (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
                     editArtistChip(tempSet)
+
 
                     binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
                         if (item.itemId == R.id.menu_update) {
@@ -347,7 +380,6 @@ class ScheduleUpdateFragment :
             binding.chipGroup.addView(binding.addChip)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

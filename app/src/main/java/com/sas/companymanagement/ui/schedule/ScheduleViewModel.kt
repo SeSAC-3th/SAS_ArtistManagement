@@ -29,7 +29,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         _selectedSchedule.postValue(newSchedules)
     }
 
-    fun findScheduleById(id: Long) {
-        repository.findSchedule(id)
+    fun updateSchedule(schedule: Schedule) {
+        repository.updateSchedule(schedule)
     }
 }

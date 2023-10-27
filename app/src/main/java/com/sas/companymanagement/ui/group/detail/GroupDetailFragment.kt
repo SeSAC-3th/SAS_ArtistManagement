@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.animation.Easing
@@ -63,7 +64,12 @@ class GroupDetailFragment :
             artistRecyclerView = rvArtist
             artistAdapter = ArtistAdapter(ArrayList(), requireParentFragment())
             artistRecyclerView?.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                GridLayoutManager(
+                    context,
+                    2,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
             artistRecyclerView?.setHasFixedSize(true)
             artistRecyclerView?.adapter = artistAdapter
         }
@@ -72,8 +78,8 @@ class GroupDetailFragment :
 
     private fun listenerSetup() {
         binding.tbGroup.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
+            findNavController().popBackStack()
+        }
         binding.tbGroup.setOnMenuItemClickListener { item ->
 
             when (item.itemId) {
