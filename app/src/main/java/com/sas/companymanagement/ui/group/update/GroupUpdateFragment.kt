@@ -26,6 +26,7 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupUpdateBinding
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
+import com.sas.companymanagement.ui.common.ERROR_MESSAGE_EMPTY
 import com.sas.companymanagement.ui.common.PERMISSION_DENY
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.getRandomListToString
@@ -63,7 +64,7 @@ class GroupUpdateFragment :
     private var tempSet: MutableSet<Long> = mutableSetOf()
     private var isFieldLoaded = false
     private var eval = ""
-    var i = 0
+    var fragmentStackSize = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -89,10 +90,10 @@ class GroupUpdateFragment :
     }
 
     private fun getField() {
-        i++
+        fragmentStackSize++
         viewModel.findGroup(groupArgs.groupId)
         viewModel.getSearchResults().observe(viewLifecycleOwner) { groupData ->
-            Log.e("asf", i.toString())
+            Log.e("asf", fragmentStackSize.toString())
             CoroutineScope(Dispatchers.Main).launch {
                 with(binding) {
                     teGroupName.setText(groupData.groupName)
@@ -104,10 +105,10 @@ class GroupUpdateFragment :
                     artistId = groupData.artistId
                     eval = groupData.groupEval
                 }
-                var artistList = groupData.artistId.split(",").map {
+                val artistList = groupData.artistId.split(",").map {
                     it.trim().toLong()
                 }.toMutableSet()
-                if (i < 2) {
+                if (fragmentStackSize < 2) {
                     tempSet =
                         (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
                     editArtistChip(tempSet)
@@ -132,7 +133,7 @@ class GroupUpdateFragment :
         if (!imagesFolder.exists()) imagesFolder.mkdirs()
         if (groupArgs.groupId == -1L) {
             val deleteFile = File(imageSrc)
-            if(deleteFile.exists())deleteFile.delete()
+            if (deleteFile.exists()) deleteFile.delete()
             val imageName = System.currentTimeMillis().toString()
             imageSrc = "/data/data/com.sas.companymanagement/files/images/${imageName}.jpg"
         }
@@ -164,15 +165,18 @@ class GroupUpdateFragment :
     }
 
     private fun editArtistChip(temp: MutableSet<Long>) {
+        Log.e("artistInfo", "${temp.size}")
         if (temp.isNotEmpty()) {
             binding.cgArtistUpdate.removeAllViews()
             temp.forEach { id ->
+                Log.e("artistInfo", "id = ${id}")
                 binding.cgArtistUpdate.addView(Chip(context).apply {
-                    artistUpdateViewModel.findArtistById(id)
-                        .observe(viewLifecycleOwner) { artist ->
+                    artistUpdateViewModel.findArtistById(id).observe(viewLifecycleOwner) { artist ->
+                        if (artist != null) {
                             text = artist.artistName
                             isCloseIconVisible = true
                         }
+                    }
                     //chip에 있는 close 버튼을 클릭할 때, 삭제한 id 값을 기반을 selectedArtistIdList 값을 삭제함
                     setOnCloseIconClickListener {
                         temp.remove(id)
@@ -252,6 +256,7 @@ class GroupUpdateFragment :
                         }
                         findNavController().popBackStack()
                     } else {
+                        toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
                     }
                 }
                 true
@@ -259,7 +264,6 @@ class GroupUpdateFragment :
 
         }
     }
-
 
 
     private fun updateSet() {
@@ -275,6 +279,7 @@ class GroupUpdateFragment :
             binding.ibGroup.setBackgroundColor(Color.TRANSPARENT)
         }
     }
+
     private fun requireUpdate(): Boolean {
         with(binding) {
             if (teGroupName.text.toString() == "" ||
@@ -283,6 +288,7 @@ class GroupUpdateFragment :
         }
         return true
     }
+
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -292,6 +298,7 @@ class GroupUpdateFragment :
 
             }
         }
+
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.clear()
@@ -315,8 +322,9 @@ class GroupUpdateFragment :
     }
 
     private val requestPermission = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()) {
-        when(it) {
+        ActivityResultContracts.RequestPermission()
+    ) {
+        when (it) {
             true -> {
                 val intent = Intent(Intent.ACTION_PICK)
                 intent.setDataAndType(
@@ -325,8 +333,9 @@ class GroupUpdateFragment :
                 )
                 startForResult.launch(intent)
             }
+
             false -> {
-                toastMessage(PERMISSION_DENY,requireActivity())
+                toastMessage(PERMISSION_DENY, requireActivity())
             }
         }
     }

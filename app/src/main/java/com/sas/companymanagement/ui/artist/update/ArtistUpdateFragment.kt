@@ -212,7 +212,8 @@ class ArtistUpdateFragment :
                             )
                         }
                         findNavController().popBackStack()
-                    } else { //TODO 예외처리
+                    } else {
+                        toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
                     }
                 }
                 true
@@ -250,7 +251,6 @@ class ArtistUpdateFragment :
                 rgArtistGender.checkedRadioButtonId == -1 ||
                 imageSrc == ""
             ) {
-                toastMessage(ERROR_MESSAGE_EMPTY, activity as Activity)
                 return false
             }
         }
