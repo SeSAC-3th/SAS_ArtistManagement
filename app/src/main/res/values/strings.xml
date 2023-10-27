@@ -109,5 +109,10 @@
     <string name="from_schedule">schedule</string>
     <string name="from_group">group</string>
     <string name="afternoon">오후</string>
+    <string name="login_id">admin</string>
+    <string name="login_password">123456</string>
+    <string name="login_wrong_text">잘못된 입력입니다.</string>
+    <string name="setting_title">설정</string>
+    <string name="company_name">회사 : 쏘쓰뮤직</string>
 
 </resources>
