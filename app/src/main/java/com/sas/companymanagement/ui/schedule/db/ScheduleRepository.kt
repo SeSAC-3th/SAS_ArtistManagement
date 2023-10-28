@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 /**
- * Please explain the class!!
- *
- * @fileName             : ScheduleRepository
- * @auther               : 이종윤, 박지혜
- * @since                : 2023-10-27
- **/
+*
+* @fileName     : ScheduleRepository.kt
+* @author       : 박지혜, 이종윤
+* @since        : 2023-10-27
+*/
+
 class ScheduleRepository(application: Application) {
     var searchResults = MutableLiveData<Schedule>()
     private var scheduleDao : ScheduleDao

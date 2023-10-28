@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.sas.companymanagement.ui.schedule.Schedule
-
 /**
  * Please explain the class!!
  *

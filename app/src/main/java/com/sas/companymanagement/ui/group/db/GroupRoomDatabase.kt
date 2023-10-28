@@ -6,6 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sas.companymanagement.ui.group.Group
 
+/**
+* GroupRoomDatabase
+*
+* @fileName         : GroupRoomDatabase
+* @author           : 이기영
+* @Since            : 2023-10-27
+*/
 @Database(entities = [(Group::class)], exportSchema = false, version = 1)
 abstract class GroupRoomDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao

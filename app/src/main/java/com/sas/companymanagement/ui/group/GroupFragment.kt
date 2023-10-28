@@ -12,7 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-
+/**
+* 그룹 프래그먼트
+*
+* @fileName         : GroupFragment
+* @author           : 윤성욱,이기영
+* @Since            : 2023-10-17
+*/
 class GroupFragment :
     ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGroupBinding::inflate) {
 
@@ -29,32 +35,31 @@ class GroupFragment :
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(binding) {
-
             settingGroupRecyclerView()
             tbGroup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
                         GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(-1)
                     findNavController().navigate(action)
-
                 }
                 true
             }
         }
-
         viewModel.allGroup?.observe(viewLifecycleOwner) { groups ->
             groupAdapter.setGroupList(groups)
         }
     }
 
+    /**
+     * group RecyclerView
+     * @author 윤성욱
+     */
     private fun settingGroupRecyclerView() {
         with(binding) {
             groupRecyclerView = rvGroup
