@@ -38,6 +38,12 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+/**
+ * Schedule ( Insert / Update ) Fragment
+ * @fileName     : ScheduleUpdateFragment.kt
+ * @author       : 이종윤
+ * @since        : 2023-10-27
+ */
 
 class ScheduleUpdateFragment :
     ViewBindingBaseFragment<FragmentScheduleUpdateBinding>(FragmentScheduleUpdateBinding::inflate) {
@@ -71,7 +77,10 @@ class ScheduleUpdateFragment :
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-
+    /**
+     * scheduleArgs.scheduleId 값을 통해 (Insert / Update)에 맞는 UI를 보여줌
+     * @author 이종윤
+     */
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,7 +106,10 @@ class ScheduleUpdateFragment :
 
     }
 
-    private lateinit var scheduleAdapter: ScheduleAdapter
+    /**
+     * Fragment에 공통적인 UI를 초기화
+     * @author 이종윤
+     */
 
     @SuppressLint("CheckResult")
     fun commonUi() {
@@ -168,7 +180,10 @@ class ScheduleUpdateFragment :
             }
         }
     }
-
+    /**
+     * Insert를 위한 Schedule의 값을 String 값으로 받아 viewModel.insertSchedule()로 Schedule을 테이블에 insert
+     * @author 이종윤
+     */
     private fun insertUiSetUp() {
         binding.tbScheduleUpdate.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
@@ -215,6 +230,17 @@ class ScheduleUpdateFragment :
         }
     }
 
+    /**
+     * insert를 위한 유효성 체크
+     * @param name Schedule의 해당하는 인자 값
+     * @param address                   ""
+     * @param scheduleDateAfter         ""
+     * @param scheduleDateBefore        ""
+     * @param scheduleContent           ""
+     * @return Boolean을 return 하여 유효성 체크 확인
+     * @author 이기영, 이종윤
+     */
+
     private fun requireUpdate(
         name: String,
         address: String,
@@ -233,6 +259,12 @@ class ScheduleUpdateFragment :
         }
         return true
     }
+
+    /**
+     * LiveData를 통해 DB에 저장된 값을 불러와 세팅, update진행
+     * @param scheduleId 업데이트 하고자 하는 Schedule을 scheduleId를 통해 해당하는 Schedule을 observe
+     * @author 이종윤
+     */
 
     private fun observerSetup(scheduleId: Long) {
         var tempSet: MutableSet<Long>
@@ -256,6 +288,10 @@ class ScheduleUpdateFragment :
                     var artistList = schedule.artistId.split(",").map {
                         it.trim().toLong()
                     }.toMutableSet()
+                    /**
+                     * artistList : DB에 존재하는 artistList String 값을 MutableSet으로 바꿔서 값을 저장
+                     * selectedArtistIdList : ArtistSelectFragment에서 선택한 아티스트들을 mutableSet의 형태로써 저장 artistList와 selectedArtistIdList들을 더해 Chip을 생성
+                     */
                     tempSet =
                         (artistList.toMutableSet() + selectedArtistIdList.toMutableSet()).toMutableSet()
                     editArtistChip(tempSet)
@@ -299,7 +335,15 @@ class ScheduleUpdateFragment :
         }
 
     }
-
+    /**
+     * DatePicker와 TimePicker를 통해 날짜 선택
+     *
+     * @param dateTextView : 값을 저장할 TextView를 인자로 받아 값을 저장
+     * @param timeTextView :                    ""
+     * @param amPmTextView :                    ""
+     * @param tag : Schedule 시작 날짜, 종료 날짜 구분을 위해 tag로써 구분
+     * @author 이종윤
+     */
 
     private fun showDateTimePicker(
         dateTextView: TextView,
@@ -358,7 +402,11 @@ class ScheduleUpdateFragment :
 
 
     }
-
+    /**
+     * 아티스트 Chip을 생성
+     * @param temp : 생성할 Chip의 MutableSet
+     * @author 이종윤
+     */
     private fun editArtistChip(temp: MutableSet<Long>) {
         if (temp.isNotEmpty()) {
             binding.chipGroup.removeView(binding.addChip)
@@ -379,7 +427,10 @@ class ScheduleUpdateFragment :
             binding.chipGroup.addView(binding.addChip)
         }
     }
-
+    /**
+     * 리소스 해제를 위해 compositeDisposable.clear()를 통해 리소스를 해제
+     * @author 이종윤
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.clear()
