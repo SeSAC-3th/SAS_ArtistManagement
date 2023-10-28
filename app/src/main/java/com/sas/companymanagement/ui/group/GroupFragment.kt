@@ -29,32 +29,31 @@ class GroupFragment :
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGroupBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(binding) {
-
             settingGroupRecyclerView()
             tbGroup.setOnMenuItemClickListener { item ->
                 if (item.itemId == R.id.btnAdd) {
                     val action =
                         GroupFragmentDirections.actionFragmentGroupToGroupUpdateFragment(-1)
                     findNavController().navigate(action)
-
                 }
                 true
             }
         }
-
         viewModel.allGroup?.observe(viewLifecycleOwner) { groups ->
             groupAdapter.setGroupList(groups)
         }
     }
 
+    /**
+     * Group RecyclerView 세팅
+     *
+     */
     private fun settingGroupRecyclerView() {
         with(binding) {
             groupRecyclerView = rvGroup
