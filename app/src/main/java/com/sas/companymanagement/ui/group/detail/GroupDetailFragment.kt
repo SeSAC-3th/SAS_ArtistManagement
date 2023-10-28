@@ -132,7 +132,7 @@ class GroupDetailFragment :
 
     /**
      * Create가 아닌 Update인 경우 default 값 설정
-     * @author 이원형, 윤성욱, 박지혜
+     * @author 이원형, 윤성욱, 박지혜, 이기영
      */
     private fun fieldSetUp() {
         val id = groupArgs.groupId
@@ -151,7 +151,7 @@ class GroupDetailFragment :
 
     /**
      * DB의 아티스트 data를 받아온다.
-     * @author 박지혜
+     * @author 박지혜, 이기영
      */
     private fun getArtistData() {
         val newArtists = mutableListOf<Artist>()

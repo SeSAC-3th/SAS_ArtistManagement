@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 /**
 * Group
 *
-* @fileName         : Grou
+* @fileName         : Group
 * @author           : 이기영, 이원형
 * @Since            : 2023-10-19
 */

@@ -21,7 +21,7 @@ import com.sas.companymanagement.R
 * @Since            : 2023-10-16
 */
 class GroupAdapter(
-    var arrayList: MutableList<Group>,
+    private var arrayList: MutableList<Group>,
     var fragment: Fragment
 ) :
     RecyclerView.Adapter<GroupAdapter.ItemHolder>() {
@@ -32,8 +32,8 @@ class GroupAdapter(
      * @param itemView RecyclerVivew의 아이템 뷰
      */
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
-        var groupNames = itemView.findViewById<TextView>(R.id.recyclerName)
+        var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
+        var groupNames: TextView = itemView.findViewById<TextView>(R.id.recyclerName)
 
     }
 

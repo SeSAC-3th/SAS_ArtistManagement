@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
 
+/**
+ * 모든 Fragment 은 해당 클래스를 상속
+ * onCreateView 중복 코드줄이기 위함
+ * @author 이종윤
+ */
 typealias FragmentInflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 abstract class ViewBindingBaseFragment<VB : ViewBinding>(
     private val inflate: FragmentInflate<VB>

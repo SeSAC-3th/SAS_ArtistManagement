@@ -23,7 +23,7 @@ import kotlin.math.min
  *
  * @fileName             : ScheduleHorizontalAdapter
  * @auther               : 이기영
- * @since                :
+ * @since                : 2023-10-24
  **/
 class ScheduleHorizontalAdapter(
     private var arrayList: MutableList<Schedule>,
