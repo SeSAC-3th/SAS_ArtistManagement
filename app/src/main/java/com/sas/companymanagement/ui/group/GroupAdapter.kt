@@ -26,11 +26,6 @@ class GroupAdapter(
 ) :
     RecyclerView.Adapter<GroupAdapter.ItemHolder>() {
 
-    /**
-     * RecycleView 아이템 설정
-     *
-     * @param itemView RecyclerVivew의 아이템 뷰
-     */
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images: ImageView = itemView.findViewById<ImageView>(R.id.recyclerImage)
         var groupNames: TextView = itemView.findViewById<TextView>(R.id.recyclerName)

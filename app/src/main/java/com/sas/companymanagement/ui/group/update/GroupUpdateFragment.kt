@@ -140,7 +140,7 @@ class GroupUpdateFragment :
         editArtistChip(tempSet)
     }
     /**
-     * 선택한 이미지 저장 수정일 경우 기존 파일 지우고 저장
+     * 선택한 이미지 저장 / 수정일 경우 기존 파일 지우고 저장
      *
      * @author 윤성욱
      */

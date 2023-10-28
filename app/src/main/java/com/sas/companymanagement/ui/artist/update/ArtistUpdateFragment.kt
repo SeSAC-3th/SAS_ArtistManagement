@@ -266,8 +266,13 @@ class ArtistUpdateFragment :
     }
 
     /**
+     * DatePicker와 TimePicker를 통해 날짜 선택
      *
-     * @author 윤성욱
+     * @param dateTextView : 값을 저장할 TextView를 인자로 받아 값을 저장
+     * @param timeTextView :                    ""
+     * @param amPmTextView :                    ""
+     * @param tag : Schedule 시작 날짜, 종료 날짜 구분을 위해 tag로써 구분
+     * @author 이원형
      */
     private fun showDateTimePicker(
         dateTextView: TextView
@@ -286,7 +291,7 @@ class ArtistUpdateFragment :
     }
 
     /**
-     * 선택한 이미지 저장 수정일 경우 기존 파일 지우고 저장
+     * 선택한 이미지 저장 / 수정일 경우 기존 파일 지우고 저장
      *
      * @param id artist의 id값
      * @author 윤성욱
