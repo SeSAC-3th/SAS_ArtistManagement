@@ -6,7 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sas.companymanagement.ui.group.Group
 import com.sas.companymanagement.ui.group.db.GroupRepository
-
+/**
+* GroupUpdateViewModel
+*
+* @fileName         : GroupUpdateViewModel
+* @author           : 이기영, 박지혜
+* @Since            : 2023-10-19
+*/
 class GroupUpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: GroupRepository = GroupRepository(application)
     private val searchResults: MutableLiveData<Group> = repository.searchResults
@@ -28,7 +34,4 @@ class GroupUpdateViewModel(application: Application) : AndroidViewModel(applicat
         repository.updateGroupChange(group)
     }
 
-    fun findByIdGroup(id: Long): LiveData<Group> {
-        return repository.findByIdGroup(id)
-    }
 }

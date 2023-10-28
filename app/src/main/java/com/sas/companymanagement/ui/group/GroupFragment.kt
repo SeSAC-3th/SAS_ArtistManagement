@@ -12,7 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentGroupBinding
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-
+/**
+* 그룹 프래그먼트
+*
+* @fileName         : GroupFragment
+* @author           : 윤성욱,이기영
+* @Since            : 2023-10-17
+*/
 class GroupFragment :
     ViewBindingBaseFragment<FragmentGroupBinding>(FragmentGroupBinding::inflate) {
 
@@ -51,8 +57,8 @@ class GroupFragment :
     }
 
     /**
-     * Group RecyclerView 세팅
-     *
+     * group RecyclerView
+     * @author 윤성욱
      */
     private fun settingGroupRecyclerView() {
         with(binding) {

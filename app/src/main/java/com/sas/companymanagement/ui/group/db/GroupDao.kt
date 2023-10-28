@@ -7,6 +7,14 @@ import androidx.room.Query
 import androidx.room.Update
 import com.sas.companymanagement.ui.group.Group
 
+/**
+* groupDao
+*
+* @fileName         : GroupDao
+* @author           : 이기영, 이원형
+* @Since            : 2023-10-18
+*/
+
 @Dao
 interface GroupDao {
     @Insert
