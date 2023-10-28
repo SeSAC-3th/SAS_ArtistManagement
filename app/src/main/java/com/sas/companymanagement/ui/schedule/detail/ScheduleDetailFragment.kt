@@ -13,7 +13,13 @@ import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentScheduleDetailBinding
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
-
+/**
+ * Schedule Tab
+ *
+ * @fileName             : ScheduleDetailFragment
+ * @auther               : 박지혜, 이기영
+ * @since                : 2023-10-18
+ **/
 class ScheduleDetailFragment :
     ViewBindingBaseFragment<FragmentScheduleDetailBinding>(FragmentScheduleDetailBinding::inflate) {
 
@@ -21,7 +27,6 @@ class ScheduleDetailFragment :
         fun newInstance() = ScheduleDetailFragment()
     }
 
-    //TODO 필드 값 변경
     private val viewModel: ScheduleDetailViewModel by viewModels()
     private val scheduleArgs: ScheduleDetailFragmentArgs by navArgs()
     private val artistViewModel: ArtistUpdateViewModel by viewModels()
@@ -41,7 +46,10 @@ class ScheduleDetailFragment :
         initScheduleDetail()
     }
 
-
+    /**
+     * 메뉴 선택시 수정페이지로 이동, 삭제 기능
+     * @author 박지혜
+     */
     private fun initMenu() {
         with(binding.tbScheduleDetail) {
             setNavigationOnClickListener {
@@ -81,7 +89,10 @@ class ScheduleDetailFragment :
 
         }
     }
-
+    /**
+     * 스케쥴 디테일 초기화
+     * @author 박지혜, 이기영
+     */
     private fun initScheduleDetail() {
         viewModel.findSchedule(scheduleArgs.scheduleId)
         viewModel.getSearchResult().observe(viewLifecycleOwner) { schedule ->

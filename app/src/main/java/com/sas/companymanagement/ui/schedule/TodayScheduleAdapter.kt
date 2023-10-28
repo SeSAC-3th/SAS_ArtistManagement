@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import java.util.concurrent.TimeUnit
-
+/**
+ * @fileName             : TodayScheduleAdapter
+ * @auther               : 박지혜
+ * @since                : 2023-10-18
+ **/
 class TodayScheduleAdapter(
     private val navigateScheduleDetail: (Long) -> Unit,
 ) :

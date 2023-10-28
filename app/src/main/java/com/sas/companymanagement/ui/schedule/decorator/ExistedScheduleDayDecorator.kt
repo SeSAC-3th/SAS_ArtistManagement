@@ -5,7 +5,13 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
-
+/**
+ * Please explain the class!!
+ *
+ * @fileName             : ExistedScheduleDayDecorator
+ * @auther               : 박지혜
+ * @since                : 2023-10-18
+ **/
 class ExistedScheduleDayDecorator(day:CalendarDay): DayViewDecorator {
 
     private val date:CalendarDay = day
