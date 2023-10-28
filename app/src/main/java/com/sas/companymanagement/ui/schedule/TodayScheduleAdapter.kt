@@ -19,10 +19,10 @@ class TodayScheduleAdapter(
 ) :
     RecyclerView.Adapter<TodayScheduleAdapter.ItemHolder>() {
 
-    var arrayList: MutableList<Schedule> = mutableListOf()
+    private var arrayList: MutableList<Schedule> = mutableListOf()
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var content = itemView.findViewById<TextView>(R.id.tv_schedule_info)
+        var content: TextView = itemView.findViewById<TextView>(R.id.tv_schedule_info)
 
     }
 
@@ -36,7 +36,7 @@ class TodayScheduleAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var schedule: Schedule = arrayList[position]
+        val schedule: Schedule = arrayList[position]
         holder.content.text =
             schedule.scheduleContent + " (" + schedule.scheduleDateBefore.substring(13) + "~" + schedule.scheduleDateAfter.substring(
                 13

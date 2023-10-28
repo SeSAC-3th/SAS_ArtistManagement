@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,19 +18,13 @@ import com.google.android.material.timepicker.TimeFormat
 import com.jakewharton.rxbinding4.view.clicks
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.FragmentScheduleUpdateBinding
-import com.sas.companymanagement.ui.artist.ArtistViewModel
 import com.sas.companymanagement.ui.artist.update.ArtistUpdateViewModel
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 import com.sas.companymanagement.ui.common.toastMessage
 import com.sas.companymanagement.ui.schedule.Schedule
-import com.sas.companymanagement.ui.schedule.ScheduleAdapter
-import com.sas.companymanagement.ui.schedule.TodayScheduleAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.merge
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -285,7 +277,7 @@ class ScheduleUpdateFragment :
 
                     scheduleContent.setText(schedule.scheduleContent)
 
-                    var artistList = schedule.artistId.split(",").map {
+                    val artistList = schedule.artistId.split(",").map {
                         it.trim().toLong()
                     }.toMutableSet()
                     /**
