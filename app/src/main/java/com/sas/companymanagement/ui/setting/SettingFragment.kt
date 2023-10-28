@@ -22,7 +22,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(FragmentSettingBinding::inflate) {
+/**
+ * 설정 화면 프래그먼트
+ *
+ * @fileName             :SettingFragment.kt
+ * @auther               :윤성욱
+ * @since                :2023-10-27
+ **/
+class SettingFragment :
+    ViewBindingBaseFragment<FragmentSettingBinding>(FragmentSettingBinding::inflate) {
 
     companion object {
         fun newInstance() = SettingFragment()
@@ -69,10 +77,14 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                     toastMessage(resources.getString(R.string.version_info), activity as Activity)
                 }
                 .launchIn(CoroutineScope(Dispatchers.Main))
-
         }
     }
 
+    /**
+     * Flow clicks 이벤트
+     *
+     * @return flow의 값을 리턴
+     */
     private fun View.flowClicks(): Flow<Unit> = callbackFlow {
         setOnClickListener {
             trySend(Unit).isSuccess
@@ -80,6 +92,13 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
         awaitClose { setOnClickListener(null) }
     }.buffer(0)
 
+    /**
+     * 중복 클릭 방지
+     *
+     * @param T 타입
+     * @param intervalTime 중복 클릭 방지 시간
+     * @return flow의 값을 리턴
+     */
     private fun <T> Flow<T>.throttleFirst(intervalTime: Long): Flow<T> = flow {
         var throttleTime = 0L
         collect { upStream ->
@@ -89,13 +108,11 @@ class SettingFragment : ViewBindingBaseFragment<FragmentSettingBinding>(Fragment
                 emit(upStream)
             }
         }
-
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-
     }
 
 }

@@ -23,7 +23,7 @@ import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 * Please explain the class!!
 *
 * @fileName             :ArtistSelectFragment.kt
-* @auther               :
+* @auther               :윤성욱
 * @since                :2023-10-27
 **/
 class ArtistSelectFragment :
@@ -55,7 +55,6 @@ class ArtistSelectFragment :
         with(binding) {
             settingArtistRecyclerView()
             setTabItemMargin(tlArtistSelectCategory, 30)
-
         }
 
         binding.tbArtistSelect.setOnMenuItemClickListener { item ->
@@ -84,39 +83,26 @@ class ArtistSelectFragment :
                             artistSelectAdapter.setArtistList(artists)
                         }
                     }
-
-                    1 -> {/*가수*/
-                        viewModel.findArtistByCategory(ArtistCategory.SINGER.job)
-                    }
-
-                    2 -> {/*배우*/
-                        viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)
-                    }
-
-                    3 -> {/*탤런트*/
-                        viewModel.findArtistByCategory(ArtistCategory.TALENT.job)
-                    }
-
+                    1 -> {viewModel.findArtistByCategory(ArtistCategory.SINGER.job) }
+                    2 -> {viewModel.findArtistByCategory(ArtistCategory.ACTOR.job) }
+                    3 -> {viewModel.findArtistByCategory(ArtistCategory.TALENT.job) }
                     else -> throw IllegalStateException()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
         viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
             artistSelectAdapter.setArtistList(artists)
         }
-
         viewModel.categoryResults.observe(viewLifecycleOwner) { artists ->
             artistSelectAdapter.setArtistList(artists)
         }
     }
 
     /**
-     * Setting artist recycler view
-     *
+     * Artist RecyclerView 세팅
+     * @author 윤성욱
      */
     private fun settingArtistRecyclerView() {
         with(binding) {

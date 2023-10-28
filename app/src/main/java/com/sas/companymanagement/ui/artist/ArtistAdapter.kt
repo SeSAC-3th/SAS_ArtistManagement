@@ -3,7 +3,6 @@ package com.sas.companymanagement.ui.artist
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,10 +94,10 @@ class ArtistAdapter(
     }
 
     /**
-     * 아티스트 여러 항목 체크 가능
+     * ArtistSelect Fragment RecyclerView 클릭 이벤트처리
      *
-     * @param holder
-     * @param artist
+     * @param holder RecyclerView의 ItemHolder
+     * @param artist Artist Id를 얻기 위한 Artist
      * @author 윤성욱
      */
     @SuppressLint("CheckResult")
@@ -116,6 +115,12 @@ class ArtistAdapter(
             }
     }
 
+    /**
+     * 선택한 artistId 가져오는 함수
+     *
+     * @return 선택한 ID들
+     * @author 윤성욱
+     */
     fun getSelectedId(): MutableSet<Long> {
         return selectedSet
     }

@@ -26,12 +26,16 @@ class GroupAdapter(
 ) :
     RecyclerView.Adapter<GroupAdapter.ItemHolder>() {
 
+    /**
+     * RecycleView 아이템 설정
+     *
+     * @param itemView RecyclerVivew의 아이템 뷰
+     */
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var images = itemView.findViewById<ImageView>(R.id.recyclerImage)
         var groupNames = itemView.findViewById<TextView>(R.id.recyclerName)
 
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context)

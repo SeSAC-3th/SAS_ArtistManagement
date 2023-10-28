@@ -139,6 +139,11 @@ class GroupUpdateFragment :
         tempSet = selectedArtistIdList
         editArtistChip(tempSet)
     }
+    /**
+     * 선택한 이미지 저장 수정일 경우 기존 파일 지우고 저장
+     *
+     * @author 윤성욱
+     */
     @SuppressLint("SdCardPath")
     private fun saveImage() {
         val imagesFolder = File(activity?.filesDir, "images")
@@ -152,6 +157,14 @@ class GroupUpdateFragment :
         val newFile = File(imageSrc)
         imageToFile(requireActivity(), imageUri!!, newFile)
     }
+    /**
+     * 이미지를 파일로 저장
+     *
+     * @param context contentResolver를 사용하기 위한 context
+     * @param imageUri 이미지의 uri
+     * @param newFile 파일 형식
+     * @author 윤성욱
+     */
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
         var inputStream: InputStream? = null
         var outputStream: FileOutputStream? = null
@@ -296,6 +309,10 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * 아티스트를 선택하고 돌아왔을 때 선택한 이미지가 남아있게 하기 위한 onResume 오버라이딩
+     * @author 윤성욱
+     */
     override fun onResume() {
         super.onResume()
         if (imageUri != null) {
@@ -317,6 +334,10 @@ class GroupUpdateFragment :
         return true
     }
 
+    /**
+     * 갤러리에서 가져온 이미지를 보여주는 역할
+     * @author 윤성욱
+     */
     private val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -332,6 +353,11 @@ class GroupUpdateFragment :
         compositeDisposable.clear()
     }
 
+    /**
+     * Manifest 파일에 권한이 있으면 갤러리에서 이미지를 가져온다.
+     * @param permission 권한
+     * @author 윤성욱
+     */
     private fun getImageFromGallery(permission : String) {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -349,6 +375,10 @@ class GroupUpdateFragment :
         }
     }
 
+    /**
+     * Request permission 권한요청 팝업 이벤트 처리
+     * @author 윤성욱
+     */
     private val requestPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
@@ -361,7 +391,6 @@ class GroupUpdateFragment :
                 )
                 startForResult.launch(intent)
             }
-
             false -> {
                 toastMessage(resources.getString(R.string.permission_deny), requireActivity())
             }
