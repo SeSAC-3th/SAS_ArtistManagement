@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
     private lateinit var navController: NavController
-
 
     /**
      * Androidx SplashScreen compat 라이브러리를 활용하여 SplashScreen 구현
@@ -25,16 +23,17 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
         setContentView(binding.root)
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         setupJetpackNavigation(sharedPref.getBoolean(resources.getString(R.string.auto_login), false))
     }
 
     /**
-     * Setup jetpack navigation
-     *  자동로그인 결과값에 따른 네비게이션 세팅
-     * @param autoLogin
+     * 자동로그인 결과값에 따른 네비게이션 세팅
+     *
+     * @param autoLogin 자동로그인 값
+     *
      */
     private fun setupJetpackNavigation(autoLogin: Boolean) {
         val host: NavHostFragment = supportFragmentManager

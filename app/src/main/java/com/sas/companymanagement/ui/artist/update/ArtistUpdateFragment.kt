@@ -283,11 +283,12 @@ class ArtistUpdateFragment :
                 SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(selectDate.time)
         }
         datePicker.show(childFragmentManager, "time_picker_tag")
-
     }
 
     /**
-     * 이미지 저장
+     * 선택한 이미지 저장 수정일 경우 기존 파일 지우고 저장
+     *
+     * @param id artist의 id값
      * @author 윤성욱
      */
     @SuppressLint("SdCardPath")
@@ -305,7 +306,11 @@ class ArtistUpdateFragment :
     }
 
     /**
-     * 이미지 저장
+     * 이미지를 파일로 저장
+     *
+     * @param context contentResolver를 사용하기 위한 context
+     * @param imageUri 이미지의 uri
+     * @param newFile 파일 형식
      * @author 윤성욱
      */
     private fun imageToFile(context: Context, imageUri: Uri, newFile: File) {
@@ -328,7 +333,7 @@ class ArtistUpdateFragment :
     }
 
     /**
-     *
+     * 갤러리에서 가져온 이미지를 보여주는 역할
      * @author 윤성욱
      */
     private val startForResult =
@@ -340,9 +345,8 @@ class ArtistUpdateFragment :
             }
         }
 
-
     /**
-     *
+     * 아티스트를 선택하고 돌아왔을 때 선택한 이미지가 남아있게 하기 위한 onResume 오버라이딩
      * @author 윤성욱
      */
     override fun onResume() {
@@ -360,9 +364,9 @@ class ArtistUpdateFragment :
     }
 
     /**
-     * Request gallery permission
-     *  권한 요청하는 해서 갤러리에서 이미지를 가져오는 함수
-     *  @author 윤성욱
+     * Manifest 파일에 해당 권한이 있으면 갤러리에서 이미지를 가져온다.
+     * @param permission 권한
+     * @author 윤성욱
      */
     private fun getImageFromGallery(permission: String) {
             if (ContextCompat.checkSelfPermission(

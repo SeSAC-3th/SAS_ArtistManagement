@@ -18,6 +18,12 @@ fun dateToString(date: String): String {
     return date.replace("[^[0-9] ]".toRegex(), "").substring(2).replace(" ", ".")
 }
 
+/**
+ * Toast message 처리
+ *
+ * @param message 띄울 메시지
+ * @param owner 해당 액티비티
+ */
 fun toastMessage(message: String, owner: Activity){
     Toast.makeText(owner, message, Toast.LENGTH_SHORT).show()
 }

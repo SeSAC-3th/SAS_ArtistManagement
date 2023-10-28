@@ -25,7 +25,13 @@ import com.sas.companymanagement.ui.artist.Artist
 import com.sas.companymanagement.ui.artist.ArtistAdapter
 import com.sas.companymanagement.ui.common.ViewBindingBaseFragment
 
-
+/**
+ * 그룹 상세 정보를 보여주는 프래그먼트
+ *
+ * @fileName         : GroupDetailFragment.kt
+ * @author           : 이원형, 이기영, 박지혜, 윤성욱
+ * @Since            : 2023-10-17
+ */
 class GroupDetailFragment :
     ViewBindingBaseFragment<FragmentGroupDetailBinding>(FragmentGroupDetailBinding::inflate) {
 
@@ -58,7 +64,10 @@ class GroupDetailFragment :
         listenerSetup()
     }
 
-
+    /**
+     * 그룹에 소속된 아티스트를 보여주는 RecyclerView
+     * @author 이기영, 이원형
+     */
     private fun settingArtistRecyclerView() {
         with(binding) {
             artistRecyclerView = rvArtist
@@ -75,7 +84,10 @@ class GroupDetailFragment :
         }
     }
 
-
+    /**
+     * 상단에 menu 이벤트 처리
+     * @author 이원형, 윤성욱
+     */
     private fun listenerSetup() {
         binding.tbGroup.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -118,7 +130,10 @@ class GroupDetailFragment :
         }
     }
 
-
+    /**
+     * Create가 아닌 Update인 경우 default 값 설정
+     * @author 이원형, 윤성욱, 박지혜
+     */
     private fun fieldSetUp() {
         val id = groupArgs.groupId
         viewModel.findGroup(id)
@@ -134,16 +149,17 @@ class GroupDetailFragment :
         }
     }
 
+    /**
+     * DB의 아티스트 data를 받아온다.
+     * @author 박지혜
+     */
     private fun getArtistData() {
         val newArtists = mutableListOf<Artist>()
         viewModel.getAllArtist()?.observe(viewLifecycleOwner) { artists ->
             artists.forEach { artist ->
                 artistIds.split(", ").forEach { id ->
-                    try {
-                        if (id.toLong() == artist.id) {
-                            newArtists.add(artist)
-                        }
-                    } catch (e: NumberFormatException) {
+                    if (id.toLong() == artist.id) {
+                        newArtists.add(artist)
                     }
                 }
             }
@@ -151,6 +167,10 @@ class GroupDetailFragment :
         }
     }
 
+    /**
+     * setPieChart
+     * @author 이기영
+     */
     private fun setPieChart(inputData: String) {
         val pieChart = binding.pieGroupChart
         pieChart.setUsePercentValues(true)

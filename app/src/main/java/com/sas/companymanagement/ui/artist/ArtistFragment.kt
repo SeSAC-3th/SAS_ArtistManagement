@@ -36,13 +36,11 @@ class ArtistFragment :
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentArtistBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(binding) {
             settingArtistRecyclerView()
             setTabItemMargin(tlArtistCategory, 30)
@@ -65,46 +63,31 @@ class ArtistFragment :
         binding.tlArtistCategory.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> { /*ALL*/
+                    0 -> {
                         viewModel.getAllArtist()
-                        // allArtist 는 데이터 변화가 없기 때문에 다시 view에 보여주기 위하여 해당 코드 작성
                         viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
                             artistAdapter.setArtistList(artists)
                         }
                     }
-
-                    1 -> {/*가수*/
-                        viewModel.findArtistByCategory(ArtistCategory.SINGER.job)
-                    }
-
-                    2 -> {/*배우*/
-                        viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)
-                    }
-
-                    3 -> {/*탤런트*/
-                        viewModel.findArtistByCategory(ArtistCategory.TALENT.job)
-                    }
-
+                    1 -> {viewModel.findArtistByCategory(ArtistCategory.SINGER.job)}
+                    2 -> {viewModel.findArtistByCategory(ArtistCategory.ACTOR.job)}
+                    3 -> {viewModel.findArtistByCategory(ArtistCategory.TALENT.job)}
                     else -> throw IllegalStateException()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
         viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
             artistAdapter.setArtistList(artists)
         }
-
         viewModel.categoryResults.observe(viewLifecycleOwner) { artists ->
             artistAdapter.setArtistList(artists)
         }
     }
 
     /**
-     * artist Recyclerview
-     *
+     * Artist RecyclerView 세팅
      * @author 윤성욱
      */
     private fun settingArtistRecyclerView() {
@@ -119,7 +102,6 @@ class ArtistFragment :
                 )
             artistRecyclerView?.layoutManager = artistGridLayoutManager
             artistRecyclerView?.setHasFixedSize(true)
-
             artistList = ArrayList()
             artistAdapter = ArtistAdapter(artistList!!, requireParentFragment())
             artistRecyclerView?.adapter = artistAdapter
@@ -132,7 +114,10 @@ class ArtistFragment :
     }
 
     /**
+     * 탭 레이아웃의 탭 마진 설정
      *
+     * @param tabLayout 탭 레이아웃
+     * @param marginEnd 마진 값
      * @author 윤성욱
      */
     private fun setTabItemMargin(tabLayout: TabLayout, marginEnd: Int) {
