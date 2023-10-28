@@ -52,6 +52,7 @@ class SettingFragment :
                 .flowClicks()
                 .throttleFirst(500)
                 .onEach {
+                    //자동로그인 해제 후 로그인 화면으로 이동
                     val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                     sharedPref?.edit {
                         putBoolean(resources.getString(R.string.auto_login), false)

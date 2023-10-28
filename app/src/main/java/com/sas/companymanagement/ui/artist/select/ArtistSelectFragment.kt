@@ -56,7 +56,7 @@ class ArtistSelectFragment :
             settingArtistRecyclerView()
             setTabItemMargin(tlArtistSelectCategory, 30)
         }
-
+        //아티스트 선택후 이전 프래그먼트에 값 전달 후 되돌아감
         binding.tbArtistSelect.setOnMenuItemClickListener { item ->
             if (item.itemId == R.id.menu_update) {
                 selectedArtistIdList = artistSelectAdapter.getSelectedId()
@@ -72,13 +72,12 @@ class ArtistSelectFragment :
             }
             true
         }
-
+        //카테고리 별 보이는 화면 설정
         binding.tlArtistSelectCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> { /*ALL*/
                         viewModel.getAllArtist()
-                        // allArtist 는 데이터 변화가 없기 때문에 다시 view에 보여주기 위하여 해당 코드 작성
                         viewModel.allArtists?.observe(viewLifecycleOwner) { artists ->
                             artistSelectAdapter.setArtistList(artists)
                         }

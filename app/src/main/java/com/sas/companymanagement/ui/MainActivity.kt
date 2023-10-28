@@ -11,6 +11,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.sas.companymanagement.R
 import com.sas.companymanagement.databinding.ActivityMainBinding
 
+/**
+* MainActivity
+*
+* @fileName             :MainActivity.kt
+* @auther               :윤성욱, 이종윤, 박지혜
+* @since                :2023-10-28
+**/
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -30,10 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 자동로그인 결과값에 따른 네비게이션 세팅
+     * 자동로그인 Preference값에 따른 네비게이션바 시작점 세팅
      *
      * @param autoLogin 자동로그인 값
-     *
+     * @author 박지혜, 윤성욱
      */
     private fun setupJetpackNavigation(autoLogin: Boolean) {
         val host: NavHostFragment = supportFragmentManager
@@ -44,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         if (autoLogin) navGraph.setStartDestination(R.id.fragment_main)
         else navGraph.setStartDestination(R.id.fragment_login)
         navController.setGraph(navGraph, null)
+        //네비게이션 바가 보이는 곳과 보이지 않을 곳 설정
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination == navController.findDestination(R.id.fragment_main) ||
                 destination == navController.findDestination(R.id.fragment_artist) ||
