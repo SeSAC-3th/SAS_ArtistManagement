@@ -97,12 +97,14 @@
 | Name             | Description                                  |
 | ---------------- | -------------------------------------------- |
 | Room DB          | 안드로이드 DB 라이브러리                       |
-| MPAndroidChart   | 차트 라이브러                                 |
+| MPAndroidChart   | 차트 라이브러리                               |
 | Navigation       | 프래그먼트 전환 라이브러리                     |
 | Material         | UI 라이브러리                                 |    
+| Calendarview     | 캘린더 라이브러리                             |
 | ViewModel        | 데이터를 저장, 관리                           |
 | Rxbinding        | UI Widget Event 처리 라이브러리               |
-| Calendarview     | 캘린더 라이브러리                             |
+| FlowBinding      | android jetpack 라이브러리                    |
+| LiveData         | android jetpack 라이브러리                    |
 ## :star: Author
 
 :dog: **이기영**
